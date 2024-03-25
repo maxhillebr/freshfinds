@@ -1,23 +1,15 @@
 import * as React from "react";
+import { Link } from "react-router-dom"; // Import Link from react-router-dom
 import Fab from "@mui/material/Fab";
 import AddIcon from "@mui/icons-material/Add";
-// import { useState } from "react";
-import { BrowserRouter as Router, Route, Link, Switch } from "react-router-dom";
-import NewList from "./NewList.jsx";
 
 export default function FloatingActionButtons() {
   return (
-    <Fab variant="extended" color="primary" aria-label="add">
-      <Router>
-        <Link to="/new">New</Link>
+    <Link to="/new">
+      <Fab variant="extended" color="primary" aria-label="add">
+        NEW
         <AddIcon />
-
-        <Switch>
-          <Route path="/new">
-            <NewList />
-          </Route>
-        </Switch>
-      </Router>
-    </Fab>
+      </Fab>
+    </Link>
   );
 }
