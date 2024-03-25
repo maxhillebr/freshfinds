@@ -1,15 +1,19 @@
-import { useState } from "react";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
 import "./App.css";
 import FloatingActionButtons from "./Fab.jsx";
+import GroceryBoxMain from "./GroceryBoxMain.jsx";
 
 function App() {
-  const [count, setCount] = useState(0);
-
   return (
     <>
-      <FloatingActionButtons />
+      <div>
+        <p>
+          View your grocery list by tapping the whole card. You can edit, share,
+          delete or mark a list as uncompleted.
+        </p>
+
+        <FloatingActionButtons />
+        <GroceryBoxMain />
+      </div>
     </>
   );
 }
