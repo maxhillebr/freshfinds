@@ -1,25 +1,19 @@
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import "./App.css";
 import FloatingActionButtons from "./Fab.jsx";
 import GroceryBoxMain from "./GroceryBoxMain.jsx";
-import NewList from "./NewList.jsx";
 
-function App() {
+export default function App() {
   return (
-    <Router>
-      <div>
-        <p>
-          View your grocery list by tapping the whole card. You can edit, share,
-          delete or mark a list as uncompleted.
-        </p>
+    <div>
+      <p>
+        View your grocery list by tapping the whole card. You can edit, share,
+        delete or mark a list as uncompleted.
+      </p>
 
-        <FloatingActionButtons />
-        <Routes>
-          <Route path="/" element={<GroceryBoxMain />} />
-          <Route path="/new" element={<NewList />} />
-        </Routes>
-      </div>
-    </Router>
+      <FloatingActionButtons />
+      <GroceryBoxMain />
+      <GroceryBoxMain />
+      <GroceryBoxMain />
+    </div>
   );
 }
-
-export default App;
