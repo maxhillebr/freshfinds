@@ -1,10 +1,21 @@
+import { useState, useEffect } from "react";
 import Button from "@mui/material/Button";
 
 export default function GroceryBoxMain() {
+  const [color, setColor] = useState("#f1f1f1");
+
+  const changeColor = (color) => {
+    setColor(color);
+  };
+
   return (
     <>
       <div
-        style={{ backgroundColor: "#f1f1f1", padding: "1em", margin: "1em" }}
+        className="grocerybox"
+        onClick={() => {
+          changeColor("green");
+        }}
+        style={{ backgroundColor: color, padding: "1em", margin: "1em" }}
       >
         <div>
           <p style={{ fontWeight: 600 }}>Grocery for the weekend</p>

@@ -13,6 +13,8 @@ function App() {
 
         <FloatingActionButtons />
         <GroceryBoxMain />
+        <GroceryBoxMain />
+        <GroceryBoxMain />
       </div>
     </>
   );
