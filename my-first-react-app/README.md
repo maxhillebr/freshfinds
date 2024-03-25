@@ -1,3 +1,10 @@
+# This project is using the following
+
+- React + Vite
+- UI = MUI component library
+- Routing = React Router
+- Google Fonts (Roboto)
+
 # React + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
