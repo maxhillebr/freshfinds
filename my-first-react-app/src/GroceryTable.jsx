@@ -23,12 +23,13 @@ console.log(rows);
 
 export default function GroceryTable() {
   const handleDelete = (id) => {
-    // Delete product from rows array
+    // Delete product from array and remove table row
     let findProduct = rows.find((product) => product.id === id);
     let index = rows.indexOf(findProduct);
     rows.splice(index, 1);
 
-    console.log(rows);
+    let selectTableRow = document.querySelector(`#row${id}`);
+    selectTableRow.remove();
   };
 
   return (
@@ -44,6 +45,7 @@ export default function GroceryTable() {
         <TableBody>
           {rows.map((row) => (
             <TableRow
+              id={"row" + row.id}
               key={row.name}
               sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
             >
