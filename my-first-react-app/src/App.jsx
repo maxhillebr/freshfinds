@@ -4,7 +4,7 @@ import GroceryBoxMain from "./GroceryBoxMain.jsx";
 
 export default function App() {
   return (
-    <div>
+    <div className="main-content">
       <p>
         View your grocery list by tapping the whole card. You can edit, share,
         delete or mark a list as uncompleted.

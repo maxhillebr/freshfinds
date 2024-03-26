@@ -5,7 +5,7 @@ import GroceryTable from "./GroceryTable";
 
 export default function NewList() {
   return (
-    <div>
+    <div className="main-content">
       <h2>Create New Grocery List</h2>
       <div className="form-box">
         <TextField
