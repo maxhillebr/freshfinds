@@ -1,8 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import MenuAppBar from "./MenuAppBar.jsx";
-import Routing from "./Routing.jsx";
-
+import MenuAppBar from "../src/MenuAppBar.jsx";
+import Routing from "../src/Routing.jsx";
 import "./index.css";
 
 // Import the functions you need from the SDKs you need
