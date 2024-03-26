@@ -6,6 +6,7 @@ import "./index.css";
 
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
+import { getFirestore, collection, getDocs } from "firebase/firestore";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -19,8 +20,29 @@ const firebaseConfig = {
   appId: "1:1016837431826:web:3d73c232b3e47885e5eecb",
 };
 
-// Initialize Firebase
+// init firebase
 const app = initializeApp(firebaseConfig);
+
+// init services
+const db = getFirestore();
+
+// collection ref
+const colRef = collection(db, "groceryLists");
+
+// get collection data
+getDocs(colRef)
+  .then((snapshot) => {
+    console.log(snapshot.docs);
+
+    let groceryLists = [];
+    snapshot.docs.forEach((doc) => {
+      groceryLists.push({ ...doc.data(), id: doc.id });
+    });
+    console.log(groceryLists);
+  })
+  .catch((err) => {
+    console.log(err.message);
+  });
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
