@@ -8,8 +8,59 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
+// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+// Import the functions you need from the SDKs you need
+import { initializeApp } from "firebase/app";
+import { getFirestore, collection, getDocs, addDoc } from "firebase/firestore";
+// TODO: Add SDKs for Firebase products that you want to use
+// https://firebase.google.com/docs/web/setup#available-libraries
+
+// Your web app's Firebase configuration
+const firebaseConfig = {
+  apiKey: "AIzaSyB5NbqVvvMRbelJnyh95k13NzCazeUUQ6g",
+  authDomain: "freshfinds-3456a.firebaseapp.com",
+  projectId: "freshfinds-3456a",
+  storageBucket: "freshfinds-3456a.appspot.com",
+  messagingSenderId: "1016837431826",
+  appId: "1:1016837431826:web:3d73c232b3e47885e5eecb",
+};
+
+// init firebase
+const app = initializeApp(firebaseConfig);
+
+// init services
+const db = getFirestore();
+
+// collection ref
+const colRef = collection(db, "groceryLists");
+// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 export default function NewList() {
+  // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+  // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+  // send new grocery list to groceryLists db on firestore
+  // Function to add a new entry with a unique ID
+  const addNewGroceryList = async (title, description) => {
+    if (title === "" || description === "" || rows.length === 0) {
+      alert("No Title, Description or Product. Check your list again!");
+      return;
+    }
+
+    try {
+      const docRef = await addDoc(colRef, {
+        title: title,
+        description: description,
+        products: rows,
+      });
+      console.log("Document written with ID: ", docRef.id);
+      alert("Grocery list sent to Database");
+    } catch (error) {
+      console.error("Error adding document: ", error);
+    }
+  };
+  // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+  // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
   // title and description
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
@@ -61,32 +112,12 @@ export default function NewList() {
     return { id, name, amount };
   };
 
-  // function to see if title/description is updating
-
-  // useEffect(() => {
-  //   console.log("Updated rows:", rows);
-  // }, [rows]);
-
-  // useEffect(() => {
-  //   console.log("Updated title, description:", title, description);
-  // }, [title, description]);
-
   const handleDelete = (id) => {
     // Filter out the product with the given id from the rows array
     const updatedRows = rows.filter((product) => product.id !== id);
 
     // Update the state with the filtered rows
     setRows(updatedRows);
-  };
-
-  const handleSubmit = () => {
-    if (title === "" || description === "" || rows.length === 0) {
-      alert("No Title, Description or Product. Check your list again!");
-    }
-
-    console.log(title);
-    console.log(description);
-    console.log(rows);
   };
 
   return (
@@ -166,7 +197,11 @@ export default function NewList() {
           </Table>
         </TableContainer>
       </div>
-      <Button id="submit-list" variant="contained" onClick={handleSubmit}>
+      <Button
+        id="submit-list"
+        variant="contained"
+        onClick={() => addNewGroceryList(title, description, rows)}
+      >
         Create List
       </Button>
     </div>
