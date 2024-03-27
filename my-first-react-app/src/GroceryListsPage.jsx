@@ -1,8 +1,7 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { getFirestore, doc, getDoc } from "firebase/firestore";
-
-const db = getFirestore();
+import { db } from "./firebase";
+import { doc, getDoc } from "firebase/firestore";
 
 const GroceryListPage = () => {
   const { id } = useParams(); // Extract the document ID from the URL
