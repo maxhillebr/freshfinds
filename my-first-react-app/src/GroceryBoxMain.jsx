@@ -62,29 +62,34 @@ export default function GroceryBoxMain() {
     <>
       {groceryLists.map(function (data) {
         return (
-          <Link key={data.id} to={`/grocerylists/${data.id}`}>
-            <div
-              className="grocerybox"
-              onClick={() => {
-                const newColor = color === "#f1f1f1" ? "green" : "#f1f1f1";
-                changeColor(newColor);
-              }}
-              style={{ backgroundColor: color, padding: "1em", margin: "1em" }}
-            >
-              <div>
-                <p style={{ fontWeight: 600 }}>{data.title}</p>
-                <p style={{ color: "grey" }}>{data.description}</p>
+          <>
+            <Link key={data.id} to={`/grocerylists/${data.id}`}>
+              <div
+                className="grocerybox"
+                onClick={() => {
+                  const newColor = color === "#f1f1f1" ? "green" : "#f1f1f1";
+                  changeColor(newColor);
+                }}
+                style={{
+                  backgroundColor: color,
+                  padding: "1em",
+                  margin: "1em",
+                }}
+              >
+                <div>
+                  <p style={{ fontWeight: 600 }}>{data.title}</p>
+                  <p style={{ color: "grey" }}>{data.description}</p>
+                </div>
+                <div>
+                  <Button variant="contained">Edit</Button>
+                  <Button variant="outlined">Share</Button>
+                  <Button variant="outlined">Delete</Button>
+                </div>
               </div>
-              <div>
-                <Button variant="contained">Edit</Button>
-                <Button variant="outlined">Share</Button>
-                <Button variant="outlined">Delete</Button>
-              </div>
-            </div>
-          </Link>
+            </Link>
+          </>
         );
       })}
-      ;
     </>
   );
 }
