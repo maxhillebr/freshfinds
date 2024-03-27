@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import Button from "@mui/material/Button";
 import { Link } from "react-router-dom";
 
+// ++++++++++++++++++++++++++++++++
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 import { getFirestore, collection, getDocs, addDoc } from "firebase/firestore";
