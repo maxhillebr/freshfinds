@@ -1,9 +1,13 @@
+.MuiTable-root {
+  min-width: 320px;
+}
+
 .main-content {
   padding: 0.5em;
 }
 
 #root {
-  max-width: 768px;
+  width: 768px;
   margin: 0 auto;
   text-align: center;
 }
