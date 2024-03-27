@@ -11,6 +11,7 @@ import FormGroup from "@mui/material/FormGroup";
 import MenuItem from "@mui/material/MenuItem";
 import Menu from "@mui/material/Menu";
 import TemporaryDrawer from "./TemporaryDrawer.jsx";
+import SignOut from "./SignOut.jsx";
 
 export default function MenuAppBar() {
   const [auth, setAuth] = React.useState(true);
@@ -77,6 +78,7 @@ export default function MenuAppBar() {
               >
                 <MenuItem onClick={handleClose}>
                   <a href="/account">Profile</a>
+                  <SignOut />
                 </MenuItem>
               </Menu>
             </div>

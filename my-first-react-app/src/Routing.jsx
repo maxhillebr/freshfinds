@@ -4,6 +4,7 @@ import NewList from "./NewList";
 import Account from "./Account";
 import DBTest from "./DBTest";
 import GroceryListPage from "./GroceryListsPage";
+import GoogleSignUp from "./SignUp";
 
 export default function Routing() {
   return (
@@ -13,6 +14,7 @@ export default function Routing() {
         <Route path="/new" element={<NewList />} />
         <Route path="/account" element={<Account />} />
         <Route path="/test" element={<DBTest />} />
+        <Route path="/signup" element={<GoogleSignUp />} />
         <Route path="/grocerylists/:id" element={<GroceryListPage />} />
       </Routes>
     </Router>
