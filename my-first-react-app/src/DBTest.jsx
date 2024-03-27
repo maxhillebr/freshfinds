@@ -28,13 +28,13 @@ const colRef = collection(db, "groceryLists");
 // get collection data
 getDocs(colRef)
   .then((snapshot) => {
-    console.log(snapshot.docs);
+    // console.log(snapshot.docs);
 
     let groceryLists = [];
     snapshot.docs.forEach((doc) => {
       groceryLists.push({ ...doc.data(), id: doc.id });
     });
-    console.log(groceryLists);
+    // console.log(groceryLists);
   })
   .catch((err) => {
     console.log(err.message);
