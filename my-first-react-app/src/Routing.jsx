@@ -15,6 +15,7 @@ import GroceryListPage from "./GroceryListsPage";
 import SignUp from "./SignUp";
 import Login from "./Login";
 import FrontpageLoginSignUp from "./FrontpageLoginSignUp";
+import NewUser from "./NewUser";
 
 const Routing = () => {
   const [user, setUser] = useState(null);
@@ -42,6 +43,7 @@ const Routing = () => {
         {/* Routes accessible only to logged-in users */}
         {user && (
           <>
+            <Route path="/newuser" element={<NewUser />} />
             <Route path="/home" element={<App />} />
             <Route path="/new" element={<NewList />} />
             <Route path="/account" element={<Account />} />
