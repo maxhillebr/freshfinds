@@ -13,6 +13,7 @@ import Account from "./Account";
 import DBTest from "./DBTest";
 import GroceryListPage from "./GroceryListsPage";
 import SignUp from "./SignUp";
+import Login from "./Login";
 import FrontpageLoginSignUp from "./FrontpageLoginSignUp";
 
 const Routing = () => {
@@ -33,21 +34,26 @@ const Routing = () => {
     <Router>
       {user && <MenuAppBar />}
       <Routes>
-        {user ? (
+        {/* Routes accessible to both logged-in and not logged-in users */}
+        <Route path="/" element={<FrontpageLoginSignUp />} />
+        <Route path="/signup" element={<SignUp />} />
+        <Route path="/login" element={<Login />} />
+
+        {/* Routes accessible only to logged-in users */}
+        {user && (
           <>
-            <Route path="/" element={<Navigate to="/home" />} />
             <Route path="/home" element={<App />} />
             <Route path="/new" element={<NewList />} />
             <Route path="/account" element={<Account />} />
             <Route path="/test" element={<DBTest />} />
             <Route path="/grocerylists/:id" element={<GroceryListPage />} />
           </>
-        ) : (
-          <>
-            <Route path="/" element={<FrontpageLoginSignUp />} />
-            <Route path="/newuser" element={<SignUp />} />
-          </>
         )}
+
+        {/* Redirect to home if user is logged in */}
+        {user && <Route path="*" element={<Navigate to="/home" />} />}
+
+        {/* Redirect to / if user is not logged in */}
         {!user && !loading && <Route path="*" element={<Navigate to="/" />} />}
       </Routes>
     </Router>
