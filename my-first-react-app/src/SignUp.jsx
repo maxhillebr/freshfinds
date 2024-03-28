@@ -1,55 +1,61 @@
 import { Link } from "react-router-dom";
-import { signInWithPopup, GoogleAuthProvider, getAuth } from "firebase/auth";
+import { createUserWithEmailAndPassword, getAuth } from "firebase/auth";
 import { useState } from "react";
 
-const GoogleSignUp = () => {
+const SignUp = () => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [error, setError] = useState(false);
-  const [googleErrorMessage, setGoogleErrorMessage] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
 
-  // Instantiate the auth service SDK
+  // instantiate the auth service SDK
   const auth = getAuth();
 
-  // Handle user sign up with google
-  const handleGoogleSignUp = async (e) => {
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+
+    if (name === "email") setEmail(value);
+    if (name === "password") setPassword(value);
+  };
+
+  // Handle user sign up with email and password
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Instantiate a GoogleAuthProvider object
-    const provider = new GoogleAuthProvider();
-
     try {
-      // Sign in with a pop-up window
-      const result = await signInWithPopup(auth, provider);
+      // create a new user with email and password
+      const userCredential = await createUserWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
 
-      // Pull signed-in user credential.
-      const user = result.user;
+      // Pull out user's data from the userCredential property
+      const user = userCredential.user;
+      console.log("Logged in as: " + user.uid);
     } catch (err) {
-      // Handle errors here.
+      // Handle errors here
       const errorMessage = err.message;
       const errorCode = err.code;
 
       setError(true);
 
       switch (errorCode) {
+        case "auth/weak-password":
+          setErrorMessage("The password is too weak.");
+          break;
+        case "auth/email-already-in-use":
+          setErrorMessage(
+            "This email address is already in use by another account."
+          );
+        case "auth/invalid-email":
+          setErrorMessage("This email address is invalid.");
+          break;
         case "auth/operation-not-allowed":
-          setGoogleErrorMessage("Email/password accounts are not enabled.");
-          break;
-        case "auth/operation-not-supported-in-this-environment":
-          setGoogleErrorMessage(
-            "HTTP protocol is not supported. Please use HTTPS."
-          );
-          break;
-        case "auth/popup-blocked":
-          setGoogleErrorMessage(
-            "Popup has been blocked by the browser. Please allow popups for this website."
-          );
-          break;
-        case "auth/popup-closed-by-user":
-          setGoogleErrorMessage(
-            "Popup has been closed by the user before finalizing the operation. Please try again."
-          );
+          setErrorMessage("Email/password accounts are not enabled.");
           break;
         default:
-          setGoogleErrorMessage(errorMessage);
+          setErrorMessage(errorMessage);
           break;
       }
     }
@@ -57,28 +63,37 @@ const GoogleSignUp = () => {
 
   return (
     <div className="signupContainer">
-      <div className="signupContainer__box__google">
-        <button onClick={handleGoogleSignUp}>
-          <span>
-            <img
-              src="/public/google-logo.svg"
-              alt="Google Logo"
-              width="50px"
-              height="50px"
+      <div className="signupContainer__box">
+        <div className="signupContainer__box__inner">
+          <h1>Sign Up</h1>
+          <form className="signupContainer__box__form" onSubmit={handleSubmit}>
+            <input
+              type="email"
+              placeholder="Email"
+              onChange={handleChange}
+              name="email"
+              value={email}
             />
-          </span>
-          Sign Up with Google
-        </button>
-        {error && <p>{googleErrorMessage}</p>}
-      </div>
+            <input
+              type="password"
+              placeholder="Password"
+              onChange={handleChange}
+              name="password"
+              value={password}
+            />
+            <button type="submit">Sign Up</button>
+            {error && <p>{errorMessage}</p>}
+          </form>
 
-      <div className="signupContainer__box__login">
-        <p>
-          Already have an account? <Link to="/signin">Sign In</Link>
-        </p>
+          <div className="signupContainer__box__login">
+            <p>
+              Already have an account? <Link to="/signin">Sign In</Link>
+            </p>
+          </div>
+        </div>
       </div>
     </div>
   );
 };
 
-export default GoogleSignUp;
+export default SignUp;
