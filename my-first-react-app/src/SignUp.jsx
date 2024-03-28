@@ -35,7 +35,7 @@ const SignUp = () => {
       // Pull out user's data from the userCredential property
       const user = userCredential.user;
       console.log("Logged in as: " + user.uid);
-      navigate("/newuser");
+      navigate("/account");
     } catch (err) {
       // Handle errors here
       const errorMessage = err.message;
