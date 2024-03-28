@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import { getAuth, onAuthStateChanged, updateProfile } from "firebase/auth";
-import { useNavigate } from "react-router-dom";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 
@@ -10,8 +9,6 @@ const Account = () => {
   const currentUser = auth.currentUser;
 
   const [user, setUser] = useState(null);
-
-  const navigate = useNavigate(); // Hook to access the navigation object
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
@@ -76,6 +73,8 @@ const Account = () => {
             value={username}
             onChange={handleUsernameChange}
           />
+          <br />
+          <br />
           <Button
             id="submit-new-user"
             variant="contained"
