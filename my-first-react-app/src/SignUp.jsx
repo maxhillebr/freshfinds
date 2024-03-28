@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { createUserWithEmailAndPassword, getAuth } from "firebase/auth";
 import { useState } from "react";
 
@@ -7,6 +7,8 @@ const SignUp = () => {
   const [password, setPassword] = useState("");
   const [error, setError] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
+
+  const navigate = useNavigate();
 
   // instantiate the auth service SDK
   const auth = getAuth();
@@ -33,6 +35,7 @@ const SignUp = () => {
       // Pull out user's data from the userCredential property
       const user = userCredential.user;
       console.log("Logged in as: " + user.uid);
+      navigate("/home");
     } catch (err) {
       // Handle errors here
       const errorMessage = err.message;
@@ -87,7 +90,7 @@ const SignUp = () => {
 
           <div className="signupContainer__box__login">
             <p>
-              Already have an account? <Link to="/signin">Sign In</Link>
+              Already have an account? <Link to="/login">Login</Link>
             </p>
           </div>
         </div>

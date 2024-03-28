@@ -4,8 +4,12 @@ const FrontpageLoginSignUp = () => {
   return (
     <>
       <p>Hello to freshfinds!</p>
-      <Button variant="contained">Sign up</Button>
-      <Button variant="contained">Login</Button>
+      <Button href="/signup" variant="contained">
+        Sign up
+      </Button>
+      <Button href="/login" variant="contained">
+        Login
+      </Button>
     </>
   );
 };

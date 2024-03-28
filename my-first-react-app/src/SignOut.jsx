@@ -12,6 +12,7 @@ const SignOut = () => {
       .then(() => {
         // Redirect to the "/" route upon successful sign-out
         navigate("/");
+        console.log("Successfully signed out");
       })
       .catch((error) => {
         // Handle sign-out errors
