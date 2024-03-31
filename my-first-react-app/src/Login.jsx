@@ -74,7 +74,7 @@ const Login = () => {
       <img
         src="/src/assets/freshfinds-logo.png"
         alt="freshfinds Logo"
-        width={"200px"}
+        style={{ width: "200px" }}
       />
       <h2>Login</h2>
       <form onSubmit={handleSubmit}>

@@ -6,9 +6,9 @@ const FrontpageLoginSignUp = () => {
       <div className="first-pages-flex-container">
         <div>
           <img
-            src="\src\assets\freshfinds-logo.png"
+            src="/src/assets/freshfinds-logo.png"
             alt="freshfinds Logo"
-            width={"200px"}
+            style={{ width: "200px" }}
           />
         </div>
         <p>Hello to freshfinds!</p>
