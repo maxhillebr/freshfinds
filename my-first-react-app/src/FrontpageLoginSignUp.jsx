@@ -1,5 +1,4 @@
 import Button from "@mui/material/Button";
-import { spacing } from "@mui/system";
 
 const FrontpageLoginSignUp = () => {
   return (
@@ -13,10 +12,10 @@ const FrontpageLoginSignUp = () => {
           />
         </div>
         <p>Hello to freshfinds!</p>
-        <Button href="/signup" variant="contained" sx={{ m: 1 }}>
+        <Button fullWidth href="/signup" variant="contained" sx={{ m: 1 }}>
           Sign up
         </Button>
-        <Button href="/login" variant="outlined" sx={{ m: 1 }}>
+        <Button fullWidth href="/login" variant="outlined" sx={{ m: 1 }}>
           Login
         </Button>
       </div>

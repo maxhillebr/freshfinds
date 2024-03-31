@@ -1,6 +1,8 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { signInWithEmailAndPassword, getAuth } from "firebase/auth";
+import TextField from "@mui/material/TextField";
+import Button from "@mui/material/Button";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -68,35 +70,68 @@ const Login = () => {
   };
 
   return (
-    <div className="signinContainer">
-      <div className="signinContainer__box">
-        <div className="signinContainer__box__inner">
-          <h1>Login</h1>
-          <form className="signinContainer__box__form" onSubmit={handleSubmit}>
-            <input
-              type="email"
-              placeholder="Email"
-              name="email"
-              onChange={handleChange}
-            />
-            <input
-              type="password"
-              placeholder="Password"
-              name="password"
-              onChange={handleChange}
-            />
-            <button type="submit">Login</button>
-            {error && <p>{errorMessage}</p>}
-          </form>
+    <div className="first-pages-flex-container">
+      <img
+        src="/src/assets/freshfinds-logo.png"
+        alt="freshfinds Logo"
+        width={"200px"}
+      />
+      <h2>Login</h2>
+      <form onSubmit={handleSubmit}>
+        <TextField
+          required
+          type="email"
+          id="e-mail-input"
+          label="E-Mail"
+          name="email"
+          margin="normal"
+          fullWidth
+          onChange={handleChange}
+        />
+        <TextField
+          required
+          type="password"
+          id="password-input"
+          label="Password"
+          name="password"
+          margin="normal"
+          fullWidth
+          onChange={handleChange}
+        />
 
-          <div className="signinContainer__box__signup">
-            <p>
-              Don't have an account? <Link to="/signup">Sign Up</Link>
-            </p>
-          </div>
-        </div>
-      </div>
+        <Button fullWidth type="submit" variant="contained">
+          Login
+        </Button>
+        {error && <p>{errorMessage}</p>}
+      </form>
     </div>
+
+    // <h1>Login</h1>
+    // <form className="signinContainer__box__form" onSubmit={handleSubmit}>
+    //   <input
+    //     type="email"
+    //     placeholder="Email"
+    //     name="email"
+    //     onChange={handleChange}
+    //   />
+    //   <input
+    //     type="password"
+    //     placeholder="Password"
+    //     name="password"
+    //     onChange={handleChange}
+    //   />
+    //   <button type="submit">Login</button>
+    //   {error && <p>{errorMessage}</p>}
+    // </form>
+
+    // <div className="signinContainer__box__signup">
+    //   <p>
+    //     Don't have an account? <Link to="/signup">Sign Up</Link>
+    //   </p>
+    // </div>
+    //     </div>
+    //   </div>
+    // </div>
   );
 };
 
