@@ -1,5 +1,14 @@
+.first-pages-flex-container {
+  display: flex;
+  flex-direction: column;
+}
+
 .MuiTable-root {
   min-width: 320px !important;
+}
+
+.button-group {
+  padding: 1em;
 }
 
 .main-content {
