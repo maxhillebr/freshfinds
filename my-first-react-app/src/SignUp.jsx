@@ -5,6 +5,9 @@ import {
   getAuth,
   updateProfile,
 } from "firebase/auth";
+
+import { db } from "./firebase";
+import { doc, collection, addDoc, getDoc, setDoc } from "firebase/firestore";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 
@@ -44,6 +47,8 @@ const SignUp = () => {
         displayName: username,
       });
 
+      createGroceryListCollection(username);
+
       navigate("/home");
     } catch (err) {
       // Handle errors here
@@ -70,6 +75,20 @@ const SignUp = () => {
           setErrorMessage(errorMessage);
           break;
       }
+    }
+  };
+
+  const createGroceryListCollection = async (username) => {
+    try {
+      // Constructing Firestore references
+      await setDoc(doc(db, "users", username, "grocerylists", "first-list"), {
+        title: "My First Grocery List",
+        description: "Description test.",
+        products: "products here",
+      });
+      console.log("Grocery list collection created successfully!");
+    } catch (error) {
+      console.error("Error creating grocery list collection:", error);
     }
   };
 

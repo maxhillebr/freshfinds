@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import Table from "@mui/material/Table";
@@ -10,48 +10,19 @@ import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 
 import { db } from "./firebase";
-import { collection, addDoc } from "firebase/firestore";
-
-// collection ref
-const colRef = collection(db, "groceryLists");
-// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+import { collection, addDoc, getDoc, setDoc } from "firebase/firestore";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
 
 export default function NewList() {
-  // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-  // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-  // send new grocery list to groceryLists db on firestore
-  // Function to add a new entry with a unique ID
-  const addNewGroceryList = async (title, description) => {
-    if (title === "" || description === "" || rows.length === 0) {
-      alert("No Title, Description or Product. Check your list again!");
-      return;
-    }
+  // check if the user is logged in?
+  const auth = getAuth();
+  const user = auth.currentUser;
 
-    try {
-      const docRef = await addDoc(colRef, {
-        title: title,
-        description: description,
-        products: rows,
-      });
-      console.log("Document written with ID: ", docRef.id);
-      alert("Grocery list sent to Database");
-    } catch (error) {
-      console.error("Error adding document: ", error);
-    }
-  };
-  // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-  // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-
-  // title and description
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
-
-  //add product and amount
   const [rows, setRows] = useState([]);
   const [product, setProduct] = useState("");
   const [amount, setAmount] = useState("");
-
-  // get the value of all inputs
 
   const handleTitleChange = (event) => {
     setTitle(event.target.value);
@@ -69,36 +40,51 @@ export default function NewList() {
     setAmount(event.target.value);
   };
 
-  // add product, amount to the list
-
   const handleAddProducts = () => {
-    const newId = rows.length; // Assign unique IDs based on current length
+    const newId = rows.length;
     const newData = createData(newId, product, amount);
-
-    // Update rows with the new data using the functional form of setRows
     setRows((prevRows) => [...prevRows, newData]);
-
-    // Do something with the product and amount, such as adding them to the list
-    console.log("Product:", product);
-    console.log("Amount:", amount);
-
-    // Clear the form fields after submission
     setProduct("");
     setAmount("");
   };
-
-  // create the table with name and amount
 
   const createData = (id, name, amount) => {
     return { id, name, amount };
   };
 
   const handleDelete = (id) => {
-    // Filter out the product with the given id from the rows array
     const updatedRows = rows.filter((product) => product.id !== id);
-
-    // Update the state with the filtered rows
     setRows(updatedRows);
+  };
+
+  const addNewGroceryList = async () => {
+    if (title === "" || description === "" || rows.length === 0) {
+      alert("No Title, Description or Product. Check your list again!");
+      return;
+    }
+
+    try {
+      const username = user.displayName;
+
+      if (!user || !username) {
+        console.error(
+          "User is not authenticated or display name is undefined."
+        );
+        return; // Exit the function early
+      }
+
+      const colRef = collection(db, "users", username, "grocerylists");
+      const docRef = await addDoc(colRef, {
+        title: title,
+        description: description,
+        products: rows,
+      });
+
+      console.log("Document written with ID: ", docRef.id);
+      alert("Grocery list sent to Database");
+    } catch (error) {
+      console.error("Error adding document: ", error);
+    }
   };
 
   return (
@@ -140,7 +126,6 @@ export default function NewList() {
       <Button id="add-button" variant="contained" onClick={handleAddProducts}>
         Add
       </Button>
-      {/* Main Table  */}
       <div>
         <TableContainer component={Paper}>
           <Table sx={{ minWidth: 650 }} aria-label="simple table">
@@ -149,7 +134,6 @@ export default function NewList() {
                 <TableCell>Product</TableCell>
                 <TableCell>Amount</TableCell>
                 <TableCell>Action</TableCell>
-                {/* New cell for the delete button */}
               </TableRow>
             </TableHead>
             <TableBody>
@@ -178,11 +162,7 @@ export default function NewList() {
           </Table>
         </TableContainer>
       </div>
-      <Button
-        id="submit-list"
-        variant="contained"
-        onClick={() => addNewGroceryList(title, description, rows)}
-      >
+      <Button id="submit-list" variant="contained" onClick={addNewGroceryList}>
         Create List
       </Button>
     </div>
