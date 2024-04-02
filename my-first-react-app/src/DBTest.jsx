@@ -1,8 +1,8 @@
 import React from "react";
 import { Button } from "@mui/material";
 import { db } from "./firebase";
-import { collection, getDocs, addDoc } from "firebase/firestore";
-
+import { collection, getDocs, addDoc, setDoc, doc } from "firebase/firestore";
+import { getAuth, onAuthStateChanged, updateProfile } from "firebase/auth";
 // collection ref
 const colRef = collection(db, "groceryLists");
 
@@ -36,6 +36,35 @@ export default function DBTest() {
     }
   };
 
+  // ------------------------------------
+  // ------------------------------------
+  // user specific adding of data!
+
+  const auth = getAuth();
+
+  const currentUser = auth.currentUser.displayName;
+  console.log("current user: " + currentUser);
+
+  // Function to create new document
+  // Add a new document in collection "cities"
+
+  const addNewGroceryListUser = async (title, description, products) => {
+    const colRefUser = collection(db, currentUser, "groceryLists", "list");
+
+    try {
+      const docRef = await addDoc(colRefUser, {
+        title: title,
+        description: description,
+        products: products,
+      });
+      console.log("Document written with ID: ", docRef.id);
+    } catch (error) {
+      console.error("Error adding document: ", error);
+    }
+  };
+
+  // ------------------------------------
+
   // Example data
   const title = "New Grocery List";
   const description = "Description of the new grocery list";
@@ -49,65 +78,14 @@ export default function DBTest() {
       <Button onClick={() => addNewGroceryList(title, description, products)}>
         Test
       </Button>
+      <Button
+        onClick={() => addNewGroceryListUser(title, description, products)}
+      >
+        Test
+      </Button>
+
       <p>Test</p>
     </>
   );
 }
-// Fetch all groceryLists
-// +++++++++++++++++++++++++++++++++++++++++++++++
-// const GroceryListPage = () => {
-//     // Define groceryLists state to store fetched data
-//     const [groceryLists, setGroceryLists] = useState([]);
-
-//     // Fetch data from Firestore inside useEffect
-//     useEffect(() => {
-//       const fetchGroceryLists = async () => {
-//         try {
-//           const colRef = collection(db, "groceryLists");
-//           const querySnapshot = await getDocs(colRef);
-//           const lists = [];
-
-//           querySnapshot.forEach((doc) => {
-//             lists.push({ ...doc.data(), id: doc.id });
-//           });
-
-//           setGroceryLists(lists);
-//           console.log(lists);
-//         } catch (error) {
-//           console.error("Error fetching grocery lists:", error);
-//         }
-//       };
-
-//       fetchGroceryLists();
-//     }, []); // Empty dependency array to fetch data only once on component mount
-
-//     return (
-//       <>
-//         {groceryLists.map(function (data) {
-//           return (
-//             <>
-//               <div
-//                 className="grocerybox"
-//                 style={{
-//                   backgroundColor: "#f1f1f1",
-//                   padding: "1em",
-//                   margin: "1em",
-//                 }}
-//               >
-//                 <div>
-//                   <p style={{ fontWeight: 600 }}>{data.title}</p>
-//                   <p style={{ color: "grey" }}>{data.description}</p>
-//                 </div>
-//                 <div>
-//                   <Button variant="contained">Edit</Button>
-//                   <Button variant="outlined">Share</Button>
-//                   <Button variant="outlined">Delete</Button>
-//                 </div>
-//               </div>
-//             </>
-//           );
-//         })}
-//       </>
-//     );
-//   };
 // +++++++++++++++++++++++++++++++++++++++++++++++

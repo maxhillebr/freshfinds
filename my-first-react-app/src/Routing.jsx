@@ -15,6 +15,7 @@ import GroceryListPage from "./GroceryListsPage";
 import SignUp from "./SignUp";
 import Login from "./Login";
 import FrontpageLoginSignUp from "./FrontpageLoginSignUp";
+import GroceryListPageTest from "./GroceryListsPageTest";
 
 const Routing = () => {
   const [user, setUser] = useState(null);
@@ -47,6 +48,10 @@ const Routing = () => {
             <Route path="/account" element={<Account />} />
             <Route path="/test" element={<DBTest />} />
             <Route path="/grocerylists/:id" element={<GroceryListPage />} />
+            <Route
+              path="/:username/groceryLists/list/:listId"
+              element={<GroceryListPageTest />}
+            />
           </>
         )}
 
