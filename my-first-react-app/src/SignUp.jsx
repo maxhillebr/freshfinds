@@ -1,11 +1,16 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
-import { createUserWithEmailAndPassword, getAuth } from "firebase/auth";
+import {
+  createUserWithEmailAndPassword,
+  getAuth,
+  updateProfile,
+} from "firebase/auth";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 
 const SignUp = () => {
   const [email, setEmail] = useState("");
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
@@ -20,6 +25,7 @@ const SignUp = () => {
 
     if (name === "email") setEmail(value);
     if (name === "password") setPassword(value);
+    if (name === "username") setUsername(value);
   };
 
   // Handle user sign up with email and password
@@ -34,10 +40,11 @@ const SignUp = () => {
         password
       );
 
-      // Pull out user's data from the userCredential property
-      const user = userCredential.user;
-      console.log("Logged in as: " + user.uid);
-      navigate("/account");
+      updateProfile(auth.currentUser, {
+        displayName: username,
+      });
+
+      navigate("/home");
     } catch (err) {
       // Handle errors here
       const errorMessage = err.message;
@@ -75,6 +82,16 @@ const SignUp = () => {
       />
       <h2>Sign Up</h2>
       <form onSubmit={handleSubmit}>
+        <TextField
+          required
+          type="text"
+          id="username-input"
+          label="Username"
+          name="username"
+          margin="normal"
+          fullWidth
+          onChange={handleChange}
+        />
         <TextField
           required
           type="email"
