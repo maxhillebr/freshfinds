@@ -72,7 +72,7 @@ const Login = () => {
   return (
     <div className="first-pages-flex-container">
       <img
-        src="/src/assets/freshfinds-logo.png"
+        src="/freshfinds-logo.png"
         alt="freshfinds Logo"
         style={{ width: "200px" }}
       />
