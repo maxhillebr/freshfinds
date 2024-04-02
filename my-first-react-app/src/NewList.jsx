@@ -77,10 +77,7 @@ export default function NewList() {
       const docRef = await addDoc(colRef, {
         title: title,
         description: description,
-        products: [
-          { id: 0, name: "Item 1", amount: "2" },
-          { id: 1, name: "Item 2", amount: "5" },
-        ],
+        products: rows,
       });
 
       console.log("Document written with ID: ", docRef.id);
