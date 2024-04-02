@@ -84,7 +84,10 @@ const SignUp = () => {
       await setDoc(doc(db, "users", username, "grocerylists", "first-list"), {
         title: "My First Grocery List",
         description: "Description test.",
-        products: "products here",
+        products: [
+          { id: 0, name: "apfel", amount: "2" },
+          { id: 1, name: "banane", amount: "5" },
+        ],
       });
       console.log("Grocery list collection created successfully!");
     } catch (error) {
