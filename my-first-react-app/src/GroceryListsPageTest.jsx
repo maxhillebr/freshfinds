@@ -12,7 +12,7 @@ const GroceryListPageTest = () => {
   useEffect(() => {
     const fetchGroceryList = async () => {
       try {
-        const docRef = doc(db, username, "groceryLists", "list", listId);
+        const docRef = doc(db, "users", username, "grocerylists", listId);
         console.log("Document Reference:", docRef);
 
         const docSnap = await getDoc(docRef);

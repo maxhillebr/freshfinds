@@ -49,7 +49,7 @@ const Routing = () => {
             <Route path="/test" element={<DBTest />} />
             <Route path="/grocerylists/:id" element={<GroceryListPage />} />
             <Route
-              path="/:username/groceryLists/list/:listId"
+              path="/users/:username/grocerylists/:listId"
               element={<GroceryListPageTest />}
             />
           </>

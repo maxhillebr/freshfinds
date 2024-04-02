@@ -3,8 +3,13 @@ import Button from "@mui/material/Button";
 import { Link } from "react-router-dom";
 import { db } from "./firebase";
 import { collection, getDocs } from "firebase/firestore";
+import { getAuth } from "firebase/auth";
 
 export default function GroceryBoxMain() {
+  const auth = getAuth();
+  const user = auth.currentUser;
+  const username = user.displayName;
+
   const [color, setColor] = useState("#f1f1f1");
 
   const changeColor = (color) => {
@@ -18,7 +23,14 @@ export default function GroceryBoxMain() {
   useEffect(() => {
     const fetchGroceryLists = async () => {
       try {
-        const colRef = collection(db, "groceryLists");
+        if (!user || !username) {
+          console.error(
+            "User is not authenticated or display name is undefined."
+          );
+          return; // Exit the function early
+        }
+
+        const colRef = collection(db, "users", username, "grocerylists");
         const querySnapshot = await getDocs(colRef);
         const lists = [];
 
@@ -41,7 +53,10 @@ export default function GroceryBoxMain() {
       {groceryLists.map(function (data) {
         return (
           <>
-            <Link key={data.id} to={`/grocerylists/${data.id}`}>
+            <Link
+              key={data.id}
+              to={`/users/${username}/grocerylists/${data.id}`}
+            >
               <div
                 className="grocerybox"
                 onClick={() => {
