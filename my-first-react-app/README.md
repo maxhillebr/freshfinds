@@ -11,3 +11,8 @@
 - Use "npm run build" for production ready code
 - Use "firebase deploy --only hosting" to deploy the new code
 - Use public to store images; Use img src="/your_image.svg" as path
+
+#To Do
+
+- User specific rending of URLs -> When username is updated update the db
+- Username input by resgister
