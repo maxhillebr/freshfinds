@@ -1,6 +1,8 @@
 import { Link, useNavigate } from "react-router-dom";
-import { createUserWithEmailAndPassword, getAuth } from "firebase/auth";
 import { useState } from "react";
+import { createUserWithEmailAndPassword, getAuth } from "firebase/auth";
+import TextField from "@mui/material/TextField";
+import Button from "@mui/material/Button";
 
 const SignUp = () => {
   const [email, setEmail] = useState("");
@@ -65,36 +67,42 @@ const SignUp = () => {
   };
 
   return (
-    <div className="signupContainer">
-      <div className="signupContainer__box">
-        <div className="signupContainer__box__inner">
-          <h1>Sign Up</h1>
-          <form className="signupContainer__box__form" onSubmit={handleSubmit}>
-            <input
-              type="email"
-              placeholder="Email"
-              onChange={handleChange}
-              name="email"
-              value={email}
-            />
-            <input
-              type="password"
-              placeholder="Password"
-              onChange={handleChange}
-              name="password"
-              value={password}
-            />
-            <button type="submit">Sign Up</button>
-            {error && <p>{errorMessage}</p>}
-          </form>
-
-          <div className="signupContainer__box__login">
-            <p>
-              Already have an account? <Link to="/login">Login</Link>
-            </p>
-          </div>
-        </div>
-      </div>
+    <div className="first-pages-flex-container">
+      <img
+        src="/freshfinds-logo.png"
+        alt="freshfinds Logo"
+        style={{ width: "200px" }}
+      />
+      <h2>Sign Up</h2>
+      <form onSubmit={handleSubmit}>
+        <TextField
+          required
+          type="email"
+          id="e-mail-input"
+          label="E-Mail"
+          name="email"
+          margin="normal"
+          fullWidth
+          onChange={handleChange}
+        />
+        <TextField
+          required
+          type="password"
+          id="password-input"
+          label="Password"
+          name="password"
+          margin="normal"
+          fullWidth
+          onChange={handleChange}
+        />
+        <Button fullWidth type="submit" variant="contained">
+          Sign Up
+        </Button>
+        {error && <p>{errorMessage}</p>}
+        <p>
+          Already have an account? <Link to="/login">Login</Link>
+        </p>
+      </form>
     </div>
   );
 };

@@ -98,11 +98,13 @@ const Login = () => {
           fullWidth
           onChange={handleChange}
         />
-
         <Button fullWidth type="submit" variant="contained">
           Login
         </Button>
         {error && <p>{errorMessage}</p>}
+        <p>
+          Don't have an account? <Link to="/signup">Sign Up</Link>
+        </p>
       </form>
     </div>
 
