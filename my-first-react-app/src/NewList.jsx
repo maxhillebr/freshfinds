@@ -13,10 +13,14 @@ import { db } from "./firebase";
 import { collection, addDoc, getDoc, setDoc } from "firebase/firestore";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 
+import { useNavigate } from "react-router-dom";
+
 export default function NewList() {
   // check if the user is logged in?
   const auth = getAuth();
   const user = auth.currentUser;
+
+  const navigate = useNavigate();
 
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
@@ -57,7 +61,7 @@ export default function NewList() {
     setRows(updatedRows);
   };
 
-  const addNewGroceryList = async () => {
+  const addNewGroceryList = async (title, description, rows) => {
     if (title === "" || description === "" || rows.length === 0) {
       alert("No Title, Description or Product. Check your list again!");
       return;
@@ -82,6 +86,7 @@ export default function NewList() {
 
       console.log("Document written with ID: ", docRef.id);
       alert("Grocery list sent to Database");
+      navigate(`/users/${username}/grocerylists/${docRef.id}`);
     } catch (error) {
       console.error("Error adding document: ", error);
     }
@@ -162,7 +167,11 @@ export default function NewList() {
           </Table>
         </TableContainer>
       </div>
-      <Button id="submit-list" variant="contained" onClick={addNewGroceryList}>
+      <Button
+        id="submit-list"
+        variant="contained"
+        onClick={() => addNewGroceryList(title, description, rows)}
+      >
         Create List
       </Button>
     </div>

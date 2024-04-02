@@ -42,14 +42,14 @@ export default function DBTest() {
 
   const auth = getAuth();
 
-  const currentUser = auth.currentUser.displayName;
-  console.log("current user: " + currentUser);
+  const username = auth.currentUser.displayName;
+  console.log("current user: " + username);
 
   // Function to create new document
   // Add a new document in collection "cities"
 
   const addNewGroceryListUser = async (title, description, products) => {
-    const colRefUser = collection(db, currentUser, "groceryLists", "list");
+    const colRefUser = collection(db, "users", username, "grocerylists");
 
     try {
       const docRef = await addDoc(colRefUser, {

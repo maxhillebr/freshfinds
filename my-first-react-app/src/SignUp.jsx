@@ -47,8 +47,6 @@ const SignUp = () => {
         displayName: username,
       });
 
-      createGroceryListCollection(username);
-
       navigate("/home");
     } catch (err) {
       // Handle errors here
@@ -75,23 +73,6 @@ const SignUp = () => {
           setErrorMessage(errorMessage);
           break;
       }
-    }
-  };
-
-  const createGroceryListCollection = async (username) => {
-    try {
-      // Constructing Firestore references
-      await setDoc(doc(db, "users", username, "grocerylists", "first-list"), {
-        title: "My First Grocery List",
-        description: "Description test.",
-        products: [
-          { id: 0, name: "apfel", amount: "2" },
-          { id: 1, name: "banane", amount: "5" },
-        ],
-      });
-      console.log("Grocery list collection created successfully!");
-    } catch (error) {
-      console.error("Error creating grocery list collection:", error);
     }
   };
 
