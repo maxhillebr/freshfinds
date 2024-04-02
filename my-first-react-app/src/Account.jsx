@@ -1,5 +1,10 @@
 import { useState, useEffect } from "react";
-import { getAuth, onAuthStateChanged, updateProfile } from "firebase/auth";
+import {
+  getAuth,
+  onAuthStateChanged,
+  updateProfile,
+  updateEmail,
+} from "firebase/auth";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 
@@ -61,7 +66,7 @@ const Account = () => {
       <div className="main-content">
         <h2>Your Account</h2>
         <p>Username: {currentUser.displayName}</p>
-        <p>Mail: nothing</p>
+        <p>Mail: {currentUser.email}</p>
       </div>
       {user ? (
         <div>
@@ -80,7 +85,7 @@ const Account = () => {
             variant="contained"
             onClick={() => updateUsername(username)}
           >
-            Change
+            Change Username
           </Button>
         </div>
       ) : (
