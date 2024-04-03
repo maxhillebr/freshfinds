@@ -11,11 +11,10 @@ import App from "./App";
 import NewList from "./NewList";
 import Account from "./Account";
 import DBTest from "./DBTest";
-import GroceryListPage from "./GroceryListsPage";
 import SignUp from "./SignUp";
 import Login from "./Login";
 import FrontpageLoginSignUp from "./FrontpageLoginSignUp";
-import GroceryListPageTest from "./GroceryListsPageTest";
+import GroceryListPageId from "./GroceryListPageId";
 import DragAndDropTest from "./DragDropTest";
 import NewListTest from "./NewListTest";
 
@@ -49,10 +48,9 @@ const Routing = () => {
             <Route path="/new" element={<NewList />} />
             <Route path="/account" element={<Account />} />
             <Route path="/test" element={<DBTest />} />
-            <Route path="/grocerylists/:id" element={<GroceryListPage />} />
             <Route
               path="/users/:username/grocerylists/:listId"
-              element={<GroceryListPageTest />}
+              element={<GroceryListPageId />}
             />
             <Route
               path="/users/:username/grocerylists/:listId/edit"

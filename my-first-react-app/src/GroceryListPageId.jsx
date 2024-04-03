@@ -4,10 +4,15 @@ import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { db } from "./firebase";
 import { doc, getDoc } from "firebase/firestore";
+import Button from "@mui/material/Button";
 
-const GroceryListPageTest = () => {
+import { useNavigate } from "react-router-dom";
+
+const GroceryListPageId = () => {
   const { username, listId } = useParams(); // Extract the document ID from the URL
   const [groceryList, setGroceryList] = useState(null);
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchGroceryList = async () => {
@@ -36,17 +41,27 @@ const GroceryListPageTest = () => {
         <>
           <h2>{groceryList.title}</h2>
           <p>{groceryList.description}</p>
-          <ul>
-            {groceryList.products.map((product) => (
-              <li key={product.id}>
-                {product.name}: {product.amount}
-              </li>
-            ))}
-          </ul>
+
+          {groceryList.products.map((product) => (
+            <div className="main-list" key={product.id}>
+              {product.name}
+              {product.amount}
+            </div>
+          ))}
+
+          <Button
+            id="edit"
+            variant="contained"
+            onClick={() =>
+              navigate(`/users/${username}/grocerylists/${listId}/edit`)
+            }
+          >
+            Edit
+          </Button>
         </>
       )}
     </div>
   );
 };
 
-export default GroceryListPageTest;
+export default GroceryListPageId;
