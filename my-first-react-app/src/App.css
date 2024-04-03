@@ -1,3 +1,13 @@
+.main-list {
+  display: flex;
+  flex-direction: row;
+  align-content: center;
+  justify-content: center;
+  margin: 0.5em 0.5em;
+  padding: 1em;
+  border: 1px solid rgb(96, 102, 96);
+}
+
 .first-pages-flex-container {
   display: flex;
   flex-direction: column;
