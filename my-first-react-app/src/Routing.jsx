@@ -17,6 +17,7 @@ import FrontpageLoginSignUp from "./FrontpageLoginSignUp";
 import GroceryListPageId from "./GroceryListPageId";
 import DragAndDropTest from "./DragDropTest";
 import NewListTest from "./NewListTest";
+import EditList from "./EditList";
 
 const Routing = () => {
   const [user, setUser] = useState(null);
@@ -56,7 +57,7 @@ const Routing = () => {
               path="/users/:username/grocerylists/:listId/edit"
               element={
                 <div>
-                  <DragAndDropTest /> <NewListTest />
+                  <EditList />
                 </div>
               }
             />
