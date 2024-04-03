@@ -34,6 +34,10 @@ const DragAndDropTest = () => {
 
   // ------------------------------
 
+  const TestFunction = () => {
+    console.log(tasks);
+  };
+
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
 
@@ -96,7 +100,11 @@ const DragAndDropTest = () => {
           </Droppable>
         </DragDropContext>
       </div>
-      <Button id="submit-list" variant="contained" onClick="">
+      <Button
+        id="submit-list"
+        variant="contained"
+        onClick={() => TestFunction()}
+      >
         Update List
       </Button>
     </div>
