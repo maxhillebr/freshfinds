@@ -4,7 +4,8 @@ import Routing from "../src/Routing.jsx";
 import "./index.css";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
-  <React.StrictMode>
-    <Routing />
-  </React.StrictMode>
+  // Removed strictmode because of react-beautiful-dnd
+  // <React.StrictMode>
+  <Routing />
+  // </React.StrictMode>
 );
