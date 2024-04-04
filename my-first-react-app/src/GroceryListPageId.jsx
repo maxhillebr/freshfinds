@@ -6,13 +6,9 @@ import { db } from "./firebase";
 import { doc, getDoc } from "firebase/firestore";
 import Button from "@mui/material/Button";
 
-import { useNavigate } from "react-router-dom";
-
 const GroceryListPageId = () => {
   const { username, listId } = useParams(); // Extract the document ID from the URL
   const [groceryList, setGroceryList] = useState(null);
-
-  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchGroceryList = async () => {
@@ -50,13 +46,14 @@ const GroceryListPageId = () => {
           ))}
 
           <Button
+            href={`/users/${username}/grocerylists/${listId}/edit`}
             id="edit"
             variant="contained"
-            onClick={() =>
-              navigate(`/users/${username}/grocerylists/${listId}/edit`)
-            }
           >
             Edit
+          </Button>
+          <Button href="/home" id="home-button" variant="outlined">
+            Home
           </Button>
         </>
       )}

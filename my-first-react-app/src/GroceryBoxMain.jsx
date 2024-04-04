@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useId } from "react";
 import Button from "@mui/material/Button";
 import { Link } from "react-router-dom";
 import { db } from "./firebase";
@@ -6,6 +6,9 @@ import { collection, getDocs } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
 
 export default function GroceryBoxMain() {
+  // unique id
+  const newId = useId();
+
   const auth = getAuth();
   const user = auth.currentUser;
   const username = user.displayName;
@@ -52,35 +55,37 @@ export default function GroceryBoxMain() {
     <>
       {groceryLists.map(function (data) {
         return (
-          <>
-            <Link
-              key={data.id}
-              to={`/users/${username}/grocerylists/${data.id}`}
+          <div key={newId}>
+            <div
+              className="grocerybox"
+              onClick={() => {
+                const newColor = color === "#f1f1f1" ? "green" : "#f1f1f1";
+                changeColor(newColor);
+              }}
+              style={{
+                backgroundColor: color,
+                padding: "1em",
+                margin: "1em",
+              }}
             >
-              <div
-                className="grocerybox"
-                onClick={() => {
-                  const newColor = color === "#f1f1f1" ? "green" : "#f1f1f1";
-                  changeColor(newColor);
-                }}
-                style={{
-                  backgroundColor: color,
-                  padding: "1em",
-                  margin: "1em",
-                }}
-              >
+              <Link to={`/users/${username}/grocerylists/${data.id}`}>
                 <div>
                   <p style={{ fontWeight: 600 }}>{data.title}</p>
                   <p style={{ color: "grey" }}>{data.description}</p>
                 </div>
-                <div>
-                  <Button variant="contained">Edit</Button>
-                  <Button variant="outlined">Share</Button>
-                  <Button variant="outlined">Delete</Button>
-                </div>
+              </Link>
+              <div>
+                <Button
+                  href={`/users/${username}/grocerylists/${data.id}/edit`}
+                  variant="contained"
+                >
+                  Edit
+                </Button>
+                <Button variant="outlined">Share</Button>
+                <Button variant="outlined">Delete</Button>
               </div>
-            </Link>
-          </>
+            </div>
+          </div>
         );
       })}
     </>
