@@ -127,7 +127,7 @@ export default function EditList() {
         products: rows,
       });
 
-      console.log("Document updated: ", docRef.id);
+      console.log("Document updated: ", listId);
       alert("Grocery list updated");
       navigate(`/users/${username}/grocerylists/${listId}`);
     } catch (error) {
