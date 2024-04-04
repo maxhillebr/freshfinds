@@ -5,6 +5,7 @@ import { useParams } from "react-router-dom";
 import { db } from "./firebase";
 import { doc, getDoc } from "firebase/firestore";
 import Button from "@mui/material/Button";
+import Checkbox from "@mui/material/Checkbox";
 
 const GroceryListPageId = () => {
   // copy to clipboard for share
@@ -43,6 +44,21 @@ const GroceryListPageId = () => {
     fetchGroceryList();
   }, [listId, username]);
 
+  // // checkbox
+  // const [checkBox, setCheckBox] = useState("unchecked");
+
+  // const handleCheckboxChange = (event) => {
+  //   const parentDiv = event.target.parentElement.parentElement;
+
+  //   // Toggle checkbox state
+  //   const newCheckBoxState = checkBox === "checked" ? "unchecked" : "checked";
+  //   setCheckBox(newCheckBoxState);
+
+  //   // Update background color based on checkbox state
+  //   parentDiv.style.backgroundColor =
+  //     newCheckBoxState === "checked" ? "lightblue" : "";
+  // };
+
   return (
     <div>
       {/* Render grocery list data */}
@@ -52,7 +68,16 @@ const GroceryListPageId = () => {
           <p>{groceryList.description}</p>
 
           {groceryList.products.map((product) => (
-            <div className="main-list" key={product.id}>
+            <div
+              className="main-list"
+              style={{ backgroundColor: "" }}
+              key={product.id}
+            >
+              <Checkbox
+                aria-label={product.id}
+                // checked={!!checkedItems[product.id]} // Convert to boolean
+                // onChange={() => handleCheckboxChange(product.id)}
+              />
               {product.name}
               {product.amount}
             </div>
