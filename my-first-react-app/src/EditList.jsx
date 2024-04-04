@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useId } from "react";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 
@@ -14,6 +14,8 @@ import { getAuth } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 
 export default function EditList() {
+  // unique id
+  const newId = useId();
   // check if the user is logged in?
   const auth = getAuth();
   const user = auth.currentUser;
@@ -72,15 +74,6 @@ export default function EditList() {
     setAmount(event.target.value);
   };
 
-  const handleAddProducts = () => {
-    const newId = rows.length + "edit";
-    const newData = createData(newId, product, amount);
-    setRows((prevRows) => [...prevRows, newData]);
-    setProduct("");
-    setAmount("");
-    console.log(rows);
-  };
-
   const createData = (id, name, amount) => {
     return { id, name, amount };
   };
@@ -104,6 +97,16 @@ export default function EditList() {
   };
 
   // --------------------------------
+  // add products
+
+  const handleAddProducts = () => {
+    const newData = createData(newId, product, amount);
+    setRows((prevRows) => [...prevRows, newData]);
+    setProduct("");
+    setAmount("");
+    console.log(rows);
+  };
+
   // --------------------------------
 
   const updateNewGroceryList = async (title, description, rows) => {
