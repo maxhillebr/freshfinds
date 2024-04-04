@@ -28,12 +28,6 @@ export default function GroceryBoxMain() {
   const user = auth.currentUser;
   const username = user.displayName;
 
-  const [color, setColor] = useState("#f1f1f1");
-
-  const changeColor = (color) => {
-    setColor(color);
-  };
-
   // Define groceryLists state to store fetched data
   const [groceryLists, setGroceryLists] = useState([]);
 
@@ -79,19 +73,28 @@ export default function GroceryBoxMain() {
     fetchColGetDoc();
   };
 
+  // copy to clipboard for share
+  const copyToClipboard = async (username, id) => {
+    try {
+      const url = `${window.location.host}/users/${username}/grocerylists/${id}`;
+
+      await navigator.clipboard.writeText(url);
+      alert("Copied to clipboard!");
+    } catch (err) {
+      console.error("Failed to copy: ", err);
+      alert("Failed to copy to clipboard");
+    }
+  };
+
   return (
     <>
       {groceryLists.map(function (data) {
         return (
-          <div key={newId}>
+          <div key={data.id}>
             <div
               className="grocerybox"
-              onClick={() => {
-                const newColor = color === "#f1f1f1" ? "green" : "#f1f1f1";
-                changeColor(newColor);
-              }}
               style={{
-                backgroundColor: color,
+                border: "1px solid #000",
                 padding: "1em",
                 margin: "1em",
               }}
@@ -109,7 +112,12 @@ export default function GroceryBoxMain() {
                 >
                   Edit
                 </Button>
-                <Button variant="outlined">Share</Button>
+                <Button
+                  onClick={() => copyToClipboard(username, data.id)}
+                  variant="outlined"
+                >
+                  Share
+                </Button>
                 <Button
                   variant="outlined"
                   onClick={() => handleDeleteDoc(data.id)}

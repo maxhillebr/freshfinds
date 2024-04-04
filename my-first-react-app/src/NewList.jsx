@@ -59,7 +59,6 @@ export default function NewListTest() {
   };
 
   const handleAddProducts = () => {
-    const newId = rows.length;
     const newData = createData(newId, product, amount);
     setRows((prevRows) => [...prevRows, newData]);
     setProduct("");

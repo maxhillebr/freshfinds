@@ -7,6 +7,19 @@ import { doc, getDoc } from "firebase/firestore";
 import Button from "@mui/material/Button";
 
 const GroceryListPageId = () => {
+  // copy to clipboard for share
+  const copyToClipboard = async (username, id) => {
+    try {
+      const url = `${window.location.host}/users/${username}/grocerylists/${id}`;
+
+      await navigator.clipboard.writeText(url);
+      alert("Copied to clipboard!");
+    } catch (err) {
+      console.error("Failed to copy: ", err);
+      alert("Failed to copy to clipboard");
+    }
+  };
+
   const { username, listId } = useParams(); // Extract the document ID from the URL
   const [groceryList, setGroceryList] = useState(null);
 
@@ -51,6 +64,12 @@ const GroceryListPageId = () => {
             variant="contained"
           >
             Edit
+          </Button>
+          <Button
+            onClick={() => copyToClipboard(username, listId)}
+            variant="outlined"
+          >
+            Share
           </Button>
           <Button href="/home" id="home-button" variant="outlined">
             Home
