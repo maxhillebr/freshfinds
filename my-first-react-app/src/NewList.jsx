@@ -12,8 +12,24 @@ import { getAuth } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 
 export default function NewListTest() {
+  const generateUUID = () => {
+    let uuid = "";
+    const chars =
+      "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789_-";
+
+    for (let i = 0; i < 25; i++) {
+      const randomNumber = Math.floor(Math.random() * chars.length);
+      if (i === 8 || i === 13 || i === 18 || i === 23) {
+        uuid += "-";
+      }
+      uuid += chars[randomNumber];
+    }
+    return uuid;
+  };
+
   // unique id
-  const newId = useId();
+  const newId = generateUUID();
+
   // check if the user is logged in?
   const auth = getAuth();
   const user = auth.currentUser;

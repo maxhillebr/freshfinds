@@ -14,8 +14,6 @@ import { getAuth } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 
 export default function EditList() {
-  // unique id
-  const newId = useId();
   // check if the user is logged in?
   const auth = getAuth();
   const user = auth.currentUser;
@@ -27,6 +25,24 @@ export default function EditList() {
   const [rows, setRows] = useState([]);
   const [product, setProduct] = useState("");
   const [amount, setAmount] = useState("");
+
+  const generateUUID = () => {
+    let uuid = "";
+    const chars =
+      "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789_-";
+
+    for (let i = 0; i < 25; i++) {
+      const randomNumber = Math.floor(Math.random() * chars.length);
+      if (i === 8 || i === 13 || i === 18 || i === 23) {
+        uuid += "-";
+      }
+      uuid += chars[randomNumber];
+    }
+    return uuid;
+  };
+
+  // unique id
+  const newId = generateUUID();
 
   const { username, listId } = useParams(); // Extract the document ID from the URL
 

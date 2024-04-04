@@ -2,12 +2,27 @@ import { useState, useEffect, useId } from "react";
 import Button from "@mui/material/Button";
 import { Link } from "react-router-dom";
 import { db } from "./firebase";
-import { collection, getDocs } from "firebase/firestore";
+import { collection, getDocs, doc, deleteDoc } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
 
 export default function GroceryBoxMain() {
+  const generateUUID = () => {
+    let uuid = "";
+    const chars =
+      "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789_-";
+
+    for (let i = 0; i < 25; i++) {
+      const randomNumber = Math.floor(Math.random() * chars.length);
+      if (i === 8 || i === 13 || i === 18 || i === 23) {
+        uuid += "-";
+      }
+      uuid += chars[randomNumber];
+    }
+    return uuid;
+  };
+
   // unique id
-  const newId = useId();
+  const newId = generateUUID();
 
   const auth = getAuth();
   const user = auth.currentUser;
@@ -33,16 +48,7 @@ export default function GroceryBoxMain() {
           return; // Exit the function early
         }
 
-        const colRef = collection(db, "users", username, "grocerylists");
-        const querySnapshot = await getDocs(colRef);
-        const lists = [];
-
-        querySnapshot.forEach((doc) => {
-          lists.push({ ...doc.data(), id: doc.id });
-        });
-
-        setGroceryLists(lists);
-        console.log(lists);
+        fetchColGetDoc();
       } catch (error) {
         console.error("Error fetching grocery lists:", error);
       }
@@ -50,6 +56,28 @@ export default function GroceryBoxMain() {
 
     fetchGroceryLists();
   }, []); // Empty dependency array to fetch data only once on component mount
+
+  const fetchColGetDoc = async () => {
+    const colRef = collection(db, "users", username, "grocerylists");
+    const querySnapshot = await getDocs(colRef);
+    const lists = [];
+
+    querySnapshot.forEach((doc) => {
+      lists.push({ ...doc.data(), id: doc.id });
+    });
+
+    setGroceryLists(lists);
+    console.log(lists);
+  };
+
+  const handleDeleteDoc = async (id) => {
+    const colRef = doc(db, "users", username, "grocerylists", id);
+    await deleteDoc(colRef);
+
+    console.log("Document deleted", id);
+    alert("Grocery List deleted");
+    fetchColGetDoc();
+  };
 
   return (
     <>
@@ -82,7 +110,12 @@ export default function GroceryBoxMain() {
                   Edit
                 </Button>
                 <Button variant="outlined">Share</Button>
-                <Button variant="outlined">Delete</Button>
+                <Button
+                  variant="outlined"
+                  onClick={() => handleDeleteDoc(data.id)}
+                >
+                  Delete
+                </Button>
               </div>
             </div>
           </div>
