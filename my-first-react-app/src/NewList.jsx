@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useId } from "react";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 
@@ -12,6 +12,8 @@ import { getAuth } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 
 export default function NewListTest() {
+  // unique id
+  const newId = useId();
   // check if the user is logged in?
   const auth = getAuth();
   const user = auth.currentUser;

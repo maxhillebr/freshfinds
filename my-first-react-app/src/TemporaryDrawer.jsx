@@ -11,6 +11,7 @@ import ListItemText from "@mui/material/ListItemText";
 import InboxIcon from "@mui/icons-material/MoveToInbox";
 import MailIcon from "@mui/icons-material/Mail";
 import IconButton from "@mui/material/IconButton";
+import Link from "@mui/material/Link";
 
 export default function TemporaryDrawer() {
   const [open, setOpen] = React.useState(false);
@@ -22,16 +23,16 @@ export default function TemporaryDrawer() {
   const DrawerList = (
     <Box sx={{ width: 250 }} role="presentation" onClick={toggleDrawer(false)}>
       <List>
-        {["Inbox", "Starred", "Send email", "Drafts"].map((text, index) => (
-          <ListItem key={text} disablePadding>
+        <Link href="/home">
+          <ListItem key={"home"} disablePadding>
             <ListItemButton>
               <ListItemIcon>
-                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                <InboxIcon />
               </ListItemIcon>
-              <ListItemText primary={text} />
+              <ListItemText primary={"Home"} />
             </ListItemButton>
           </ListItem>
-        ))}
+        </Link>
       </List>
       <Divider />
       <List>
