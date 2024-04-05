@@ -44,20 +44,9 @@ const GroceryListPageId = () => {
     fetchGroceryList();
   }, [listId, username]);
 
-  // // checkbox
-  // const [checkBox, setCheckBox] = useState("unchecked");
-
-  // const handleCheckboxChange = (event) => {
-  //   const parentDiv = event.target.parentElement.parentElement;
-
-  //   // Toggle checkbox state
-  //   const newCheckBoxState = checkBox === "checked" ? "unchecked" : "checked";
-  //   setCheckBox(newCheckBoxState);
-
-  //   // Update background color based on checkbox state
-  //   parentDiv.style.backgroundColor =
-  //     newCheckBoxState === "checked" ? "lightblue" : "";
-  // };
+  const backgroundColor = () => {
+    return;
+  };
 
   return (
     <div>
@@ -75,8 +64,7 @@ const GroceryListPageId = () => {
             >
               <Checkbox
                 aria-label={product.id}
-                // checked={!!checkedItems[product.id]} // Convert to boolean
-                // onChange={() => handleCheckboxChange(product.id)}
+                onChange={() => backgroundColor()}
               />
               {product.name}
               {product.amount}
