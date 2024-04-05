@@ -46,9 +46,17 @@ h3.title {
 }
 
 /* grocery box */
-.lists-slider {
+.grocery-lists {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-columns: 1fr;
+  gap: 1em;
+  overflow: auto;
+  margin-bottom: 2em;
+}
+
+.recipe-lists {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
   gap: 1em;
   overflow: auto;
   margin-bottom: 2em;
@@ -63,7 +71,35 @@ h3.title {
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  width: 350px;
+}
+
+.mealplan-box {
+  background-color: #fff6e3;
+  text-align: left;
+  padding: 1em 2em;
+  border-radius: 1em;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.new-grocery-box {
+  display: flex;
+  height: 9em;
+  justify-content: center;
+  align-items: center;
+  border-radius: 1em;
+  border: 2px dashed grey;
+}
+
+.new-recipe-box {
+  display: flex;
+  height: 9em;
+  justify-content: center;
+  align-items: center;
+  border-radius: 1em;
+  border: 2px dashed grey;
 }
 
 .tag {

@@ -16,6 +16,38 @@ function HomeTest() {
   return (
     <div>
       <h1 className="title">Welcome back, Max</h1>
+
+      <div className="title-icons-container">
+        <div>
+          <h2 className="title">Your Weekly Mealplan</h2>
+        </div>
+        <div>
+          <Button variant="contained" endIcon={<VisibilityIcon />}>
+            View All
+          </Button>
+        </div>
+      </div>
+
+      <div className="grocery-lists">
+        <div className="mealplan-box">
+          <div>
+            <p className="tag">List</p>
+            <h3 className="title">Groceries List 1</h3>
+            <p>Description</p>
+          </div>
+          <div>
+            <p>Chicken Teriyaki</p>
+            <p>Sushi Bowl</p>
+            <p>vegan Schnitzel</p>
+          </div>
+          <div className="icon-box">
+            <EditNoteIcon />
+            <ShareIcon />
+            <DeleteIcon />
+          </div>
+        </div>
+      </div>
+
       <div className="title-icons-container">
         <div>
           <h2 className="title">Your Lists</h2>
@@ -26,7 +58,7 @@ function HomeTest() {
           </Button>
         </div>
       </div>
-      <div className="lists-slider">
+      <div className="grocery-lists">
         <div className="grocery-box">
           <div>
             <p className="tag">List</p>
@@ -63,6 +95,16 @@ function HomeTest() {
             <EditNoteIcon />
             <ShareIcon />
             <DeleteIcon />
+          </div>
+        </div>
+
+        <div className="new-grocery-box">
+          <div>
+            <h3 className="title">Create List </h3>
+            <AddCircleOutlineIcon
+              fontSize="large"
+              style={{ color: "#1976D2" }}
+            />
           </div>
         </div>
       </div>
@@ -79,7 +121,7 @@ function HomeTest() {
           </Button>
         </div>
       </div>
-      <div className="lists-slider">
+      <div className="recipe-lists">
         <div className="recipe-box">
           <div className="recipe-image"></div>
           <div className="recipe-box-container">
@@ -116,7 +158,7 @@ function HomeTest() {
           <div className="recipe-image"></div>
           <div className="recipe-box-container">
             <div>
-              <p className="tag">Fish</p>
+              <p className="tag">Veggie</p>
               <h3 className="title">Chicken Salad</h3>
               <p>My favorite chicken salad recipe</p>
             </div>
@@ -125,6 +167,16 @@ function HomeTest() {
               <ShareIcon />
               <DeleteIcon />
             </div>
+          </div>
+        </div>
+
+        <div className="new-recipe-box">
+          <div>
+            <h3 className="title">Create Recipe</h3>
+            <AddCircleOutlineIcon
+              fontSize="large"
+              style={{ color: "#1976D2" }}
+            />
           </div>
         </div>
       </div>
