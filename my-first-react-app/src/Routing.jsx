@@ -16,6 +16,7 @@ import Login from "./Login";
 import FrontpageLoginSignUp from "./FrontpageLoginSignUp";
 import GroceryListPageId from "./GroceryListPageId";
 import EditList from "./EditList";
+import HomeTest from "./HomeTest";
 
 const Routing = () => {
   const [user, setUser] = useState(null);
@@ -33,7 +34,7 @@ const Routing = () => {
 
   return (
     <Router>
-      {user && <MenuAppBar />}
+      {/* {user && <MenuAppBar />} */}
       <Routes>
         {/* Routes accessible to both logged-in and not logged-in users */}
         <Route path="/" element={<FrontpageLoginSignUp />} />
@@ -47,6 +48,7 @@ const Routing = () => {
             <Route path="/new" element={<NewList />} />
             <Route path="/account" element={<Account />} />
             <Route path="/test" element={<DBTest />} />
+            <Route path="/hometest" element={<HomeTest />} />
             <Route
               path="/users/:username/grocerylists/:listId"
               element={<GroceryListPageId />}
