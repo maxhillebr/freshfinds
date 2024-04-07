@@ -1,12 +1,17 @@
-#root {
-  margin-bottom: 80px;
+body {
+  min-width: 320px;
+  width: 768px;
+  margin: 0 auto 80px auto;
 }
+
+/* bottom navigation */
 
 .bottom-nav {
   border-radius: 1em 1em 0 0;
   position: fixed;
   bottom: 0;
-  width: 768px;
+  width: 100%;
+  max-width: 768px;
   padding: 10px 0;
   background-color: #d1d1d166;
   backdrop-filter: blur(40px);
@@ -46,6 +51,21 @@ h3.title {
 }
 
 /* grocery box */
+
+/* rename css classes > meaplan box
+mealplan-container
+  mealplan-container__box
+    mealplan-container__tag
+      mealplan-container__tag--main
+      mealplan-container__title
+    mealplan-container__recipes
+  mealplan-container__action-buttons
+  
+
+grocery-list-container
+
+
+*/
 .grocery-lists {
   display: grid;
   grid-template-columns: 1fr;
