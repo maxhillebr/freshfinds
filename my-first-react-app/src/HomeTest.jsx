@@ -15,32 +15,33 @@ import "./HomeTest.css"; // Import the CSS file for styling
 function HomeTest() {
   return (
     <div>
-      <h1 className="title">Welcome back, Max</h1>
-
-      <div className="title-icons-container">
-        <div>
-          <h2 className="title">Your Weekly Mealplan</h2>
+      <div className="title-welcome">
+        <h1>Welcome back, Max</h1>
+      </div>
+      <div className="title-container">
+        <div className="title-container__title">
+          <h2>Your Weekly Mealplan</h2>
         </div>
-        <div>
+        <div className="title-container__view-all-btn">
           <Button variant="contained" endIcon={<VisibilityIcon />}>
             View All
           </Button>
         </div>
       </div>
 
-      <div className="grocery-lists">
-        <div className="mealplan-box">
-          <div>
-            <p className="tag">List</p>
-            <h3 className="title">Groceries List 1</h3>
+      <div className="mealplan-container">
+        <div className="mealplan-container__box">
+          <div className="mealplan-container__tag-title">
+            <p className="mealplan-container__tag--main">List</p>
+            <h3>Groceries List 1</h3>
             <p>Description</p>
           </div>
-          <div>
+          <div className="mealplan-container__recipes">
             <p>Chicken Teriyaki</p>
             <p>Sushi Bowl</p>
             <p>vegan Schnitzel</p>
           </div>
-          <div className="icon-box">
+          <div className="mealplan-container__action-btn">
             <EditNoteIcon />
             <ShareIcon />
             <DeleteIcon />
@@ -59,32 +60,6 @@ function HomeTest() {
         </div>
       </div>
       <div className="grocery-lists">
-        <div className="grocery-box">
-          <div>
-            <p className="tag">List</p>
-            <h3 className="title">Groceries List 1</h3>
-            <p>Description</p>
-          </div>
-          <div className="icon-box">
-            <EditNoteIcon />
-            <ShareIcon />
-            <DeleteIcon />
-          </div>
-        </div>
-
-        <div className="grocery-box">
-          <div>
-            <p className="tag">List</p>
-            <h3 className="title">Groceries List 1</h3>
-            <p>Description</p>
-          </div>
-          <div className="icon-box">
-            <EditNoteIcon />
-            <ShareIcon />
-            <DeleteIcon />
-          </div>
-        </div>
-
         <div className="grocery-box">
           <div>
             <p className="tag">List</p>
@@ -127,38 +102,6 @@ function HomeTest() {
           <div className="recipe-box-container">
             <div>
               <p className="tag">Fish</p>
-              <h3 className="title">Chicken Salad</h3>
-              <p>My favorite chicken salad recipe</p>
-            </div>
-            <div className="icon-box">
-              <EditNoteIcon />
-              <ShareIcon />
-              <DeleteIcon />
-            </div>
-          </div>
-        </div>
-
-        <div className="recipe-box">
-          <div className="recipe-image"></div>
-          <div className="recipe-box-container">
-            <div>
-              <p className="tag">Fish</p>
-              <h3 className="title">Chicken Salad</h3>
-              <p>My favorite chicken salad recipe</p>
-            </div>
-            <div className="icon-box">
-              <EditNoteIcon />
-              <ShareIcon />
-              <DeleteIcon />
-            </div>
-          </div>
-        </div>
-
-        <div className="recipe-box">
-          <div className="recipe-image"></div>
-          <div className="recipe-box-container">
-            <div>
-              <p className="tag">Veggie</p>
               <h3 className="title">Chicken Salad</h3>
               <p>My favorite chicken salad recipe</p>
             </div>

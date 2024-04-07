@@ -52,17 +52,96 @@ h3.title {
 
 /* grocery box */
 
-/* rename css classes > meaplan box
-mealplan-container
-  mealplan-container__box
-    mealplan-container__tag
-      mealplan-container__tag--main
-      mealplan-container__title
-    mealplan-container__recipes
-  mealplan-container__action-buttons
-  
+/* rename css classes */
+.title-welcome h1 {
+  text-align: left;
+  font-size: 30px;
+}
 
-grocery-list-container
+.title-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.title-container__title h2 {
+  text-align: left;
+  font-size: 25px;
+}
+
+.title-container__view-all-btn button {
+  background-color: blue;
+}
+
+.mealplan-container {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1em;
+  overflow: auto;
+  margin-bottom: 2em;
+}
+
+.mealplan-container__box {
+  background-color: #fff6e3;
+  text-align: left;
+  padding: 1em 2em;
+  border-radius: 1em;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.mealplan-container__tag-title {
+  border: 1px solid black;
+}
+
+.mealplan-container__tag--main {
+  color: #fbc147;
+  text-transform: capitalize;
+  font-weight: bold;
+}
+
+.mealplan-container__tag-title h3 {
+  margin: 0.1em 0;
+  font-size: 23px;
+}
+
+.mealplan-container__recipes {
+  display: block;
+}
+
+.mealplan-container__action-btn button {
+  display: flex;
+}
+
+.new-mealplan-container
+.new-mealplan-container__title
+  
+/*
+
+
+.grocery-list-container
+.grocery-list-container__box
+.grocery-list-container__tag-title
+.grocery-list-container__tag--main
+.grocery-list-container__title
+.grocery-list-container__action-buttons
+
+.new-grocery-list-container
+.new-grocery-list-container__title
+
+.recipes-container
+.recipes-container__box
+.recipes-container__img
+.recipes-container__tag-title
+.recipes-container__tag--main
+.recipes-container__title
+.recipes-container__action-buttons
+
+.new-recipes-container
+.new-recipes-container__title
+
+.bottom-nav
 
 
 */
