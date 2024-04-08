@@ -1,5 +1,18 @@
+/* main body and html styling */
 body {
   min-width: 320px;
-  width: 768px;
   margin: 0 auto 80px auto;
+}
+
+.content {
+  padding: 1em 2em;
+}
+
+@media (min-width: 768px) {
+  body {
+    width: 768px;
+  }
+  .content {
+    padding: 0;
+  }
 }
