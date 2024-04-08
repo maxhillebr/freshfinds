@@ -1,4 +1,4 @@
-import "./HomeTest.css";
+import "./css/HomeTest.css";
 import EditNoteIcon from "@mui/icons-material/EditNote";
 import ShareIcon from "@mui/icons-material/Share";
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -47,35 +47,46 @@ function HomeTest() {
             <DeleteIcon />
           </div>
         </div>
+
+        <div className="create-container">
+          <div className="create-container__title">
+            <h3>Create List </h3>
+            <AddCircleOutlineIcon
+              fontSize="large"
+              style={{ color: "#1976D2" }}
+            />
+          </div>
+        </div>
       </div>
 
-      <div className="title-icons-container">
-        <div>
-          <h2 className="title">Your Lists</h2>
+      <div className="title-container">
+        <div className="title-container__title">
+          <h2>Your Lists</h2>
         </div>
-        <div>
+        <div className="title-container__view-all-btn">
           <Button variant="contained" endIcon={<VisibilityIcon />}>
             View All
           </Button>
         </div>
       </div>
-      <div className="grocery-lists">
-        <div className="grocery-box">
-          <div>
-            <p className="tag">List</p>
-            <h3 className="title">Groceries List 1</h3>
+
+      <div className="grocery-list-container">
+        <div className="grocery-list-container__box">
+          <div className="grocery-list-container__tag-title">
+            <p className="grocery-list-container__tag--main">List</p>
+            <h3>Groceries List 1</h3>
             <p>Description</p>
           </div>
-          <div className="icon-box">
+          <div className="grocery-list-container__action-btn">
             <EditNoteIcon />
             <ShareIcon />
             <DeleteIcon />
           </div>
         </div>
 
-        <div className="new-grocery-box">
-          <div>
-            <h3 className="title">Create List </h3>
+        <div className="create-container">
+          <div className="create-container__title">
+            <h3>Create List </h3>
             <AddCircleOutlineIcon
               fontSize="large"
               style={{ color: "#1976D2" }}
@@ -86,26 +97,27 @@ function HomeTest() {
 
       {/* recipes */}
 
-      <div className="title-icons-container">
-        <div>
-          <h2 className="title">Your Recipes</h2>
+      <div className="title-container">
+        <div className="title-container__title">
+          <h2>Your Recipes</h2>
         </div>
-        <div>
+        <div className="title-container__view-all-btn">
           <Button variant="contained" endIcon={<VisibilityIcon />}>
             View All
           </Button>
         </div>
       </div>
-      <div className="recipe-lists">
-        <div className="recipe-box">
-          <div className="recipe-image"></div>
-          <div className="recipe-box-container">
+
+      <div className="recipes-container">
+        <div className="recipes-container__box">
+          <div className="recipes-container__img"></div>
+          <div className="recipes-container__tag-title">
             <div>
-              <p className="tag">Fish</p>
-              <h3 className="title">Chicken Salad</h3>
+              <p className="recipes-container__tag--main">Fish</p>
+              <h3 className="recipes-container__title">Chicken Salad</h3>
               <p>My favorite chicken salad recipe</p>
             </div>
-            <div className="icon-box">
+            <div className="recipes-container__action-btn">
               <EditNoteIcon />
               <ShareIcon />
               <DeleteIcon />
@@ -113,9 +125,9 @@ function HomeTest() {
           </div>
         </div>
 
-        <div className="new-recipe-box">
-          <div>
-            <h3 className="title">Create Recipe</h3>
+        <div className="create-container">
+          <div className="create-container__title">
+            <h3>Create List</h3>
             <AddCircleOutlineIcon
               fontSize="large"
               style={{ color: "#1976D2" }}

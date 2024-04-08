@@ -1,0 +1,231 @@
+body {
+  min-width: 320px;
+  width: 768px;
+  margin: 0 auto 80px auto;
+}
+
+/* entry welcome message */
+.title-welcome h1 {
+  text-align: left;
+  font-size: 30px;
+}
+
+/* title container for different lists + view all button */
+.title-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.title-container__title h2 {
+  text-align: left;
+  font-size: 25px;
+}
+
+.title-container__view-all-btn button {
+  background-color: blue;
+}
+
+/* create new placeholder */
+.create-container {
+  display: flex;
+  height: 9em;
+  justify-content: center;
+  align-items: center;
+  border-radius: 1em;
+  border: 2px dashed grey;
+}
+.create-container__title {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.create-container__title h3 {
+  margin: 0.1em 0;
+  font-size: 23px;
+}
+
+/* mealplan container */
+.mealplan-container {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1em;
+  overflow: auto;
+  margin-bottom: 2em;
+}
+
+.mealplan-container__box {
+  background-color: #63ffd930;
+  text-align: left;
+  padding: 1em 2em;
+  border-radius: 1em;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.mealplan-container__tag-title {
+  border: none;
+}
+
+.mealplan-container__tag--main {
+  color: #448f7d;
+  text-transform: capitalize;
+  font-weight: bold;
+}
+
+.mealplan-container__tag-title h3 {
+  margin: 0.1em 0;
+  font-size: 23px;
+}
+
+.mealplan-container__recipes {
+  display: block;
+}
+
+.mealplan-container__action-btn button {
+  display: flex;
+}
+
+.mealplan-container__action-btn svg {
+  padding: 0.5em;
+}
+
+/* mealplan create new placeholder */
+.new-mealplan-container {
+  display: flex;
+  height: 9em;
+  justify-content: center;
+  align-items: center;
+  border-radius: 1em;
+  border: 2px dashed grey;
+}
+.new-mealplan-container__title {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.new-mealplan-container__title h3 {
+  margin: 0.1em 0;
+  font-size: 23px;
+}
+
+/* grocery list container */
+.grocery-list-container {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1em;
+  overflow: auto;
+  margin-bottom: 2em;
+}
+
+.grocery-list-container__box {
+  background-color: #fff6e3;
+  text-align: left;
+  padding: 1em 2em;
+  border-radius: 1em;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.grocery-list-container__tag-title {
+  border: none;
+}
+
+.grocery-list-container__tag--main {
+  color: #fbc147;
+  text-transform: capitalize;
+  font-weight: bold;
+}
+
+.grocery-list-container__tag-title h3 {
+  margin: 0.1em 0;
+  font-size: 23px;
+}
+
+.grocery-list-container__action-btn button {
+  display: flex;
+}
+
+.grocery-list-container__action-btn svg {
+  padding: 0.5em;
+}
+
+/* recipes container */
+.recipes-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1em;
+  overflow: auto;
+  margin-bottom: 2em;
+}
+
+.recipes-container__box {
+  background-color: #e3fff1;
+  text-align: left;
+  border-radius: 1em;
+  width: 350px;
+}
+
+.recipes-container__img {
+  height: 10em;
+  border-radius: 1em 1em 0 0;
+  background-image: url("./public/test/recipe-test.jpg");
+}
+
+.recipes-container__tag-title {
+  display: block;
+  padding: 1em 2em;
+}
+
+.recipes-container__tag--main {
+  color: #7cb598;
+}
+.recipes-container__title h3 {
+  margin: 0.1em 0;
+  font-size: 23px;
+}
+
+.recipes-container__action-btn button {
+  display: flex;
+}
+
+.recipes-container__action-btn svg {
+  padding: 0.5em;
+}
+
+/* bottom navigation */
+
+.bottom-nav {
+  border-radius: 1em 1em 0 0;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  max-width: 768px;
+  padding: 10px 0;
+  background-color: #d1d1d166;
+  backdrop-filter: blur(40px);
+}
+
+.bottom-nav ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+}
+
+.bottom-nav ul li {
+  display: inline;
+  margin: 0 10px;
+}
+
+.bottom-nav ul li a {
+  color: #000000;
+  text-decoration: none;
+  font-size: 25px;
+}
