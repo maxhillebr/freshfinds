@@ -1,4 +1,5 @@
 import "./css/HomeTest.css";
+import "./css/main.css";
 import EditNoteIcon from "@mui/icons-material/EditNote";
 import ShareIcon from "@mui/icons-material/Share";
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -7,10 +8,6 @@ import Button from "@mui/material/Button";
 import HomeIcon from "@mui/icons-material/Home";
 import SettingsIcon from "@mui/icons-material/Settings";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
-
-// BottomNav.js
-import React from "react";
-import "./HomeTest.css"; // Import the CSS file for styling
 
 function HomeTest() {
   return (
