@@ -30,11 +30,12 @@ function HomeTest() {
         <div className="mealplan-container">
           <div className="mealplan-container__box">
             <div className="mealplan-container__tag-title">
-              <p className="mealplan-container__tag--main">List</p>
+              <p className="mealplan-container__tag--main">Mealplan</p>
               <h3>Groceries List 1</h3>
               <p>Description</p>
             </div>
             <div className="mealplan-container__recipes">
+              <h3>Recipes</h3>
               <p>Chicken Teriyaki</p>
               <p>Sushi Bowl</p>
               <p>vegan Schnitzel</p>

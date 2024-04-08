@@ -9,6 +9,8 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  flex-direction: column;
+  padding: 1em;
 }
 
 .title-container__title h2 {
@@ -51,13 +53,12 @@
 
 .mealplan-container__box {
   background-color: #63ffd930;
-  text-align: left;
-  padding: 1em 2em;
+  padding: 1em 1em;
+  flex-direction: column;
+  align-items: flex-start;
   border-radius: 1em;
   display: flex;
-  flex-direction: row;
   justify-content: space-between;
-  align-items: center;
 }
 
 .mealplan-container__tag-title {
@@ -77,6 +78,11 @@
 
 .mealplan-container__recipes {
   display: block;
+}
+
+.mealplan-container__recipes h3 {
+  margin: 0.1em 0;
+  font-size: 23px;
 }
 
 .mealplan-container__action-btn button {
@@ -118,13 +124,12 @@
 
 .grocery-list-container__box {
   background-color: #fff6e3;
-  text-align: left;
-  padding: 1em 2em;
+  padding: 1em 1em;
+  flex-direction: column;
+  align-items: flex-start;
   border-radius: 1em;
   display: flex;
-  flex-direction: row;
   justify-content: space-between;
-  align-items: center;
 }
 
 .grocery-list-container__tag-title {
@@ -153,7 +158,7 @@
 /* recipes container */
 .recipes-container {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr;
   gap: 1em;
   overflow: auto;
   margin-bottom: 2em;
@@ -161,9 +166,7 @@
 
 .recipes-container__box {
   background-color: #e3fff1;
-  text-align: left;
   border-radius: 1em;
-  width: 350px;
 }
 
 .recipes-container__img {
@@ -222,4 +225,25 @@
   color: #000000;
   text-decoration: none;
   font-size: 25px;
+}
+
+/* responsive */
+
+@media (min-width: 768px) {
+  .title-container {
+    flex-direction: row;
+  }
+  .mealplan-container__box {
+    padding: 1em 2em;
+    flex-direction: row;
+    align-items: center;
+  }
+  .grocery-list-container__box {
+    padding: 1em 2em;
+    flex-direction: row;
+    align-items: center;
+  }
+  .recipes-container {
+    grid-template-columns: 1fr 1fr;
+  }
 }
