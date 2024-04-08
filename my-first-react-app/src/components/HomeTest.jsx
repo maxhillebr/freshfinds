@@ -1,5 +1,5 @@
-import "./css/HomeTest.css";
-import "./css/main.css";
+import "/src/css/HomeTest.css";
+import "/src/css/main.css";
 import EditNoteIcon from "@mui/icons-material/EditNote";
 import ShareIcon from "@mui/icons-material/Share";
 import DeleteIcon from "@mui/icons-material/Delete";

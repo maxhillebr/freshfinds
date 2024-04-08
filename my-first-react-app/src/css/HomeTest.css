@@ -1,6 +1,5 @@
 /* entry welcome message */
 .title-welcome h1 {
-  text-align: left;
   font-size: 30px;
 }
 
@@ -14,7 +13,6 @@
 }
 
 .title-container__title h2 {
-  text-align: left;
   font-size: 25px;
 }
 
