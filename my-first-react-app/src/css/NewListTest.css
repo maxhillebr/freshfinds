@@ -11,11 +11,16 @@
   flex-direction: column;
   justify-content: space-evenly;
 }
-/* .title-desc-container__title {
+
+.title-desc-container div {
+  margin: 0.3em 0;
+}
+
+/*.title-desc-container__title {
 }
 
 .title-desc-container__desc {
-} */
+}*/
 
 .title-add-products h2 {
   font-size: 25px;
@@ -23,8 +28,14 @@
 
 .add-product-container {
   display: flex;
+  flex-direction: column;
   justify-content: space-evenly;
 }
+
+.add-product-container div {
+  margin: 0.3em 0;
+}
+
 /* .add-product-container__title {
 }
 .add-product-container__amount {
@@ -34,7 +45,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 2em;
+  padding: 0.3em;
 }
 
 .title-product-list h2 {
@@ -48,25 +59,58 @@
   background-color: #fff6e3;
   border-radius: 1em;
   display: grid;
-  grid-template-columns: 1fr 1fr 0.7fr 0.4fr;
+  grid-template-columns: 1fr 0.5fr 0.5fr;
+  overflow: hidden;
   margin: 0.5em 0;
   padding: 1em;
 }
 
-/* .product-list-container__product {
+.product-list-container__box div {
+  padding: 0.5em;
+  word-break: break-all;
+  font-weight: bold;
+  font-size: 12px;
+}
 
+.product-list-container__product {
+  border-right: 1px solid rgb(217, 217, 217);
 }
 
 .product-list-container__amount {
-
+  text-align: center;
 }
 
+.product-list-container__header {
+  border-bottom: 1px solid rgb(217, 217, 217);
+  display: grid;
+  grid-template-columns: 1fr 0.5fr 0.5fr;
+  overflow: hidden;
+  margin: 0.5em 0;
+  padding: 1em;
+  font-size: 12px;
+}
+
+.product-list-container__header div {
+  padding: 0.5em;
+  word-break: break-all;
+  font-weight: bold;
+}
+
+/*.product-list-container__header-product {
+}*/
+
+.product-list-container__header-amount {
+  text-align: center;
+}
+
+/*
 .product-list-container__dnd-icon {
 
 }
-.product-list-container__del {
-
-} */
+ */
+.product-list-container__del button {
+  font-size: 11px;
+}
 
 .submit-list-btn {
   display: flex;
@@ -82,12 +126,16 @@
     flex-direction: row;
   }
 
-  .title-desc-container__title input {
-    margin: 1em 0;
+  .title-desc-container div {
+    margin: 0;
   }
 
-  .title-desc-container__desc {
-    margin: 1em 0;
+  .add-product-container {
+    flex-direction: row;
+  }
+
+  .add-product-container div {
+    margin: 0;
   }
 
   /* .grocery-list-container__box {

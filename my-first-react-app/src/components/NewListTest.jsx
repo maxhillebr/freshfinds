@@ -184,6 +184,11 @@ export default function NewListTest() {
         <h2>List</h2>
       </div>
       <div className="product-list-container">
+        <div className="product-list-container__header">
+          <div className="product-list-container__header-product">Product</div>
+          <div className="product-list-container__header-amount">Amount</div>
+          <div className="product-list-container__header-del">Delete</div>
+        </div>
         <DragDropContext onDragEnd={onDragEnd}>
           <Droppable droppableId="rows">
             {(provided) => (
@@ -207,16 +212,17 @@ export default function NewListTest() {
                           <div className="product-list-container__amount">
                             {row.amount}
                           </div>
-                          <div className="product-list-container__dnd-icon">
+                          {/* <div className="product-list-container__dnd-icon">
                             <DragIndicatorIcon />
-                          </div>
+                          </div> */}
                           <div className="product-list-container__del">
                             <Button
+                              size="small"
                               variant="contained"
                               color="error"
                               onClick={() => handleDelete(row.id)}
                             >
-                              Delete
+                              X
                             </Button>
                           </div>
                         </div>
