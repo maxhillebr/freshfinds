@@ -1,13 +1,12 @@
-import "/src/css/HomeTest.css";
+import "/src/css/hometest.css";
 import "/src/css/main.css";
 import EditNoteIcon from "@mui/icons-material/EditNote";
 import ShareIcon from "@mui/icons-material/Share";
 import DeleteIcon from "@mui/icons-material/Delete";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import Button from "@mui/material/Button";
-import HomeIcon from "@mui/icons-material/Home";
-import SettingsIcon from "@mui/icons-material/Settings";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
+import NavBottom from "./NavBottom";
 
 function HomeTest() {
   return (
@@ -135,28 +134,7 @@ function HomeTest() {
           </div>
         </div>
       </div>
-      <nav className="bottom-nav">
-        <ul>
-          <li>
-            <a href="#">
-              <HomeIcon />
-            </a>
-          </li>
-          <li>
-            <a href="#">
-              <AddCircleOutlineIcon
-                fontSize="large"
-                style={{ color: "#1976D2" }}
-              />
-            </a>
-          </li>
-          <li>
-            <a href="#">
-              <SettingsIcon />
-            </a>
-          </li>
-        </ul>
-      </nav>
+      <NavBottom />
     </>
   );
 }

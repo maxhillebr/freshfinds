@@ -194,37 +194,6 @@
   padding: 0.5em;
 }
 
-/* bottom navigation */
-
-.bottom-nav {
-  border-radius: 1em 1em 0 0;
-  position: fixed;
-  bottom: 0;
-  width: 100%;
-  max-width: 768px;
-  padding: 10px 0;
-  background-color: #d1d1d166;
-  backdrop-filter: blur(40px);
-}
-
-.bottom-nav ul {
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-  text-align: center;
-}
-
-.bottom-nav ul li {
-  display: inline;
-  margin: 0 10px;
-}
-
-.bottom-nav ul li a {
-  color: #000000;
-  text-decoration: none;
-  font-size: 25px;
-}
-
 /* responsive */
 
 @media (min-width: 768px) {

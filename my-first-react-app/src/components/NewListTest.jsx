@@ -15,6 +15,7 @@ import { getAuth } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 
 import HeadArrowBack from "/src/components/HeadArrowBack";
+import NavBottom from "./NavBottom";
 
 export default function NewListTest() {
   const generateUUID = () => {
@@ -243,6 +244,7 @@ export default function NewListTest() {
           </Button>
         </div>
       </div>
+      <NavBottom />
     </div>
   );
 }
