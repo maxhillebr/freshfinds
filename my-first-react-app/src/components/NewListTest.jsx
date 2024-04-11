@@ -8,13 +8,13 @@ import Button from "@mui/material/Button";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import DragIndicatorIcon from "@mui/icons-material/DragIndicator";
 
-import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
-
 import { db } from "/src/firebase";
 import { collection, addDoc } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
 
 import { useNavigate } from "react-router-dom";
+
+import HeadArrowBack from "/src/components/HeadArrowBack";
 
 export default function NewListTest() {
   const generateUUID = () => {
@@ -128,9 +128,7 @@ export default function NewListTest() {
 
   return (
     <div className="content">
-      <div className="back-home-container">
-        <ArrowBackIosIcon />
-      </div>
+      <HeadArrowBack />
       <div className="title-welcome-grocery-list">
         <h1>Create New Grocery List</h1>
       </div>
