@@ -9,6 +9,7 @@ import Checkbox from "@mui/material/Checkbox";
 import HeadArrowBack from "./HeadArrowBack";
 import NavBottom from "./NavBottom";
 import "/src/css/main.css";
+import "/src/css/grocerylistpageidtest.css";
 
 const GroceryListPageIdTest = () => {
   // copy to clipboard for share
@@ -60,22 +61,24 @@ const GroceryListPageIdTest = () => {
           <>
             <h2>{groceryList.title}</h2>
             <p>{groceryList.description}</p>
-
-            {groceryList.products.map((product) => (
-              <div
-                className="main-list"
-                style={{ backgroundColor: "" }}
-                key={product.id}
-              >
-                <Checkbox
-                  aria-label={product.id}
-                  onChange={() => backgroundColor()}
-                />
-                {product.name}
-                {product.amount}
-              </div>
-            ))}
-
+            <div className="display-list-container">
+              {groceryList.products.map((product) => (
+                <div className="display-list-container__box">
+                  <div className="display-list-container__checkbox">
+                    <Checkbox
+                      aria-label={product.id}
+                      onChange={() => backgroundColor()}
+                    />
+                  </div>
+                  <div className="display-list-container__product">
+                    {product.name}
+                  </div>
+                  <div className="display-list-container__amount">
+                    {product.amount}
+                  </div>
+                </div>
+              ))}
+            </div>
             <Button
               href={`/users/${username}/grocerylists/${listId}/edit`}
               id="edit"
@@ -95,6 +98,7 @@ const GroceryListPageIdTest = () => {
           </>
         )}
       </div>
+
       <NavBottom />
     </>
   );

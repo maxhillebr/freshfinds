@@ -1,4 +1,4 @@
-import "/src/css/NewListTest.css";
+import "/src/css/newlisttest.css";
 import "/src/css/main.css";
 
 import React, { useState, useId } from "react";

@@ -1,0 +1,33 @@
+/* 
+.display-list-container {
+ } */
+
+.display-list-container__box {
+  background-color: #fff6e3;
+  border-radius: 1em;
+  display: grid;
+  grid-template-columns: 0.5fr 1fr 0.5fr;
+  overflow: hidden;
+  margin: 0.5em 0;
+  padding: 1em;
+}
+
+.display-list-container__box div {
+  padding: 0.5em;
+  word-break: break-all;
+  font-weight: bold;
+  font-size: 12px;
+}
+
+.display-list-container__product {
+  border-right: 1px solid rgb(217, 217, 217);
+}
+
+.display-list-container__amount {
+  text-align: center;
+}
+
+/* responsive */
+
+@media (min-width: 768px) {
+}
