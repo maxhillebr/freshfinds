@@ -18,6 +18,7 @@ import GroceryListPageId from "./GroceryListPageId";
 import EditList from "./EditList";
 import HomeTest from "./components/HomeTest";
 import NewListTest from "./components/NewListTest";
+import GroceryListPageIdTest from "./components/GroceryListPageIdTest";
 
 const Routing = () => {
   const [user, setUser] = useState(null);
@@ -50,10 +51,10 @@ const Routing = () => {
             <Route path="/account" element={<Account />} />
             <Route path="/test" element={<DBTest />} />
 
-            <Route
+            {/* <Route
               path="/users/:username/grocerylists/:listId"
               element={<GroceryListPageId />}
-            />
+            /> */}
             <Route
               path="/users/:username/grocerylists/:listId/edit"
               element={
@@ -65,6 +66,10 @@ const Routing = () => {
             {/* for testing purposes */}
             <Route path="/hometest" element={<HomeTest />} />
             <Route path="/newlisttest" element={<NewListTest />} />
+            <Route
+              path="/users/:username/grocerylists/:listId"
+              element={<GroceryListPageIdTest />}
+            />
           </>
         )}
 
