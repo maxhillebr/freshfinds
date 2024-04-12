@@ -5,7 +5,9 @@ import { useParams } from "react-router-dom";
 import { db } from "/src/firebase";
 import { doc, getDoc } from "firebase/firestore";
 import Button from "@mui/material/Button";
-import Checkbox from "@mui/material/Checkbox";
+import ShareIcon from "@mui/icons-material/Share";
+import EditNoteIcon from "@mui/icons-material/EditNote";
+import HomeIcon from "@mui/icons-material/Home";
 import HeadArrowBack from "./HeadArrowBack";
 import NavBottom from "./NavBottom";
 import "/src/css/main.css";
@@ -27,6 +29,7 @@ const GroceryListPageIdTest = () => {
 
   const { username, listId } = useParams(); // Extract the document ID from the URL
   const [groceryList, setGroceryList] = useState(null);
+  const [itemColors, setItemColors] = useState({});
 
   useEffect(() => {
     const fetchGroceryList = async () => {
@@ -37,6 +40,12 @@ const GroceryListPageIdTest = () => {
         const docSnap = await getDoc(docRef);
         if (docSnap.exists()) {
           setGroceryList(docSnap.data());
+          // Initialize item colors
+          const initialColors = {};
+          docSnap.data().products.forEach((product) => {
+            initialColors[product.id] = "#fff6e3";
+          });
+          setItemColors(initialColors);
         } else {
           console.log("No such document!");
         }
@@ -48,8 +57,12 @@ const GroceryListPageIdTest = () => {
     fetchGroceryList();
   }, [listId, username]);
 
-  const backgroundColor = () => {
-    return;
+  const handleItemClick = (itemId) => {
+    // Toggle color for the clicked item
+    setItemColors((prevColors) => ({
+      ...prevColors,
+      [itemId]: prevColors[itemId] === "#fff6e3" ? "#74e3915e" : "#fff6e3",
+    }));
   };
 
   return (
@@ -63,13 +76,15 @@ const GroceryListPageIdTest = () => {
             <p>{groceryList.description}</p>
             <div className="display-list-container">
               {groceryList.products.map((product) => (
-                <div className="display-list-container__box">
-                  <div className="display-list-container__checkbox">
-                    <Checkbox
-                      aria-label={product.id}
-                      onChange={() => backgroundColor()}
-                    />
-                  </div>
+                <div
+                  key={product.id}
+                  className="display-list-container__box"
+                  onClick={() => handleItemClick(product.id)}
+                  style={{
+                    backgroundColor: itemColors[product.id],
+                    cursor: "pointer",
+                  }}
+                >
                   <div className="display-list-container__product">
                     {product.name}
                   </div>
@@ -79,22 +94,24 @@ const GroceryListPageIdTest = () => {
                 </div>
               ))}
             </div>
-            <Button
-              href={`/users/${username}/grocerylists/${listId}/edit`}
-              id="edit"
-              variant="contained"
-            >
-              Edit
-            </Button>
-            <Button
-              onClick={() => copyToClipboard(username, listId)}
-              variant="outlined"
-            >
-              Share
-            </Button>
-            <Button href="/home" id="home-button" variant="outlined">
-              Home
-            </Button>
+            <div className="display-list-action-btn">
+              <Button
+                href={`/users/${username}/grocerylists/${listId}/edit`}
+                id="edit"
+                variant="contained"
+              >
+                <EditNoteIcon />
+              </Button>
+              <Button
+                onClick={() => copyToClipboard(username, listId)}
+                variant="outlined"
+              >
+                <ShareIcon />
+              </Button>
+              <Button href="/home" id="home-button" variant="outlined">
+                <HomeIcon />
+              </Button>
+            </div>
           </>
         )}
       </div>

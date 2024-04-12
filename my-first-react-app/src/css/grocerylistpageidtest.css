@@ -3,10 +3,9 @@
  } */
 
 .display-list-container__box {
-  background-color: #fff6e3;
   border-radius: 1em;
   display: grid;
-  grid-template-columns: 0.5fr 1fr 0.5fr;
+  grid-template-columns: 3fr 1fr;
   overflow: hidden;
   margin: 0.5em 0;
   padding: 1em;
@@ -25,6 +24,13 @@
 
 .display-list-container__amount {
   text-align: center;
+}
+
+.display-list-action-btn {
+  margin: 2em 0 0 0;
+  display: grid;
+  gap: 1em;
+  grid-template-columns: 1fr 1fr 1fr;
 }
 
 /* responsive */
