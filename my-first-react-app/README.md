@@ -12,6 +12,12 @@
 - Use "firebase deploy --only hosting" to deploy the new code
 - Use public to store images; Use img src="/your_image.svg" as path
 
+# Merge Branches
+
+- git checkout main
+- git merge <other-branch>
+- git branch -d <other-branch>
+
 #To Do
 
 - User specific rending of URLs -> When username is updated update the db
