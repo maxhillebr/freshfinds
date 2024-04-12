@@ -1,15 +1,17 @@
-import "/src/css/listtest.css";
+import "/src/css/list.css";
 import "/src/css/main.css";
 
-import React, { useState, useId } from "react";
+import React, { useState, useEffect, useId } from "react";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import DragIndicatorIcon from "@mui/icons-material/DragIndicator";
 
+import { useParams } from "react-router-dom";
+
 import { db } from "/src/firebase";
-import { collection, addDoc } from "firebase/firestore";
+import { doc, updateDoc, addDoc, setDoc, getDoc } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
 
 import { useNavigate } from "react-router-dom";
@@ -17,7 +19,19 @@ import { useNavigate } from "react-router-dom";
 import HeadArrowBack from "/src/components/HeadArrowBack";
 import NavBottom from "./NavBottom";
 
-export default function NewListTest() {
+export default function EditList() {
+  // check if the user is logged in?
+  const auth = getAuth();
+  const user = auth.currentUser;
+
+  const navigate = useNavigate();
+
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
+  const [rows, setRows] = useState([]);
+  const [product, setProduct] = useState("");
+  const [amount, setAmount] = useState("");
+
   const generateUUID = () => {
     let uuid = "";
     const chars =
@@ -36,17 +50,35 @@ export default function NewListTest() {
   // unique id
   const newId = generateUUID();
 
-  // check if the user is logged in?
-  const auth = getAuth();
-  const user = auth.currentUser;
+  const { username, listId } = useParams(); // Extract the document ID from the URL
 
-  const navigate = useNavigate();
+  const fetchGroceryList = async () => {
+    try {
+      const docRef = doc(db, "users", username, "grocerylists", listId);
+      console.log("Document Reference:", docRef);
 
-  const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
-  const [rows, setRows] = useState([]);
-  const [product, setProduct] = useState("");
-  const [amount, setAmount] = useState("");
+      const docSnap = await getDoc(docRef);
+      if (docSnap.exists()) {
+        const data = docSnap.data();
+        if (data && data.products) {
+          setRows(data.products);
+          setTitle(data.title || "");
+          setDescription(data.description || "");
+          console.log(rows);
+        } else {
+          console.log("No products found in the document data.");
+        }
+      } else {
+        console.log("No such document!");
+      }
+    } catch (error) {
+      console.error("Error fetching grocery list:", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchGroceryList();
+  }, []); // Run only once after the component mounts
 
   const handleTitleChange = (event) => {
     setTitle(event.target.value);
@@ -62,13 +94,6 @@ export default function NewListTest() {
 
   const handleAmountChange = (event) => {
     setAmount(event.target.value);
-  };
-
-  const handleAddProducts = () => {
-    const newData = createData(newId, product, amount);
-    setRows((prevRows) => [...prevRows, newData]);
-    setProduct("");
-    setAmount("");
   };
 
   const createData = (id, name, amount) => {
@@ -94,17 +119,25 @@ export default function NewListTest() {
   };
 
   // --------------------------------
+  // add products
+
+  const handleAddProducts = () => {
+    const newData = createData(newId, product, amount);
+    setRows((prevRows) => [...prevRows, newData]);
+    setProduct("");
+    setAmount("");
+    console.log(rows);
+  };
+
   // --------------------------------
 
-  const addNewGroceryList = async (title, description, rows) => {
+  const updateNewGroceryList = async (title, description, rows) => {
     if (title === "" || description === "" || rows.length === 0) {
       alert("No Title, Description or Product. Check your list again!");
       return;
     }
 
     try {
-      const username = user.displayName;
-
       if (!user || !username) {
         console.error(
           "User is not authenticated or display name is undefined."
@@ -112,16 +145,16 @@ export default function NewListTest() {
         return; // Exit the function early
       }
 
-      const colRef = collection(db, "users", username, "grocerylists");
-      const docRef = await addDoc(colRef, {
+      const colRef = doc(db, "users", username, "grocerylists", listId);
+      const docRef = await setDoc(colRef, {
         title: title,
         description: description,
         products: rows,
       });
 
-      console.log("Document written with ID: ", docRef.id);
-      alert("Grocery list sent to Database");
-      navigate(`/users/${username}/grocerylists/${docRef.id}`);
+      console.log("Document updated: ", listId);
+      alert("Grocery list updated");
+      navigate(`/users/${username}/grocerylists/${listId}`);
     } catch (error) {
       console.error("Error adding document: ", error);
     }
@@ -243,11 +276,11 @@ export default function NewListTest() {
           </DragDropContext>
           <div className="submit-list-btn">
             <Button
-              id="submit-list"
+              id="submit-update"
               variant="contained"
-              onClick={() => addNewGroceryList(title, description, rows)}
+              onClick={() => updateNewGroceryList(title, description, rows)}
             >
-              Create List
+              Update
             </Button>
           </div>
         </div>

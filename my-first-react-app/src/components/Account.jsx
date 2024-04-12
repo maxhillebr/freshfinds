@@ -1,7 +1,11 @@
+import "/src/css/main.css";
+import "/src/css/account.css";
 import { useState, useEffect } from "react";
 import { getAuth, onAuthStateChanged, updateProfile } from "firebase/auth";
-import TextField from "@mui/material/TextField";
-import Button from "@mui/material/Button";
+// import TextField from "@mui/material/TextField";
+// import Button from "@mui/material/Button";
+import NavBottom from "./NavBottom";
+import HeadArrowBack from "./HeadArrowBack";
 
 const auth = getAuth();
 
@@ -57,36 +61,40 @@ const Account = () => {
   };
 
   return (
-    <div>
-      <div className="main-content">
-        <h2>Your Account</h2>
-        <p>Username: {currentUser.displayName}</p>
-        <p>Mail: {currentUser.email}</p>
-      </div>
-      {user ? (
-        <div>
-          <h3>Change Username</h3>
-          <TextField
-            required
-            id="username"
-            label="Username"
-            value={username}
-            onChange={handleUsernameChange}
-          />
-          <br />
-          <br />
-          <Button
-            id="submit-new-user"
-            variant="contained"
-            onClick={() => updateUsername(username)}
-          >
-            Change Username
-          </Button>
+    <>
+      <div className="content">
+        <HeadArrowBack />
+        <div className="account-container">
+          <h1>Your Account</h1>
+          <h2>Username: {currentUser.displayName}</h2>
+          <h2>Mail: {currentUser.email}</h2>
         </div>
-      ) : (
-        <p>User not logged in</p>
-      )}
-    </div>
+        {/* {user ? (
+          <div>
+            <h3>Change Username</h3>
+            <TextField
+              required
+              id="username"
+              label="Username"
+              value={username}
+              onChange={handleUsernameChange}
+            />
+            <br />
+            <br />
+            <Button
+              id="submit-new-user"
+              variant="contained"
+              onClick={() => updateUsername(username)}
+            >
+              Change Username
+            </Button>
+          </div>
+        ) : (
+          <p>User not logged in</p>
+        )} */}
+      </div>
+      <NavBottom />
+    </>
   );
 };
 

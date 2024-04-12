@@ -4,7 +4,7 @@ import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 const HeadArrowBack = () => {
   return (
     <div className="back-home-container">
-      <a href="/hometest">
+      <a href="/home">
         <ArrowBackIosIcon />
       </a>
     </div>

@@ -6,21 +6,15 @@ import {
   Navigate,
 } from "react-router-dom";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
-import MenuAppBar from "./MenuAppBar";
-import App from "./App";
-import NewList from "./NewList";
-import Account from "./Account";
 import DBTest from "./DBTest";
 import SignUp from "./SignUp";
 import Login from "./Login";
 import FrontpageLoginSignUp from "./FrontpageLoginSignUp";
-import GroceryListPageId from "./GroceryListPageId";
-import EditList from "./EditList";
-import EditListTest from "./components/EditListTest";
-import HomeTest from "./components/HomeTest";
-import NewListTest from "./components/NewListTest";
-import GroceryListPageIdTest from "./components/GroceryListPageIdTest";
-import AccountTest from "./components/AccountTest";
+import GroceryListPageId from "./components/GroceryListPageId";
+import EditList from "./components/EditList";
+import Home from "./components/Home";
+import Account from "./components/Account";
+import NewList from "./components/NewList";
 
 const Routing = () => {
   const [user, setUser] = useState(null);
@@ -48,29 +42,22 @@ const Routing = () => {
         {/* Routes accessible only to logged-in users */}
         {user && (
           <>
-            <Route path="/home" element={<App />} />
+            <Route path="/home" element={<Home />} />
             <Route path="/new" element={<NewList />} />
-            <Route path="/account" element={<AccountTest />} />
+            <Route path="/account" element={<Account />} />
             <Route path="/test" element={<DBTest />} />
 
-            {/* <Route
+            <Route
               path="/users/:username/grocerylists/:listId"
               element={<GroceryListPageId />}
-            /> */}
+            />
             <Route
               path="/users/:username/grocerylists/:listId/edit"
               element={
                 <div>
-                  <EditListTest />
+                  <EditList />
                 </div>
               }
-            />
-            {/* for testing purposes */}
-            <Route path="/hometest" element={<HomeTest />} />
-            <Route path="/newlisttest" element={<NewListTest />} />
-            <Route
-              path="/users/:username/grocerylists/:listId"
-              element={<GroceryListPageIdTest />}
             />
           </>
         )}

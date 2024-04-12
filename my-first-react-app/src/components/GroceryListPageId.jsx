@@ -11,9 +11,9 @@ import HomeIcon from "@mui/icons-material/Home";
 import HeadArrowBack from "./HeadArrowBack";
 import NavBottom from "./NavBottom";
 import "/src/css/main.css";
-import "/src/css/grocerylistpageidtest.css";
+import "/src/css/grocerylistpageid.css";
 
-const GroceryListPageIdTest = () => {
+const GroceryListPageId = () => {
   // copy to clipboard for share
   const copyToClipboard = async (username, id) => {
     try {
@@ -121,4 +121,4 @@ const GroceryListPageIdTest = () => {
   );
 };
 
-export default GroceryListPageIdTest;
+export default GroceryListPageId;

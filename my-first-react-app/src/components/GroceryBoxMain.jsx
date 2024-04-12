@@ -8,7 +8,7 @@ import EditNoteIcon from "@mui/icons-material/EditNote";
 import ShareIcon from "@mui/icons-material/Share";
 import DeleteIcon from "@mui/icons-material/Delete";
 
-export default function GroceryBoxMainTest() {
+export default function GroceryBoxMain() {
   const generateUUID = () => {
     let uuid = "";
     const chars =

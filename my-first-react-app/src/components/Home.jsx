@@ -1,4 +1,4 @@
-import "/src/css/hometest.css";
+import "/src/css/home.css";
 import "/src/css/main.css";
 import EditNoteIcon from "@mui/icons-material/EditNote";
 import ShareIcon from "@mui/icons-material/Share";
@@ -7,16 +7,16 @@ import VisibilityIcon from "@mui/icons-material/Visibility";
 import Button from "@mui/material/Button";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import NavBottom from "./NavBottom";
-import GroceryBoxMainTest from "./GroceryBoxMainTest";
+import GroceryBoxMainTest from "./GroceryBoxMain";
 
-function HomeTest() {
+function Home() {
   return (
     <>
       <div className="content">
         <div className="title-welcome">
           <h1>Welcome back, Max</h1>
         </div>
-        <div className="title-container">
+        {/* <div className="title-container">
           <div className="title-container__title">
             <h2>Your Weekly Mealplan</h2>
           </div>
@@ -56,24 +56,24 @@ function HomeTest() {
               />
             </div>
           </div>
-        </div>
+        </div> */}
 
         <div className="title-container">
           <div className="title-container__title">
             <h2>Your Lists</h2>
           </div>
-          <div className="title-container__view-all-btn">
+          {/* <div className="title-container__view-all-btn">
             <Button variant="contained" endIcon={<VisibilityIcon />}>
               View All
             </Button>
-          </div>
+          </div> */}
         </div>
 
         <div className="grocery-list-container">
           <GroceryBoxMainTest />
         </div>
 
-        <a href="/newlisttest">
+        <a href="/new">
           <div className="create-container">
             <div className="create-container__title">
               <h3>Create List </h3>
@@ -88,7 +88,7 @@ function HomeTest() {
 
       {/* recipes */}
 
-      <div className="title-container">
+      {/* <div className="title-container">
         <div className="title-container__title">
           <h2>Your Recipes</h2>
         </div>
@@ -125,10 +125,10 @@ function HomeTest() {
             />
           </div>
         </div>
-      </div>
+      </div> */}
       <NavBottom />
     </>
   );
 }
 
-export default HomeTest;
+export default Home;

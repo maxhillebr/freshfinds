@@ -8,12 +8,12 @@ const NavBottom = () => {
     <nav className="bottom-nav">
       <ul>
         <li>
-          <a href="#">
+          <a href="/home">
             <HomeIcon />
           </a>
         </li>
         <li>
-          <a href="#">
+          <a href="/new">
             <AddCircleOutlineIcon
               fontSize="large"
               style={{ color: "#1976D2" }}
@@ -21,7 +21,7 @@ const NavBottom = () => {
           </a>
         </li>
         <li>
-          <a href="#">
+          <a href="/account">
             <SettingsIcon />
           </a>
         </li>
