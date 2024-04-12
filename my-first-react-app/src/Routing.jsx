@@ -16,9 +16,11 @@ import Login from "./Login";
 import FrontpageLoginSignUp from "./FrontpageLoginSignUp";
 import GroceryListPageId from "./GroceryListPageId";
 import EditList from "./EditList";
+import EditListTest from "./components/EditListTest";
 import HomeTest from "./components/HomeTest";
 import NewListTest from "./components/NewListTest";
 import GroceryListPageIdTest from "./components/GroceryListPageIdTest";
+import AccountTest from "./components/AccountTest";
 
 const Routing = () => {
   const [user, setUser] = useState(null);
@@ -48,7 +50,7 @@ const Routing = () => {
           <>
             <Route path="/home" element={<App />} />
             <Route path="/new" element={<NewList />} />
-            <Route path="/account" element={<Account />} />
+            <Route path="/account" element={<AccountTest />} />
             <Route path="/test" element={<DBTest />} />
 
             {/* <Route
@@ -59,7 +61,7 @@ const Routing = () => {
               path="/users/:username/grocerylists/:listId/edit"
               element={
                 <div>
-                  <EditList />
+                  <EditListTest />
                 </div>
               }
             />
