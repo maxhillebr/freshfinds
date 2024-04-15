@@ -15,6 +15,7 @@ import EditList from "./components/EditList";
 import Home from "./components/Home";
 import Account from "./components/Account";
 import NewList from "./components/NewList";
+import NewRecipe from "./components/NewRecipe";
 
 const Routing = () => {
   const [user, setUser] = useState(null);
@@ -44,6 +45,8 @@ const Routing = () => {
           <>
             <Route path="/home" element={<Home />} />
             <Route path="/new" element={<NewList />} />
+            <Route path="/newrecipe" element={<NewRecipe />} />
+
             <Route path="/account" element={<Account />} />
             <Route path="/test" element={<DBTest />} />
 
