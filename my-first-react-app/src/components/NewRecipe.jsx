@@ -70,7 +70,10 @@ export default function NewRecipe() {
   const handleUploadImage = async () => {
     try {
       const username = user.displayName;
-      const storageRef = ref(storage, `users/${username}/images/${newId}`);
+      const storageRef = ref(
+        storage,
+        `users/${username}/images/recipes/${newId}`
+      );
       await uploadBytes(storageRef, image);
       const url = await getDownloadURL(storageRef);
       console.log("Image URL:", url);
