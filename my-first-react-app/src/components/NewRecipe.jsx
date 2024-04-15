@@ -1,15 +1,17 @@
 import "/src/css/recipe.css";
 import "/src/css/main.css";
 
-import React, { useState, useId } from "react";
+import React, { useState, useId, useRef } from "react";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 
-import { db } from "/src/firebase";
+import { db, storage } from "/src/firebase";
+
 import { collection, addDoc } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
+import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 
 import { useNavigate } from "react-router-dom";
 
@@ -35,6 +37,9 @@ export default function NewRecipe() {
   // unique id
   const newId = generateUUID();
 
+  // console.log("DB:", db);
+  // console.log("Storage:", storage);
+
   // check if the user is logged in?
   const auth = getAuth();
   const user = auth.currentUser;
@@ -49,6 +54,31 @@ export default function NewRecipe() {
   const [instructionInput, setInstructionInput] = useState("");
   const [product, setProduct] = useState("");
   const [amount, setAmount] = useState("");
+
+  const [image, setImage] = useState(null);
+  const [imageUrl, setImageUrl] = useState(null); // State for storing image URL
+  const fileInputRef = useRef(null);
+  const [fileName, setFileName] = useState("");
+
+  const handleImageChange = (event) => {
+    const file = event.target.files[0];
+    console.log("Selected file:", file); // Check if the file object is retrieved
+    setImage(file);
+    setFileName(file.name); // Set the file name when a file is selected
+  };
+
+  const handleUploadImage = async () => {
+    try {
+      const username = user.displayName;
+      const storageRef = ref(storage, `users/${username}/images/${newId}`);
+      await uploadBytes(storageRef, image);
+      const url = await getDownloadURL(storageRef);
+      console.log("Image URL:", url);
+      setImageUrl(url);
+    } catch (error) {
+      console.error("Error uploading image: ", error);
+    }
+  };
 
   const handleTitleChange = (event) => {
     setTitle(event.target.value);
@@ -133,6 +163,12 @@ export default function NewRecipe() {
       return;
     }
 
+    const imageUrl = await handleUploadImage();
+    if (!imageUrl) {
+      alert("Error uploading image. Recipe not created.");
+      return;
+    }
+
     try {
       const username = user.displayName;
 
@@ -147,7 +183,8 @@ export default function NewRecipe() {
       const docRef = await addDoc(colRef, {
         title: title,
         products: rows,
-        instructions: instructions, // Include instructions in the document
+        instructions: instructions,
+        imageUrl: imageUrl, // Add imageUrl to the document
       });
 
       console.log("Document written with ID: ", docRef.id);
@@ -175,6 +212,23 @@ export default function NewRecipe() {
             value={title}
             onChange={handleTitleChange}
           />
+        </div>
+        <div className="add-image-container-recipe">
+          <input
+            type="file"
+            accept="image/*"
+            ref={fileInputRef}
+            style={{ display: "none" }}
+            onChange={handleImageChange}
+          />
+          <Button
+            variant="contained"
+            onClick={() => fileInputRef.current.click()}
+          >
+            Upload Image
+          </Button>
+          {/* Show the file name below the button */}
+          <div>{fileName}</div>
         </div>
         <div className="title-add-products-recipe">
           <h2>Add Products</h2>
