@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { db } from "/src/firebase";
+import { db, storage } from "/src/firebase";
 import { doc, getDoc } from "firebase/firestore";
 import Button from "@mui/material/Button";
 import ShareIcon from "@mui/icons-material/Share";
@@ -13,11 +13,11 @@ import NavBottom from "./NavBottom";
 import "/src/css/main.css";
 import "/src/css/displaylists.css";
 
-const GroceryListPageId = () => {
+const RecipePageId = () => {
   // copy to clipboard for share
   const copyToClipboard = async (username, id) => {
     try {
-      const url = `${window.location.host}/users/${username}/grocerylists/${id}`;
+      const url = `${window.location.host}/users/${username}/recipes/${id}`;
 
       await navigator.clipboard.writeText(url);
       alert("Copied to clipboard!");
@@ -28,18 +28,18 @@ const GroceryListPageId = () => {
   };
 
   const { username, listId } = useParams(); // Extract the document ID from the URL
-  const [groceryList, setGroceryList] = useState(null);
+  const [recipeData, setRecipeData] = useState(null);
   const [itemColors, setItemColors] = useState({});
 
   useEffect(() => {
-    const fetchGroceryList = async () => {
+    const fetchRecipeData = async () => {
       try {
-        const docRef = doc(db, "users", username, "grocerylists", listId);
+        const docRef = doc(db, "users", username, "recipes", listId);
         console.log("Document Reference:", docRef);
 
         const docSnap = await getDoc(docRef);
         if (docSnap.exists()) {
-          setGroceryList(docSnap.data());
+          setRecipeData(docSnap.data());
           // Initialize item colors
           const initialColors = {};
           docSnap.data().products.forEach((product) => {
@@ -50,11 +50,11 @@ const GroceryListPageId = () => {
           console.log("No such document!");
         }
       } catch (error) {
-        console.error("Error fetching grocery list:", error);
+        console.error("Error fetching data:", error);
       }
     };
 
-    fetchGroceryList();
+    fetchRecipeData();
   }, [listId, username]);
 
   const handleItemClick = (itemId) => {
@@ -70,12 +70,25 @@ const GroceryListPageId = () => {
       <div className="content">
         <HeadArrowBack />
         {/* Render grocery list data */}
-        {groceryList && (
+        {recipeData && (
           <>
-            <h2>{groceryList.title}</h2>
-            <p>{groceryList.description}</p>
+            <div
+              className="recipe-cover-img"
+              style={{
+                backgroundImage: `url(${recipeData.imageUrl})`,
+              }}
+            ></div>
+            <h2>{recipeData.title}</h2>
+            <div className="display-title-box">
+              <div className="display-title-box__title">
+                <h3>Items you need</h3>
+              </div>
+              <div className="display-title-box__calc">
+                <p>For 2 Servings</p>
+              </div>
+            </div>
             <div className="display-list-container">
-              {groceryList.products.map((product) => (
+              {recipeData.products.map((product) => (
                 <div
                   key={product.id}
                   className="display-list-container__box"
@@ -94,9 +107,27 @@ const GroceryListPageId = () => {
                 </div>
               ))}
             </div>
+            <h3>Instructions</h3>
+            <div className="display-instruction-container">
+              {recipeData.instructions.map((instruction, index) => (
+                <div
+                  key={instruction.id}
+                  className="display-instruction-container__box"
+                  onClick={() => handleItemClick(instruction.id)}
+                  style={{
+                    backgroundColor: itemColors[instruction.id],
+                    cursor: "pointer",
+                  }}
+                >
+                  <div className="display-instruction-container__instruction">
+                    {index + 1}. {instruction.instruction}
+                  </div>
+                </div>
+              ))}
+            </div>
             <div className="display-list-action-btn">
               <Button
-                href={`/users/${username}/grocerylists/${listId}/edit`}
+                href={`/users/${username}/recipes/${listId}/edit`}
                 id="edit"
                 variant="contained"
               >
@@ -121,4 +152,4 @@ const GroceryListPageId = () => {
   );
 };
 
-export default GroceryListPageId;
+export default RecipePageId;

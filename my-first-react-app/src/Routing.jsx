@@ -16,6 +16,7 @@ import Home from "./components/Home";
 import Account from "./components/Account";
 import NewList from "./components/NewList";
 import NewRecipe from "./components/NewRecipe";
+import RecipePageId from "./components/RecipePageId";
 
 const Routing = () => {
   const [user, setUser] = useState(null);
@@ -53,6 +54,11 @@ const Routing = () => {
             <Route
               path="/users/:username/grocerylists/:listId"
               element={<GroceryListPageId />}
+            />
+
+            <Route
+              path="/users/:username/recipes/:listId"
+              element={<RecipePageId />}
             />
             <Route
               path="/users/:username/grocerylists/:listId/edit"
