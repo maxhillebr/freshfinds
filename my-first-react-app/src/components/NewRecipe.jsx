@@ -78,8 +78,11 @@ export default function NewRecipe() {
       const url = await getDownloadURL(storageRef);
       console.log("Image URL:", url);
       setImageUrl(url);
+      return url;
     } catch (error) {
       console.error("Error uploading image: ", error);
+      setImageUrl(null);
+      return null;
     }
   };
 
