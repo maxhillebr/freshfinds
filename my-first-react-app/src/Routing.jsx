@@ -17,6 +17,7 @@ import Account from "./components/Account";
 import NewList from "./components/NewList";
 import NewRecipe from "./components/NewRecipe";
 import RecipePageId from "./components/RecipePageId";
+import EditRecipe from "./components/EditRecipe";
 
 const Routing = () => {
   const [user, setUser] = useState(null);
@@ -65,6 +66,14 @@ const Routing = () => {
               element={
                 <div>
                   <EditList />
+                </div>
+              }
+            />
+            <Route
+              path="/users/:username/recipes/:listId/edit"
+              element={
+                <div>
+                  <EditRecipe />
                 </div>
               }
             />
