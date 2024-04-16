@@ -13,7 +13,7 @@ const NavBottom = () => {
           </a>
         </li>
         <li>
-          <a href="/new">
+          <a href="#">
             <AddCircleOutlineIcon
               fontSize="large"
               style={{ color: "#1976D2" }}

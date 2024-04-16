@@ -8,13 +8,19 @@ import Button from "@mui/material/Button";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import NavBottom from "./NavBottom";
 import GroceryBoxMainTest from "./GroceryBoxMain";
+import RecipeBoxMain from "./RecipeBoxMain";
+import { getAuth } from "firebase/auth";
 
 function Home() {
+  const auth = getAuth();
+  const user = auth.currentUser;
+  const username = user.displayName;
+
   return (
     <>
       <div className="content">
         <div className="title-welcome">
-          <h1>Welcome back, Max</h1>
+          <h1>Welcome back, {username}</h1>
         </div>
         {/* <div className="title-container">
           <div className="title-container__title">
@@ -84,48 +90,32 @@ function Home() {
             </div>
           </div>
         </a>
-      </div>
 
-      {/* recipes */}
+        {/* recipes */}
 
-      {/* <div className="title-container">
-        <div className="title-container__title">
-          <h2>Your Recipes</h2>
-        </div>
-        <div className="title-container__view-all-btn">
-          <Button variant="contained" endIcon={<VisibilityIcon />}>
-            View All
-          </Button>
-        </div>
-      </div>
-
-      <div className="recipes-container">
-        <div className="recipes-container__box">
-          <div className="recipes-container__img"></div>
-          <div className="recipes-container__tag-title">
-            <div>
-              <p className="recipes-container__tag--main">Fish</p>
-              <h3 className="recipes-container__title">Chicken Salad</h3>
-              <p>My favorite chicken salad recipe</p>
-            </div>
-            <div className="recipes-container__action-btn">
-              <EditNoteIcon />
-              <ShareIcon />
-              <DeleteIcon />
-            </div>
+        <div className="title-container">
+          <div className="title-container__title">
+            <h2>Your Recipes</h2>
           </div>
         </div>
 
-        <div className="create-container">
-          <div className="create-container__title">
-            <h3>Create List</h3>
-            <AddCircleOutlineIcon
-              fontSize="large"
-              style={{ color: "#1976D2" }}
-            />
-          </div>
+        <div className="recipes-container">
+          <RecipeBoxMain />
         </div>
-      </div> */}
+
+        <a href="/newrecipe">
+          <div className="create-container">
+            <div className="create-container__title">
+              <h3>Create Recipe </h3>
+              <AddCircleOutlineIcon
+                fontSize="large"
+                style={{ color: "#1976D2" }}
+              />
+            </div>
+          </div>
+        </a>
+      </div>
+
       <NavBottom />
     </>
   );

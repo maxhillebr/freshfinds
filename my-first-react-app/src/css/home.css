@@ -145,7 +145,7 @@
   font-size: 23px;
 }
 
-.grocery-list-container__action-btn button {
+.grocery-list-container__action-btn {
   display: flex;
 }
 
@@ -170,12 +170,13 @@
 .recipes-container__img {
   height: 10em;
   border-radius: 1em 1em 0 0;
-  background-image: url("./public/test/recipe-test.jpg");
+  background-size: cover;
+  background-position: center;
 }
 
 .recipes-container__tag-title {
   display: block;
-  padding: 1em 2em;
+  padding: 1em 1em;
 }
 
 .recipes-container__tag--main {
@@ -186,7 +187,7 @@
   font-size: 23px;
 }
 
-.recipes-container__action-btn button {
+.recipes-container__action-btn {
   display: flex;
 }
 
@@ -212,5 +213,9 @@
   }
   .recipes-container {
     grid-template-columns: 1fr 1fr;
+  }
+
+  .recipes-container__tag-title {
+    padding: 1em 2em;
   }
 }
