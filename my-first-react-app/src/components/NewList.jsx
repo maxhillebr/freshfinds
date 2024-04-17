@@ -1,39 +1,26 @@
 import "/src/css/newform.css";
 import "/src/css/main.css";
 
-import React, { useState, useId } from "react";
+import React, { useState } from "react";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 
-import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
-import DragIndicatorIcon from "@mui/icons-material/DragIndicator";
+import { DragDropContext, Droppable } from "react-beautiful-dnd";
 
 import { db } from "/src/firebase";
 import { collection, addDoc } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
 
 import { useNavigate } from "react-router-dom";
+import { generateUUID } from "./UUIDGenerator";
 
+import AddProduct from "./AddProduct";
+import ProductListDnd from "./ProductListDnd";
 import HeadArrowBack from "/src/components/HeadArrowBack";
 import NavBottom from "./NavBottom";
-import AddProduct from "./AddProduct";
+import useStateHook from "./StateHook";
 
 export default function NewList() {
-  const generateUUID = () => {
-    let uuid = "";
-    const chars =
-      "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789_-";
-
-    for (let i = 0; i < 25; i++) {
-      const randomNumber = Math.floor(Math.random() * chars.length);
-      if (i === 8 || i === 13 || i === 18 || i === 23) {
-        uuid += "-";
-      }
-      uuid += chars[randomNumber];
-    }
-    return uuid;
-  };
-
   // unique id
   const newId = generateUUID();
 
@@ -41,14 +28,24 @@ export default function NewList() {
   const auth = getAuth();
   const user = auth.currentUser;
 
+  // navigation
   const navigate = useNavigate();
 
-  const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
-  const [rows, setRows] = useState([]);
-  const [product, setProduct] = useState("");
-  const [amount, setAmount] = useState("");
+  // state hook
+  const {
+    product,
+    setProduct,
+    amount,
+    setAmount,
+    title,
+    setTitle,
+    description,
+    setDescription,
+    rows,
+    setRows,
+  } = useStateHook(); // Use custom hook
 
+  // handle change of input and update state
   const handleTitleChange = (event) => {
     setTitle(event.target.value);
   };
@@ -57,33 +54,26 @@ export default function NewList() {
     setDescription(event.target.value);
   };
 
-  const handleProductChange = (event) => {
-    setProduct(event.target.value);
-  };
-
-  const handleAmountChange = (event) => {
-    setAmount(event.target.value);
-  };
-
-  const handleAddProducts = () => {
+  // add products as array of objects to rows array
+  const handleAddProducts = (product, amount) => {
     const newData = createData(newId, product, amount);
     setRows((prevRows) => [...prevRows, newData]);
     setProduct("");
     setAmount("");
   };
 
+  // create object
   const createData = (id, name, amount) => {
     return { id, name, amount };
   };
 
+  // delete object in array rows
   const handleDelete = (id) => {
     const updatedRows = rows.filter((product) => product.id !== id);
     setRows(updatedRows);
   };
 
-  // --------------------------------
-  // --------------------------------
-
+  //  reorder rows by drag and drop and update index in rows
   const onDragEnd = (result) => {
     if (!result.destination) return;
 
@@ -94,9 +84,7 @@ export default function NewList() {
     setRows(items);
   };
 
-  // --------------------------------
-  // --------------------------------
-
+  // create new doc in firebase collection with array of objects in rows
   const addNewGroceryList = async (title, description, rows) => {
     if (title === "" || description === "" || rows.length === 0) {
       alert("No Title, Description or Product. Check your list again!");
@@ -158,7 +146,35 @@ export default function NewList() {
           <h2>Add Products</h2>
         </div>
 
-        <AddProduct />
+        <AddProduct handleAddProducts={handleAddProducts} />
+
+        <div className="title-product-list">
+          <h2>List</h2>
+        </div>
+        <div className="product-list-container">
+          <div className="product-list-container__header">
+            <div>Amount</div>
+            <div>Product</div>
+            <div>Delete</div>
+          </div>
+          <DragDropContext onDragEnd={onDragEnd}>
+            <Droppable droppableId="rows">
+              {(provided) => (
+                <div ref={provided.innerRef} {...provided.droppableProps}>
+                  {rows.map((row, index) => (
+                    <ProductListDnd
+                      key={row.id}
+                      row={row}
+                      index={index}
+                      handleDelete={handleDelete}
+                    />
+                  ))}
+                  {provided.placeholder}
+                </div>
+              )}
+            </Droppable>
+          </DragDropContext>
+        </div>
         <div className="submit-event-btn">
           <Button
             id="submit-list"
