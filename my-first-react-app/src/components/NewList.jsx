@@ -16,6 +16,7 @@ import { useNavigate } from "react-router-dom";
 
 import HeadArrowBack from "/src/components/HeadArrowBack";
 import NavBottom from "./NavBottom";
+import AddProduct from "./AddProduct";
 
 export default function NewList() {
   const generateUUID = () => {
@@ -157,91 +158,15 @@ export default function NewList() {
           <h2>Add Products</h2>
         </div>
 
-        <div className="add-product-container">
-          <TextField
-            required
-            id="grocery-list-amount"
-            className="add-product-container__amount"
-            label="Amount"
-            value={amount}
-            onChange={handleAmountChange}
-          />
-          <TextField
-            required
-            id="grocery-list-product"
-            className="add-product-container__title"
-            label="Product"
-            value={product}
-            onChange={handleProductChange}
-          />
-        </div>
-        <div className="add-product-btn">
+        <AddProduct />
+        <div className="submit-event-btn">
           <Button
-            id="add-button"
+            id="submit-list"
             variant="contained"
-            onClick={handleAddProducts}
+            onClick={() => addNewGroceryList(title, description, rows)}
           >
-            Add
+            Create List
           </Button>
-        </div>
-        <div className="title-product-list">
-          <h2>List</h2>
-        </div>
-        <div className="product-list-container">
-          <div className="product-list-container__header">
-            <div>Amount</div>
-            <div>Product</div>
-            <div>Delete</div>
-          </div>
-          <DragDropContext onDragEnd={onDragEnd}>
-            <Droppable droppableId="rows">
-              {(provided) => (
-                <div ref={provided.innerRef} {...provided.droppableProps}>
-                  {rows.map((row, index) => (
-                    <Draggable
-                      key={row.id}
-                      draggableId={row.id.toString()}
-                      index={index}
-                    >
-                      {(provided) => (
-                        <div
-                          {...provided.draggableProps}
-                          {...provided.dragHandleProps}
-                          ref={provided.innerRef}
-                        >
-                          <div className="product-list-container__box">
-                            <div>{row.amount}</div>
-                            <div>{row.name}</div>
-
-                            <div>
-                              <Button
-                                size="small"
-                                variant="contained"
-                                color="error"
-                                onClick={() => handleDelete(row.id)}
-                              >
-                                X
-                              </Button>
-                            </div>
-                          </div>
-                        </div>
-                      )}
-                    </Draggable>
-                  ))}
-                  {provided.placeholder}
-                </div>
-              )}
-            </Droppable>
-          </DragDropContext>
-          <div className="submit-event-btn">
-            <Button
-              id="submit-list"
-              variant="contained"
-              onClick={() => addNewGroceryList(title, description, rows)}
-            >
-              Create List
-            </Button>
-          </div>
         </div>
       </div>
       <NavBottom />
