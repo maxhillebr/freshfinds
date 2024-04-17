@@ -9,6 +9,7 @@
   padding: 10px 0;
   background-color: #d1d1d166;
   backdrop-filter: blur(40px);
+  z-index: 1;
 }
 
 .bottom-nav ul {

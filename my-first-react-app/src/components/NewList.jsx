@@ -1,49 +1,41 @@
 import "/src/css/newform.css";
 import "/src/css/main.css";
-
-import React, { useState } from "react";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
+
+import { useState } from "react";
 
 import { DragDropContext, Droppable } from "react-beautiful-dnd";
 
 import { db } from "/src/firebase";
 import { collection, addDoc } from "firebase/firestore";
-import { getAuth } from "firebase/auth";
 
 import { useNavigate } from "react-router-dom";
 import { generateUUID } from "./UUIDGenerator";
 
 import AddProduct from "./AddProduct";
 import ProductListDnd from "./ProductListDnd";
-import HeadArrowBack from "/src/components/HeadArrowBack";
+import HeadArrowBack from "./HeadArrowBack";
 import NavBottom from "./NavBottom";
 import useStateHook from "./StateHook";
+import useFirebaseAuth from "./AuthFirebase";
 
 export default function NewList() {
   // unique id
   const newId = generateUUID();
 
-  // check if the user is logged in?
-  const auth = getAuth();
-  const user = auth.currentUser;
+  // load user info
+  const { user, username } = useFirebaseAuth();
 
   // navigation
   const navigate = useNavigate();
 
   // state hook
-  const {
-    product,
-    setProduct,
-    amount,
-    setAmount,
-    title,
-    setTitle,
-    description,
-    setDescription,
-    rows,
-    setRows,
-  } = useStateHook(); // Use custom hook
+  const [product, setProduct] = useState("");
+  const [amount, setAmount] = useState("");
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
+  const [rows, setRows] = useState([]);
 
   // handle change of input and update state
   const handleTitleChange = (event) => {
@@ -92,8 +84,6 @@ export default function NewList() {
     }
 
     try {
-      const username = user.displayName;
-
       if (!user || !username) {
         console.error(
           "User is not authenticated or display name is undefined."

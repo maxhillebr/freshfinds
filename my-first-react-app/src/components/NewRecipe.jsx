@@ -10,42 +10,31 @@ import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import { db, storage } from "/src/firebase";
 
 import { collection, addDoc } from "firebase/firestore";
-import { getAuth } from "firebase/auth";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 
+// ------------------
 import { useNavigate } from "react-router-dom";
+import { generateUUID } from "./UUIDGenerator";
 
-import HeadArrowBack from "/src/components/HeadArrowBack";
+import AddProduct from "./AddProduct";
+import ProductListDnd from "./ProductListDnd";
+import HeadArrowBack from "./HeadArrowBack";
 import NavBottom from "./NavBottom";
+import useStateHook from "./StateHook";
+import useFirebaseAuth from "./AuthFirebase";
+// ------------------
 
 export default function NewRecipe() {
-  const generateUUID = () => {
-    let uuid = "";
-    const chars =
-      "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789_-";
-
-    for (let i = 0; i < 25; i++) {
-      const randomNumber = Math.floor(Math.random() * chars.length);
-      if (i === 8 || i === 13 || i === 18 || i === 23) {
-        uuid += "-";
-      }
-      uuid += chars[randomNumber];
-    }
-    return uuid;
-  };
-
   // unique id
   const newId = generateUUID();
 
-  // console.log("DB:", db);
-  // console.log("Storage:", storage);
+  // load user info
+  const { user, username } = useFirebaseAuth();
 
-  // check if the user is logged in?
-  const auth = getAuth();
-  const user = auth.currentUser;
-
+  // navigation
   const navigate = useNavigate();
 
+  // state hook
   const [title, setTitle] = useState("");
 
   const [rows, setRows] = useState([]);
