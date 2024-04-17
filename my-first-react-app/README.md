@@ -17,8 +17,3 @@
 - git checkout main
 - git merge <other-branch>
 - git branch -d <other-branch>
-
-#To Do
-
-- User specific rending of URLs -> When username is updated update the db
-- Username input by resgister

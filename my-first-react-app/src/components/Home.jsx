@@ -20,7 +20,7 @@ function Home() {
     <>
       <div className="content">
         <div className="title-welcome">
-          <h1>Welcome back, {username}</h1>
+          <h1>Hi, {username}</h1>
         </div>
         {/* <div className="title-container">
           <div className="title-container__title">

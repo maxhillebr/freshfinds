@@ -1,4 +1,4 @@
-import "/src/css/recipe.css";
+import "/src/css/newform.css";
 import "/src/css/main.css";
 
 import React, { useState, useId, useRef, useEffect } from "react";
@@ -256,15 +256,15 @@ export default function EditRecipe() {
     <>
       <div className="content">
         <HeadArrowBack />
-        <div className="title-welcome-recipe-list">
+        <div className="title-welcome">
           <h1>Create New Recipe</h1>
         </div>
 
-        <div className="title-desc-container-recipe">
+        <div className="title-desc-container">
           <TextField
             required
             id="recipe-list-title"
-            className="title-desc-container-recipe__title"
+            className="title-desc-container__title"
             label="Title"
             value={title}
             onChange={handleTitleChange}
@@ -287,29 +287,29 @@ export default function EditRecipe() {
           {/* Show the file name below the button */}
           <div>{fileName}</div>
         </div>
-        <div className="title-add-products-recipe">
+        <div className="title-add">
           <h2>Add Products</h2>
         </div>
 
-        <div className="add-product-container-recipe">
-          <TextField
-            required
-            id="grocery-list-product-recipe"
-            className="add-product-container-recipe__title"
-            label="Product"
-            value={product}
-            onChange={handleProductChange}
-          />
+        <div className="add-product-container">
           <TextField
             required
             id="grocery-list-amount-recipe"
-            className="add-product-container-recipe__amount"
+            className="add-product-container__amount"
             label="Amount"
             value={amount}
             onChange={handleAmountChange}
           />
+          <TextField
+            required
+            id="grocery-list-product-recipe"
+            className="add-product-container__title"
+            label="Product"
+            value={product}
+            onChange={handleProductChange}
+          />
         </div>
-        <div className="add-product-btn-recipe">
+        <div className="add-product-btn">
           <Button
             id="add-button"
             variant="contained"
@@ -318,20 +318,14 @@ export default function EditRecipe() {
             Add
           </Button>
         </div>
-        <div className="title-product-list-recipe">
+        <div className="title-product-list">
           <h2>List</h2>
         </div>
-        <div className="product-list-container-recipe">
-          <div className="product-list-container-recipe__header">
-            <div className="product-list-container-recipe__header-product">
-              Product
-            </div>
-            <div className="product-list-container-recipe__header-amount">
-              Amount
-            </div>
-            <div className="product-list-container-recipe__header-del">
-              Delete
-            </div>
+        <div className="product-list-container">
+          <div className="product-list-container__header">
+            <div>Product</div>
+            <div>Amount</div>
+            <div>Delete</div>
           </div>
           <DragDropContext onDragEnd={onDragEnd}>
             <Droppable droppableId="rows">
@@ -349,17 +343,10 @@ export default function EditRecipe() {
                           {...provided.dragHandleProps}
                           ref={provided.innerRef}
                         >
-                          <div className="product-list-container-recipe__box">
-                            <div className="product-list-container-recipe__product">
-                              {row.name}
-                            </div>
-                            <div className="product-list-container-recipe__amount">
-                              {row.amount}
-                            </div>
-                            {/* <div className="product-list-container__dnd-icon">
-                            <DragIndicatorIcon />
-                          </div> */}
-                            <div className="product-list-container-recipe__del">
+                          <div className="product-list-container__box">
+                            <div>{row.amount}</div>
+                            <div>{row.name}</div>
+                            <div>
                               <Button
                                 size="small"
                                 variant="contained"
@@ -381,20 +368,20 @@ export default function EditRecipe() {
           </DragDropContext>
         </div>
         {/* Instructions */}
-        <div className="title-add-instruction-recipe">
+        <div className="title-instruction">
           <h2>Add Instruction</h2>
         </div>
-        <div className="add-instruction-container-recipe">
+        <div className="add-instruction-container">
           <TextField
             required
-            id="recipe-instructin"
-            className="add-instruction-container-recipe__title"
+            id="recipe-instruction"
+            className="add-instruction-container__title"
             label="Instruction"
             value={instructionInput}
             onChange={handleInstructionChange}
           />
         </div>
-        <div className="add-instruction-btn-recipe">
+        <div className="add-instruction-btn">
           <Button
             id="add-button"
             variant="contained"
@@ -403,7 +390,7 @@ export default function EditRecipe() {
             Add
           </Button>
         </div>
-        <div className="title-add-instruction-recipe">
+        <div className="title-instruction">
           <h2>Instructions</h2>
         </div>
         <div className="instruction-container-recipe">
@@ -424,9 +411,7 @@ export default function EditRecipe() {
                           ref={provided.innerRef}
                         >
                           <div className="instruction-container-recipe__box">
-                            <div className="instruction-container-recipe__instruction">
-                              {instruction.instruction}
-                            </div>
+                            <div>{instruction.instruction}</div>
                             <div className="instruction-container-recipe__del">
                               <Button
                                 size="small"
@@ -449,13 +434,13 @@ export default function EditRecipe() {
               )}
             </Droppable>
           </DragDropContext>
-          <div className="submit-list-btn-recipe">
+          <div className="submit-event-btn">
             <Button
               id="submit-list"
               variant="contained"
               onClick={() => updateNewRecipe(title, rows, instructions)}
             >
-              Create Recipe
+              Update Recipe
             </Button>
           </div>
         </div>

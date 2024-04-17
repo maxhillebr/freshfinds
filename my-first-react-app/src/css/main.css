@@ -8,6 +8,14 @@ body {
   padding: 0.5em;
 }
 
+h1 {
+  font-size: 30px;
+}
+
+h2 {
+  font-size: 25px;
+}
+
 @media (min-width: 768px) {
   body {
     width: 768px;

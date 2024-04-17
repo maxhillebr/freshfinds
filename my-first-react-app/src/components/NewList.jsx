@@ -1,4 +1,4 @@
-import "/src/css/list.css";
+import "/src/css/newform.css";
 import "/src/css/main.css";
 
 import React, { useState, useId } from "react";
@@ -131,7 +131,7 @@ export default function NewList() {
     <>
       <div className="content">
         <HeadArrowBack />
-        <div className="title-welcome-grocery-list">
+        <div className="title-welcome">
           <h1>Create New Grocery List</h1>
         </div>
 
@@ -148,24 +148,16 @@ export default function NewList() {
             required
             id="grocery-list-description"
             className="title-desc-container__desc"
-            label="Desciption"
+            label="Description"
             value={description}
             onChange={handleDescriptionChange}
           />
         </div>
-        <div className="title-add-products">
+        <div className="title-add">
           <h2>Add Products</h2>
         </div>
 
         <div className="add-product-container">
-          <TextField
-            required
-            id="grocery-list-product"
-            className="add-product-container__title"
-            label="Product"
-            value={product}
-            onChange={handleProductChange}
-          />
           <TextField
             required
             id="grocery-list-amount"
@@ -173,6 +165,14 @@ export default function NewList() {
             label="Amount"
             value={amount}
             onChange={handleAmountChange}
+          />
+          <TextField
+            required
+            id="grocery-list-product"
+            className="add-product-container__title"
+            label="Product"
+            value={product}
+            onChange={handleProductChange}
           />
         </div>
         <div className="add-product-btn">
@@ -189,11 +189,9 @@ export default function NewList() {
         </div>
         <div className="product-list-container">
           <div className="product-list-container__header">
-            <div className="product-list-container__header-product">
-              Product
-            </div>
-            <div className="product-list-container__header-amount">Amount</div>
-            <div className="product-list-container__header-del">Delete</div>
+            <div>Amount</div>
+            <div>Product</div>
+            <div>Delete</div>
           </div>
           <DragDropContext onDragEnd={onDragEnd}>
             <Droppable droppableId="rows">
@@ -212,16 +210,10 @@ export default function NewList() {
                           ref={provided.innerRef}
                         >
                           <div className="product-list-container__box">
-                            <div className="product-list-container__product">
-                              {row.name}
-                            </div>
-                            <div className="product-list-container__amount">
-                              {row.amount}
-                            </div>
-                            {/* <div className="product-list-container__dnd-icon">
-                            <DragIndicatorIcon />
-                          </div> */}
-                            <div className="product-list-container__del">
+                            <div>{row.amount}</div>
+                            <div>{row.name}</div>
+
+                            <div>
                               <Button
                                 size="small"
                                 variant="contained"
@@ -241,7 +233,7 @@ export default function NewList() {
               )}
             </Droppable>
           </DragDropContext>
-          <div className="submit-list-btn">
+          <div className="submit-event-btn">
             <Button
               id="submit-list"
               variant="contained"

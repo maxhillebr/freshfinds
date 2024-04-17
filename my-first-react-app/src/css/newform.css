@@ -1,0 +1,121 @@
+.title-desc-container,
+.add-product-container,
+.title-product-list,
+.product-list-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+}
+
+.title-desc-container div,
+.add-product-container div,
+.product-list-container div {
+  margin: 0.3em 0;
+}
+
+.add-product-btn,
+.add-instruction-btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0.3em;
+}
+
+.product-list-container__header {
+  border-bottom: 1px solid rgb(217, 217, 217);
+  display: grid;
+  grid-template-columns: 0.5fr 1fr 0.5fr;
+  overflow: hidden;
+  margin: 0.5em 0;
+  padding: 1em;
+  font-size: 12px;
+}
+
+.product-list-container__header div {
+  padding: 0.5em;
+  word-break: break-all;
+  font-weight: bold;
+}
+
+.product-list-container__box {
+  background-color: #fff6e3;
+  border-radius: 1em;
+  display: grid;
+  grid-template-columns: 0.5fr 1fr 0.5fr;
+  overflow: hidden;
+  margin: 0.5em 0;
+  padding: 1em;
+}
+
+.product-list-container__box div,
+.instruction-container-recipe__box div {
+  padding: 0.5em;
+  word-break: break-all;
+  font-weight: bold;
+  font-size: 12px;
+}
+
+.product-list-container__product {
+  border-right: 1px solid rgb(217, 217, 217);
+}
+
+.product-list-container__amount {
+  text-align: center;
+}
+
+.product-list-container__del button,
+.instruction-container-recipe__del button {
+  font-size: 11px;
+}
+
+.submit-event-btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2em;
+}
+
+/* Instructions */
+.add-instruction-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+}
+
+.add-instruction-btn-recipe {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0.3em;
+}
+
+.instruction-container-recipe__box {
+  background-color: #edffe3;
+  border-radius: 1em;
+  display: grid;
+  grid-template-columns: 1fr;
+  overflow: hidden;
+  margin: 0.5em 0;
+  padding: 1em;
+}
+
+/* Responsive styles */
+@media (min-width: 768px) {
+  .title-desc-container,
+  .add-product-container {
+    flex-direction: row;
+  }
+
+  .title-desc-container div,
+  .add-product-container div {
+    margin: 0;
+  }
+
+  .product-list-container__box {
+    grid-template-columns: 0.5fr 1fr 0.5fr;
+  }
+  /* Instructions */
+  .add-instruction-container {
+    flex-direction: row;
+  }
+}
