@@ -1,11 +1,15 @@
+import { generateUUID } from "./UUIDGenerator";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
-import useStateHook from "./StateHook";
 
-export default function AddProduct({ handleAddProducts }) {
-  // initialize state of input
-  const { product, setProduct, amount, setAmount } = useStateHook();
-
+export default function AddProduct({
+  product,
+  setProduct,
+  amount,
+  setAmount,
+  rows,
+  setRows,
+}) {
   // update product and amount input
   const handleProductChange = (event) => {
     setProduct(event.target.value);
@@ -13,6 +17,19 @@ export default function AddProduct({ handleAddProducts }) {
 
   const handleAmountChange = (event) => {
     setAmount(event.target.value);
+  };
+
+  // add products as array of objects to rows array
+  const handleAddProducts = (product, amount) => {
+    const newData = createData(generateUUID(), product, amount);
+    setRows((prevRows) => [...prevRows, newData]);
+    setProduct("");
+    setAmount("");
+  };
+
+  // create object
+  const createData = (id, name, amount) => {
+    return { id, name, amount };
   };
 
   return (

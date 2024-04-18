@@ -17,20 +17,16 @@ import AddProduct from "./AddProduct";
 import ProductListDnd from "./ProductListDnd";
 import HeadArrowBack from "./HeadArrowBack";
 import NavBottom from "./NavBottom";
-import useStateHook from "./StateHook";
 import useFirebaseAuth from "./AuthFirebase";
 
 export default function NewList() {
-  // unique id
-  const newId = generateUUID();
-
   // load user info
   const { user, username } = useFirebaseAuth();
 
   // navigation
   const navigate = useNavigate();
 
-  // state hook
+  // state
   const [product, setProduct] = useState("");
   const [amount, setAmount] = useState("");
   const [title, setTitle] = useState("");
@@ -44,19 +40,6 @@ export default function NewList() {
 
   const handleDescriptionChange = (event) => {
     setDescription(event.target.value);
-  };
-
-  // add products as array of objects to rows array
-  const handleAddProducts = (product, amount) => {
-    const newData = createData(newId, product, amount);
-    setRows((prevRows) => [...prevRows, newData]);
-    setProduct("");
-    setAmount("");
-  };
-
-  // create object
-  const createData = (id, name, amount) => {
-    return { id, name, amount };
   };
 
   // delete object in array rows
@@ -136,7 +119,14 @@ export default function NewList() {
           <h2>Add Products</h2>
         </div>
 
-        <AddProduct handleAddProducts={handleAddProducts} />
+        <AddProduct
+          product={product}
+          setProduct={setProduct}
+          amount={amount}
+          setAmount={setAmount}
+          rows={rows}
+          setRows={setRows}
+        />
 
         <div className="title-product-list">
           <h2>List</h2>

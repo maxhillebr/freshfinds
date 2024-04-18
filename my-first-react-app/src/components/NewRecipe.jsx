@@ -20,7 +20,6 @@ import AddProduct from "./AddProduct";
 import ProductListDnd from "./ProductListDnd";
 import HeadArrowBack from "./HeadArrowBack";
 import NavBottom from "./NavBottom";
-import useStateHook from "./StateHook";
 import useFirebaseAuth from "./AuthFirebase";
 // ------------------
 
@@ -34,7 +33,7 @@ export default function NewRecipe() {
   // navigation
   const navigate = useNavigate();
 
-  // state hook
+  // state
   const [title, setTitle] = useState("");
 
   const [rows, setRows] = useState([]);
@@ -45,10 +44,11 @@ export default function NewRecipe() {
   const [amount, setAmount] = useState("");
 
   const [image, setImage] = useState(null);
-  const [imageUrl, setImageUrl] = useState(null); // State for storing image URL
+  const [imageUrl, setImageUrl] = useState(null);
   const fileInputRef = useRef(null);
   const [fileName, setFileName] = useState("");
 
+  // image change and upload
   const handleImageChange = (event) => {
     const file = event.target.files[0];
     console.log("Selected file:", file); // Check if the file object is retrieved
@@ -74,6 +74,8 @@ export default function NewRecipe() {
       return null;
     }
   };
+
+  // handle change of input and update state
 
   const handleTitleChange = (event) => {
     setTitle(event.target.value);
