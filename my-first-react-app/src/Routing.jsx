@@ -6,18 +6,17 @@ import {
   Navigate,
 } from "react-router-dom";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
-import DBTest from "./DBTest";
-import SignUp from "./SignUp";
-import Login from "./Login";
-import FrontpageLoginSignUp from "./FrontpageLoginSignUp";
-import GroceryListPageId from "./components/GroceryListPageId";
-import EditList from "./components/EditList";
-import Home from "./components/Home";
-import Account from "./components/Account";
-import NewList from "./components/NewList";
-import NewRecipe from "./components/NewRecipe";
-import RecipePageId from "./components/RecipePageId";
-import EditRecipe from "./components/EditRecipe";
+import SignUp from "./components/ui/account/SignUp";
+import Login from "./components/ui/account/Login";
+import FrontpageLoginSignUp from "./components/ui/account/FrontpageLoginSignUp";
+import GroceryListPageId from "./components/ui/lists/GroceryListPageId";
+import EditList from "./components/ui/lists/EditList";
+import Home from "./components/ui/home/Home";
+import Account from "./components/ui/account/Account";
+import NewList from "./components/ui/lists/NewList";
+import NewRecipe from "./components/ui/recipe/NewRecipe";
+import RecipePageId from "./components/ui/recipe/RecipePageId";
+import EditRecipe from "./components/ui/recipe/EditRecipe";
 
 const Routing = () => {
   const [user, setUser] = useState(null);
@@ -50,7 +49,6 @@ const Routing = () => {
             <Route path="/newrecipe" element={<NewRecipe />} />
 
             <Route path="/account" element={<Account />} />
-            <Route path="/test" element={<DBTest />} />
 
             <Route
               path="/users/:username/grocerylists/:listId"

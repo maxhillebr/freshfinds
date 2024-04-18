@@ -4,8 +4,8 @@ import { useState, useEffect } from "react";
 import { getAuth, onAuthStateChanged, updateProfile } from "firebase/auth";
 // import TextField from "@mui/material/TextField";
 // import Button from "@mui/material/Button";
-import NavBottom from "./NavBottom";
-import HeadArrowBack from "./HeadArrowBack";
+import NavBottom from "../nav/NavBottom";
+import HeadArrowBack from "../nav/HeadArrowBack";
 
 const auth = getAuth();
 

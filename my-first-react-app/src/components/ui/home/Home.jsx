@@ -6,7 +6,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import Button from "@mui/material/Button";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
-import NavBottom from "./NavBottom";
+import NavBottom from "../nav/NavBottom";
 import GroceryBoxMainTest from "./GroceryBoxMain";
 import RecipeBoxMain from "./RecipeBoxMain";
 import { getAuth } from "firebase/auth";

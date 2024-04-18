@@ -7,12 +7,12 @@ import { useNavigate } from "react-router-dom";
 
 import { db } from "/src/firebase";
 import { collection, addDoc } from "firebase/firestore";
-import useFirebaseAuth from "./AuthFirebase";
+import useFirebaseAuth from "../../common/AuthFirebase";
 
-import AddProduct from "./AddProduct";
-import HeadArrowBack from "./HeadArrowBack";
-import NavBottom from "./NavBottom";
-import DragDropProductList from "./DragDropProductList";
+import AddProduct from "../common/AddProduct";
+import HeadArrowBack from "../HeadArrowBack";
+import NavBottom from "../NavBottom";
+import DragDropProductList from "../../DragDropProductList";
 
 export default function NewList() {
   // load user info

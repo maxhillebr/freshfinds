@@ -1,4 +1,4 @@
-import { generateUUID } from "./UUIDGenerator";
+import { generateUUID } from "../../common/UUIDGenerator";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 

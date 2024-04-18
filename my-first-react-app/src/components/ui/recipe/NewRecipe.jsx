@@ -7,20 +7,20 @@ import Button from "@mui/material/Button";
 
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 
-import { db, storage } from "/src/firebase";
+import { db, storage } from "/src/components/auth/firebase";
 
 import { collection, addDoc } from "firebase/firestore";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 
 // ------------------
 import { useNavigate } from "react-router-dom";
-import { generateUUID } from "./UUIDGenerator";
+import { generateUUID } from "../../common/UUIDGenerator";
 
-import AddProduct from "./AddProduct";
-import ProductListDnd from "./DragDropProductList";
-import HeadArrowBack from "./HeadArrowBack";
-import NavBottom from "./NavBottom";
-import useFirebaseAuth from "./AuthFirebase";
+import AddProduct from "../common/AddProduct";
+import ProductListDnd from "../../DragDropProductList";
+import HeadArrowBack from "../HeadArrowBack";
+import NavBottom from "../NavBottom";
+import useFirebaseAuth from "../../common/AuthFirebase";
 // ------------------
 
 export default function NewRecipe() {

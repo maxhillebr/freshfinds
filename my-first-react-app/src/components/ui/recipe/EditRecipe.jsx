@@ -8,7 +8,7 @@ import Button from "@mui/material/Button";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import { useParams } from "react-router-dom";
 
-import { db, storage } from "/src/firebase";
+import { db, storage } from "/src/components/auth/firebase";
 
 import { collection, addDoc, doc, getDoc, setDoc } from "firebase/firestore";
 import { getAuth } from "firebase/auth";

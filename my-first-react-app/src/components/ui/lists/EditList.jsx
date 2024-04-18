@@ -17,7 +17,7 @@ import { getAuth } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 
 import HeadArrowBack from "/src/components/HeadArrowBack";
-import NavBottom from "./NavBottom";
+import NavBottom from "../nav/NavBottom";
 
 export default function EditList() {
   // check if the user is logged in?

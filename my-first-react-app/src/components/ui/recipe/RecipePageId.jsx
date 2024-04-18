@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { db, storage } from "/src/firebase";
+import { db, storage } from "/src/components/auth/firebase";
 import { doc, getDoc } from "firebase/firestore";
 import Button from "@mui/material/Button";
 import ShareIcon from "@mui/icons-material/Share";
