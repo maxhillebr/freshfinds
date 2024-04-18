@@ -73,7 +73,6 @@ const GroceryListPageId = () => {
         {groceryList && (
           <>
             <h2>{groceryList.title}</h2>
-            <p>{groceryList.description}</p>
             <div className="display-list-container">
               {groceryList.products.map((product) => (
                 <div

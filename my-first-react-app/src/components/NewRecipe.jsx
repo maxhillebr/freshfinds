@@ -17,7 +17,7 @@ import { useNavigate } from "react-router-dom";
 import { generateUUID } from "./UUIDGenerator";
 
 import AddProduct from "./AddProduct";
-import ProductListDnd from "./ProductListDnd";
+import ProductListDnd from "./DragDropProductList";
 import HeadArrowBack from "./HeadArrowBack";
 import NavBottom from "./NavBottom";
 import useFirebaseAuth from "./AuthFirebase";

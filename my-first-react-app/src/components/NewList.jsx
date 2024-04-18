@@ -1,23 +1,18 @@
 import "/src/css/newform.css";
 import "/src/css/main.css";
-import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 
 import { useState } from "react";
-
-import { DragDropContext, Droppable } from "react-beautiful-dnd";
+import { useNavigate } from "react-router-dom";
 
 import { db } from "/src/firebase";
 import { collection, addDoc } from "firebase/firestore";
-
-import { useNavigate } from "react-router-dom";
-import { generateUUID } from "./UUIDGenerator";
+import useFirebaseAuth from "./AuthFirebase";
 
 import AddProduct from "./AddProduct";
-import ProductListDnd from "./ProductListDnd";
 import HeadArrowBack from "./HeadArrowBack";
 import NavBottom from "./NavBottom";
-import useFirebaseAuth from "./AuthFirebase";
+import DragDropProductList from "./DragDropProductList";
 
 export default function NewList() {
   // load user info
@@ -30,54 +25,24 @@ export default function NewList() {
   const [product, setProduct] = useState("");
   const [amount, setAmount] = useState("");
   const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
   const [rows, setRows] = useState([]);
 
-  // handle change of input and update state
-  const handleTitleChange = (event) => {
-    setTitle(event.target.value);
-  };
-
-  const handleDescriptionChange = (event) => {
-    setDescription(event.target.value);
-  };
-
-  // delete object in array rows
-  const handleDelete = (id) => {
-    const updatedRows = rows.filter((product) => product.id !== id);
-    setRows(updatedRows);
-  };
-
-  //  reorder rows by drag and drop and update index in rows
-  const onDragEnd = (result) => {
-    if (!result.destination) return;
-
-    const items = Array.from(rows);
-    const [reorderedItem] = items.splice(result.source.index, 1);
-    items.splice(result.destination.index, 0, reorderedItem);
-
-    setRows(items);
-  };
-
   // create new doc in firebase collection with array of objects in rows
-  const addNewGroceryList = async (title, description, rows) => {
-    if (title === "" || description === "" || rows.length === 0) {
-      alert("No Title, Description or Product. Check your list again!");
+  const addNewGroceryList = async (title, rows) => {
+    if (title === "" || rows.length === 0) {
+      alert("No Title or Product. Check your list again!");
       return;
     }
 
     try {
       if (!user || !username) {
-        console.error(
-          "User is not authenticated or display name is undefined."
-        );
-        return; // Exit the function early
+        console.error("User is not authenticated or displayName is undefined.");
+        return;
       }
 
       const colRef = collection(db, "users", username, "grocerylists");
       const docRef = await addDoc(colRef, {
         title: title,
-        description: description,
         products: rows,
       });
 
@@ -97,29 +62,9 @@ export default function NewList() {
           <h1>Create New Grocery List</h1>
         </div>
 
-        <div className="title-desc-container">
-          <TextField
-            required
-            id="grocery-list-title"
-            className="title-desc-container__title"
-            label="Title"
-            value={title}
-            onChange={handleTitleChange}
-          />
-          <TextField
-            required
-            id="grocery-list-description"
-            className="title-desc-container__desc"
-            label="Description"
-            value={description}
-            onChange={handleDescriptionChange}
-          />
-        </div>
-        <div className="title-add">
-          <h2>Add Products</h2>
-        </div>
-
         <AddProduct
+          title={title}
+          setTitle={setTitle}
           product={product}
           setProduct={setProduct}
           amount={amount}
@@ -137,29 +82,13 @@ export default function NewList() {
             <div>Product</div>
             <div>Delete</div>
           </div>
-          <DragDropContext onDragEnd={onDragEnd}>
-            <Droppable droppableId="rows">
-              {(provided) => (
-                <div ref={provided.innerRef} {...provided.droppableProps}>
-                  {rows.map((row, index) => (
-                    <ProductListDnd
-                      key={row.id}
-                      row={row}
-                      index={index}
-                      handleDelete={handleDelete}
-                    />
-                  ))}
-                  {provided.placeholder}
-                </div>
-              )}
-            </Droppable>
-          </DragDropContext>
+          <DragDropProductList rows={rows} setRows={setRows} />
         </div>
         <div className="submit-event-btn">
           <Button
             id="submit-list"
             variant="contained"
-            onClick={() => addNewGroceryList(title, description, rows)}
+            onClick={() => addNewGroceryList(title, rows)}
           >
             Create List
           </Button>

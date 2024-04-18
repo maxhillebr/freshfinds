@@ -98,7 +98,6 @@ export default function GroceryBoxMain() {
               <div className="grocery-list-container__tag-title">
                 <p className="grocery-list-container__tag--main">List</p>
                 <h3>{data.title}</h3>
-                <p>{data.description}</p>
               </div>
             </a>
             <div className="grocery-list-container__action-btn">

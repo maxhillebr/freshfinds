@@ -27,7 +27,6 @@ export default function EditList() {
   const navigate = useNavigate();
 
   const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
   const [rows, setRows] = useState([]);
   const [product, setProduct] = useState("");
   const [amount, setAmount] = useState("");
@@ -63,7 +62,6 @@ export default function EditList() {
         if (data && data.products) {
           setRows(data.products);
           setTitle(data.title || "");
-          setDescription(data.description || "");
           console.log(rows);
         } else {
           console.log("No products found in the document data.");
@@ -82,10 +80,6 @@ export default function EditList() {
 
   const handleTitleChange = (event) => {
     setTitle(event.target.value);
-  };
-
-  const handleDescriptionChange = (event) => {
-    setDescription(event.target.value);
   };
 
   const handleProductChange = (event) => {
@@ -131,9 +125,9 @@ export default function EditList() {
 
   // --------------------------------
 
-  const updateNewGroceryList = async (title, description, rows) => {
-    if (title === "" || description === "" || rows.length === 0) {
-      alert("No Title, Description or Product. Check your list again!");
+  const updateNewGroceryList = async (title, rows) => {
+    if (title === "" || rows.length === 0) {
+      alert("No Title or Product. Check your list again!");
       return;
     }
 
@@ -148,7 +142,6 @@ export default function EditList() {
       const colRef = doc(db, "users", username, "grocerylists", listId);
       const docRef = await setDoc(colRef, {
         title: title,
-        description: description,
         products: rows,
       });
 
@@ -176,14 +169,6 @@ export default function EditList() {
             label="Title"
             value={title}
             onChange={handleTitleChange}
-          />
-          <TextField
-            required
-            id="grocery-list-description"
-            className="title-desc-container__desc"
-            label="Description"
-            value={description}
-            onChange={handleDescriptionChange}
           />
         </div>
         <div className="title-add">
@@ -270,7 +255,7 @@ export default function EditList() {
             <Button
               id="submit-list"
               variant="contained"
-              onClick={() => updateNewGroceryList(title, description, rows)}
+              onClick={() => updateNewGroceryList(title, rows)}
             >
               Update List
             </Button>
