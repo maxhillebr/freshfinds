@@ -1,6 +1,6 @@
 import Button from "@mui/material/Button";
 import "/src/css/main.css";
-import "/src/css/login-signup.css";
+import "/src/css/start.css";
 import GitHubIcon from "@mui/icons-material/GitHub";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
 
@@ -31,13 +31,12 @@ const FrontpageLoginSignUp = () => {
               <LinkedInIcon />
             </div>
           </div>
-          <div className="bottom-illustration">
-            <img
-              src="/illustrations/undraw_eating_together_re_ux62.svg"
-              alt="cooking together"
-              width={"200px"}
-            />
-          </div>
+        </div>
+        <div className="bottom-illustration">
+          <img
+            src="/illustrations/undraw_eating_together_re_ux62.svg"
+            alt="cooking together"
+          />
         </div>
       </div>
     </>

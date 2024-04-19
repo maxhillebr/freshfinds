@@ -24,14 +24,35 @@
 .button-container {
   margin: 0 0 2em 0;
 }
-
+/* 
 .button-container__text {
-}
+} */
 
 .credentials-container div {
   margin: 0 0 1em 0;
 }
 
 .bottom-illustration img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 200px;
   opacity: 0.5;
+}
+/* login form */
+
+.form-textfields {
+  display: grid;
+  grid-template-columns: 1fr;
+}
+
+.submit-login-register {
+  margin: 1em 0;
+}
+
+@media (min-width: 768px) {
+  .form-textfields {
+    grid-template-columns: 1fr 1fr;
+    gap: 1em;
+  }
 }

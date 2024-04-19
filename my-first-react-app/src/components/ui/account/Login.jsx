@@ -3,6 +3,7 @@ import { useState } from "react";
 import { signInWithEmailAndPassword, getAuth } from "firebase/auth";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
+import "/src/css/start.css";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -70,70 +71,43 @@ const Login = () => {
   };
 
   return (
-    <div className="first-pages-flex-container">
-      <img
-        src="/freshfinds-logo.png"
-        alt="freshfinds Logo"
-        style={{ width: "200px" }}
-      />
-      <h2>Login</h2>
+    <div className="content">
+      <h2>I've seen you before. Nice.</h2>
       <form onSubmit={handleSubmit}>
-        <TextField
-          required
-          type="email"
-          id="e-mail-input"
-          label="E-Mail"
-          name="email"
-          margin="normal"
-          fullWidth
-          onChange={handleChange}
-        />
-        <TextField
-          required
-          type="password"
-          id="password-input"
-          label="Password"
-          name="password"
-          margin="normal"
-          fullWidth
-          onChange={handleChange}
-        />
-        <Button fullWidth type="submit" variant="contained">
-          Login
-        </Button>
+        <div className="form-textfields">
+          <TextField
+            required
+            type="email"
+            id="e-mail-input"
+            label="E-Mail"
+            name="email"
+            margin="dense"
+            onChange={handleChange}
+          />
+          <TextField
+            required
+            type="password"
+            id="password-input"
+            label="Password"
+            name="password"
+            margin="dense"
+            onChange={handleChange}
+          />
+        </div>
+        <div className="submit-login-register">
+          <Button type="submit" variant="contained">
+            Login
+          </Button>
+        </div>
         {error && <p>{errorMessage}</p>}
         <p>
-          Don't have an account? <Link to="/signup">Sign Up</Link>
+          No Account? <a href="/signup">Get one (for free).</a>
         </p>
       </form>
+      <div className="bottom-illustration">
+        <img src="/illustrations/undraw_barbecue_3x93.svg" alt="barbecue" />
+      </div>
     </div>
-
-    // <h1>Login</h1>
-    // <form className="signinContainer__box__form" onSubmit={handleSubmit}>
-    //   <input
-    //     type="email"
-    //     placeholder="Email"
-    //     name="email"
-    //     onChange={handleChange}
-    //   />
-    //   <input
-    //     type="password"
-    //     placeholder="Password"
-    //     name="password"
-    //     onChange={handleChange}
-    //   />
-    //   <button type="submit">Login</button>
-    //   {error && <p>{errorMessage}</p>}
-    // </form>
-
-    // <div className="signinContainer__box__signup">
-    //   <p>
-    //     Don't have an account? <Link to="/signup">Sign Up</Link>
-    //   </p>
-    // </div>
-    //     </div>
-    //   </div>
-    // </div>
   );
 };
 

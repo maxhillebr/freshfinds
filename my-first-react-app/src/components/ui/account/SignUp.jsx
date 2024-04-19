@@ -77,52 +77,55 @@ const SignUp = () => {
   };
 
   return (
-    <div className="first-pages-flex-container">
-      <img
-        src="/freshfinds-logo.png"
-        alt="freshfinds Logo"
-        style={{ width: "200px" }}
-      />
-      <h2>Sign Up</h2>
+    <div className="content">
+      <h2>Just a quick register, don’t worry</h2>
       <form onSubmit={handleSubmit}>
-        <TextField
-          required
-          type="text"
-          id="username-input"
-          label="Username"
-          name="username"
-          margin="normal"
-          fullWidth
-          onChange={handleChange}
-        />
-        <TextField
-          required
-          type="email"
-          id="e-mail-input"
-          label="E-Mail"
-          name="email"
-          margin="normal"
-          fullWidth
-          onChange={handleChange}
-        />
-        <TextField
-          required
-          type="password"
-          id="password-input"
-          label="Password"
-          name="password"
-          margin="normal"
-          fullWidth
-          onChange={handleChange}
-        />
-        <Button fullWidth type="submit" variant="contained">
-          Sign Up
-        </Button>
+        <div className="form-textfields">
+          <TextField
+            required
+            type="email"
+            id="e-mail-input"
+            label="E-Mail"
+            name="email"
+            margin="dense"
+            fullWidth
+            onChange={handleChange}
+          />
+          <TextField
+            required
+            type="password"
+            id="password-input"
+            label="Password"
+            name="password"
+            margin="dense"
+            fullWidth
+            onChange={handleChange}
+          />
+
+          <TextField
+            required
+            type="text"
+            id="username-input"
+            label="Username"
+            name="username"
+            margin="dense"
+            fullWidth
+            onChange={handleChange}
+          />
+        </div>
+        <div className="submit-login-register">
+          <Button type="submit" variant="contained">
+            Sign Up
+          </Button>
+        </div>
         {error && <p>{errorMessage}</p>}
         <p>
-          Already have an account? <Link to="/login">Login</Link>
+          Already have an account? <a href="/login">Login.</a>
         </p>
       </form>
+      <div className="bottom-illustration">
+        <img src="/illustrations/undraw_cookie_love_re_lsjh.svg" alt="cookie" />
+      </div>
     </div>
   );
 };
