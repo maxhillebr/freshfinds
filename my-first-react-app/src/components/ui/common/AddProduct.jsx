@@ -42,25 +42,26 @@ export default function AddProduct({
   return (
     <>
       <div className="title-desc-container">
+        <p>Title</p>
         <TextField
           required
           id="grocery-list-title"
           className="title-desc-container__title"
           label="Title"
           value={title}
+          fullWidth
           onChange={handleTitleChange}
         />
       </div>
-      <div className="title-add">
-        <h2>Add Products</h2>
-      </div>
       <div className="add-product-container">
+        <p>Add Product</p>
         <TextField
           required
           id="grocery-list-amount"
           className="add-product-container__amount"
           label="Amount"
           value={amount}
+          fullWidth
           onChange={handleAmountChange}
         />
         <TextField
@@ -69,6 +70,7 @@ export default function AddProduct({
           className="add-product-container__title"
           label="Product"
           value={product}
+          fullWidth
           onChange={handleProductChange}
         />
         <div className="add-product-btn">

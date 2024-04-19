@@ -1,6 +1,7 @@
 import React from "react";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
-import Button from "@mui/material/Button";
+import DeleteIcon from "@mui/icons-material/Delete";
+import { IconButton } from "@mui/material";
 
 export default function DragDropProductList({ rows, setRows }) {
   const onDragEnd = (result) => {
@@ -39,14 +40,12 @@ export default function DragDropProductList({ rows, setRows }) {
                       <div>{row.amount}</div>
                       <div>{row.name}</div>
                       <div>
-                        <Button
-                          size="small"
-                          variant="contained"
-                          color="error"
+                        <IconButton
+                          aria-label="delete"
                           onClick={() => handleDelete(row.id)}
                         >
-                          X
-                        </Button>
+                          <DeleteIcon />
+                        </IconButton>
                       </div>
                     </div>
                   </div>
