@@ -5,14 +5,14 @@ import Button from "@mui/material/Button";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-import { db } from "/src/firebase";
+import { db } from "/src/components/auth/firebase";
 import { collection, addDoc } from "firebase/firestore";
-import useFirebaseAuth from "../../common/AuthFirebase";
+import useFirebaseAuth from "../../auth/AuthFirebase";
 
 import AddProduct from "../common/AddProduct";
-import HeadArrowBack from "../HeadArrowBack";
-import NavBottom from "../NavBottom";
-import DragDropProductList from "../../DragDropProductList";
+import HeadArrowBack from "../nav/HeadArrowBack";
+import NavBottom from "../nav/NavBottom";
+import DragDropProductList from "../common/DragDropProductList";
 
 export default function NewList() {
   // load user info

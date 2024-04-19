@@ -6,7 +6,7 @@ import {
   updateProfile,
 } from "firebase/auth";
 
-import { db } from "./firebase";
+import { db } from "/src/components/auth/firebase";
 import { doc, collection, addDoc, getDoc, setDoc } from "firebase/firestore";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";

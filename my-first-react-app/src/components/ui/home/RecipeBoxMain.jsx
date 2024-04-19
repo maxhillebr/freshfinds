@@ -1,7 +1,7 @@
 import { useState, useEffect, useId } from "react";
 import Button from "@mui/material/Button";
 import { Link } from "react-router-dom";
-import { db } from "/src/firebase";
+import { db } from "/src/components/auth/firebase";
 import { collection, getDocs, doc, deleteDoc } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
 import EditNoteIcon from "@mui/icons-material/EditNote";

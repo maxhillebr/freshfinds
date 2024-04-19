@@ -10,13 +10,13 @@ import DragIndicatorIcon from "@mui/icons-material/DragIndicator";
 
 import { useParams } from "react-router-dom";
 
-import { db } from "/src/firebase";
+import { db } from "/src/components/auth/firebase";
 import { doc, updateDoc, addDoc, setDoc, getDoc } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
 
 import { useNavigate } from "react-router-dom";
 
-import HeadArrowBack from "/src/components/HeadArrowBack";
+import HeadArrowBack from "../nav/HeadArrowBack";
 import NavBottom from "../nav/NavBottom";
 
 export default function EditList() {

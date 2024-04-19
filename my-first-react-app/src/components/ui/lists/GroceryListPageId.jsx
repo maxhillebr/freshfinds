@@ -2,14 +2,14 @@
 
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { db } from "/src/firebase";
+import { db } from "/src/components/auth/firebase";
 import { doc, getDoc } from "firebase/firestore";
 import Button from "@mui/material/Button";
 import ShareIcon from "@mui/icons-material/Share";
 import EditNoteIcon from "@mui/icons-material/EditNote";
 import HomeIcon from "@mui/icons-material/Home";
-import HeadArrowBack from "./HeadArrowBack";
-import NavBottom from "./NavBottom";
+import HeadArrowBack from "../nav/HeadArrowBack";
+import NavBottom from "../nav/NavBottom";
 import "/src/css/main.css";
 import "/src/css/displaylists.css";
 

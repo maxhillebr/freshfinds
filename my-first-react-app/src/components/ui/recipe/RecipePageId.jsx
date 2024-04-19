@@ -8,8 +8,8 @@ import Button from "@mui/material/Button";
 import ShareIcon from "@mui/icons-material/Share";
 import EditNoteIcon from "@mui/icons-material/EditNote";
 import HomeIcon from "@mui/icons-material/Home";
-import HeadArrowBack from "./HeadArrowBack";
-import NavBottom from "./NavBottom";
+import HeadArrowBack from "../nav/HeadArrowBack";
+import NavBottom from "../nav/NavBottom";
 import "/src/css/main.css";
 import "/src/css/displaylists.css";
 

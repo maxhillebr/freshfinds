@@ -21,8 +21,8 @@ import {
 
 import { useNavigate } from "react-router-dom";
 
-import HeadArrowBack from "/src/components/HeadArrowBack";
-import NavBottom from "./NavBottom";
+import HeadArrowBack from "../nav/HeadArrowBack";
+import NavBottom from "../nav/NavBottom";
 
 export default function EditRecipe() {
   const generateUUID = () => {

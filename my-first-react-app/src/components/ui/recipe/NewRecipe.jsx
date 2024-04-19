@@ -17,10 +17,10 @@ import { useNavigate } from "react-router-dom";
 import { generateUUID } from "../../common/UUIDGenerator";
 
 import AddProduct from "../common/AddProduct";
-import ProductListDnd from "../../DragDropProductList";
-import HeadArrowBack from "../HeadArrowBack";
-import NavBottom from "../NavBottom";
-import useFirebaseAuth from "../../common/AuthFirebase";
+import ProductListDnd from "../common/DragDropProductList";
+import HeadArrowBack from "../nav/HeadArrowBack";
+import NavBottom from "../nav/NavBottom";
+import useFirebaseAuth from "/src/components/auth/AuthFirebase";
 // ------------------
 
 export default function NewRecipe() {
