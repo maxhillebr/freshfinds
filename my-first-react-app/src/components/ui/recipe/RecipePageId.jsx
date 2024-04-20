@@ -7,6 +7,8 @@ import { doc, getDoc } from "firebase/firestore";
 import Button from "@mui/material/Button";
 import ShareIcon from "@mui/icons-material/Share";
 import EditNoteIcon from "@mui/icons-material/EditNote";
+import Select from "@mui/material/Select";
+import MenuItem from "@mui/material/MenuItem";
 import HomeIcon from "@mui/icons-material/Home";
 import HeadArrowBack from "../nav/HeadArrowBack";
 import NavBottom from "../nav/NavBottom";
@@ -30,6 +32,7 @@ const RecipePageId = () => {
   const { username, listId } = useParams(); // Extract the document ID from the URL
   const [recipeData, setRecipeData] = useState(null);
   const [itemColors, setItemColors] = useState({});
+  const [selectedServings, setSelectedServings] = useState(2); // Default to 2 servings
 
   useEffect(() => {
     const fetchRecipeData = async () => {
@@ -65,6 +68,10 @@ const RecipePageId = () => {
     }));
   };
 
+  const handleServingsChange = (event) => {
+    setSelectedServings(event.target.value);
+  };
+
   return (
     <>
       <div className="content">
@@ -84,7 +91,20 @@ const RecipePageId = () => {
                 <h3>Items you need</h3>
               </div>
               <div className="display-title-box__calc">
-                <p>For 2 Servings</p>
+                <p>
+                  For
+                  <Select
+                    value={selectedServings}
+                    onChange={handleServingsChange}
+                  >
+                    {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((servings) => (
+                      <MenuItem key={servings} value={servings}>
+                        {servings}
+                      </MenuItem>
+                    ))}
+                  </Select>
+                  Servings
+                </p>
               </div>
             </div>
             <div className="display-list-container">
@@ -102,7 +122,8 @@ const RecipePageId = () => {
                     {product.name}
                   </div>
                   <div className="display-list-container__amount">
-                    {product.amount}
+                    {(parseFloat(product.amount) * selectedServings).toFixed(2)}{" "}
+                    {product.unit}
                   </div>
                 </div>
               ))}

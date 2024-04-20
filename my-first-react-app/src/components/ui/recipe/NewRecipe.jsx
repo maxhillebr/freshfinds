@@ -17,10 +17,10 @@ import useFirebaseAuth from "/src/components/auth/AuthFirebase";
 import { useNavigate } from "react-router-dom";
 import { generateUUID } from "../../common/UUIDGenerator";
 
-import AddProduct from "../common/AddProduct";
+import AddProductRecipe from "../common/AddProductRecipe";
 import HeadArrowBack from "../nav/HeadArrowBack";
 import NavBottom from "../nav/NavBottom";
-import DragDropProductList from "../common/DragDropProductList";
+import DragDropProductRecipe from "../common/DragDropProductRecipe";
 
 // ------------------
 
@@ -43,6 +43,7 @@ export default function NewRecipe() {
   const [instructionInput, setInstructionInput] = useState("");
   const [product, setProduct] = useState("");
   const [amount, setAmount] = useState("");
+  const [unit, setUnit] = useState("");
 
   const [image, setImage] = useState(null);
   const [imageUrl, setImageUrl] = useState(null);
@@ -179,7 +180,7 @@ export default function NewRecipe() {
           <div>{fileName}</div>
         </div>
 
-        <AddProduct
+        <AddProductRecipe
           title={title}
           setTitle={setTitle}
           product={product}
@@ -188,6 +189,8 @@ export default function NewRecipe() {
           setAmount={setAmount}
           rows={rows}
           setRows={setRows}
+          unit={unit}
+          setUnit={setUnit}
         />
 
         <div className="title-product-list">
@@ -199,7 +202,7 @@ export default function NewRecipe() {
             <div>Amount</div>
             <div>Delete</div>
           </div>
-          <DragDropProductList rows={rows} setRows={setRows} />
+          <DragDropProductRecipe rows={rows} setRows={setRows} />
         </div>
         {/* Instructions */}
         <div className="title-instruction">
