@@ -4,6 +4,8 @@ import "/src/css/main.css";
 import React, { useState, useId, useRef } from "react";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
+import DeleteIcon from "@mui/icons-material/Delete";
+import { IconButton } from "@mui/material";
 
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 
@@ -162,23 +164,6 @@ export default function NewRecipe() {
         <div className="title-welcome">
           <h1>Create New Recipe</h1>
         </div>
-        <div className="add-image-container-recipe">
-          <input
-            type="file"
-            accept="image/*"
-            ref={fileInputRef}
-            style={{ display: "none" }}
-            onChange={handleImageChange}
-          />
-          <Button
-            variant="contained"
-            onClick={() => fileInputRef.current.click()}
-          >
-            Upload Image
-          </Button>
-          {/* Show the file name below the button */}
-          <div>{fileName}</div>
-        </div>
 
         <AddProductRecipe
           title={title}
@@ -194,7 +179,7 @@ export default function NewRecipe() {
         />
 
         <div className="title-product-list">
-          <h2>List</h2>
+          <h2>Item List</h2>
         </div>
         <div className="product-list-container">
           <div className="product-list-container__header">
@@ -206,31 +191,38 @@ export default function NewRecipe() {
         </div>
         {/* Instructions */}
         <div className="title-instruction">
-          <h2>Add Instruction</h2>
+          <h2>Instructions</h2>
         </div>
         <div className="add-instruction-container">
+          <p>Add Instructions</p>
           <TextField
             required
             id="recipe-instruction"
             className="add-instruction-container__title"
             label="Instruction"
             value={instructionInput}
+            fullWidth
             onChange={handleInstructionChange}
           />
+          <div className="add-instruction-btn">
+            <Button
+              id="add-button"
+              variant="contained"
+              onClick={handleAddInstruction}
+            >
+              Add
+            </Button>
+          </div>
         </div>
-        <div className="add-instruction-btn">
-          <Button
-            id="add-button"
-            variant="contained"
-            onClick={handleAddInstruction}
-          >
-            Add
-          </Button>
-        </div>
+
         <div className="title-instruction">
-          <h2>Instructions</h2>
+          <h2>List</h2>
         </div>
         <div className="instruction-container-recipe">
+          <div className="instruction-container-recipe__header">
+            <div>Instruction</div>
+            <div>Delete</div>
+          </div>
           <DragDropContext onDragEnd={onDragEndInstructions}>
             <Droppable droppableId="instructions">
               {(provided) => (
@@ -249,17 +241,15 @@ export default function NewRecipe() {
                         >
                           <div className="instruction-container-recipe__box">
                             <div>{instruction.instruction}</div>
-                            <div className="instruction-container-recipe__del">
-                              <Button
-                                size="small"
-                                variant="contained"
-                                color="error"
+                            <div>
+                              <IconButton
+                                aria-label="delete"
                                 onClick={() =>
                                   handleDeleteInstruction(instruction.id)
                                 }
                               >
-                                X
-                              </Button>
+                                <DeleteIcon />
+                              </IconButton>
                             </div>
                           </div>
                         </div>
@@ -271,6 +261,32 @@ export default function NewRecipe() {
               )}
             </Droppable>
           </DragDropContext>
+
+          <div className="title-instruction">
+            <h2>Add Image</h2>
+            <div className="add-product-help-text">
+              <p>
+                No image? You don't have to upload yet. You can set the image
+                later.
+              </p>
+            </div>
+          </div>
+          <div className="add-image-container-recipe">
+            <input
+              type="file"
+              accept="image/*"
+              ref={fileInputRef}
+              style={{ display: "none" }}
+              onChange={handleImageChange}
+            />
+            <Button
+              variant="contained"
+              onClick={() => fileInputRef.current.click()}
+            >
+              Upload Image
+            </Button>
+            <div>{fileName}</div>
+          </div>
           <div className="submit-event-btn">
             <Button
               id="submit-list"

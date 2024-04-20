@@ -57,6 +57,9 @@ export default function AddProductRecipe({
     );
     if (!productExists) {
       setError("Product not found in the list.");
+      setProduct("");
+      setAmount("");
+      setUnit("");
       return false;
     }
     return true;
@@ -96,6 +99,15 @@ export default function AddProductRecipe({
           onChange={handleTitleChange}
         />
       </div>
+      <div className="title-product-list">
+        <h2>Items for the recipe</h2>
+      </div>
+      <div className="add-product-help-text">
+        <p>
+          Only add products/amount for 1 serving only. You can later change the
+          servings.
+        </p>
+      </div>
       <div className="add-product-container">
         <p>Add Product</p>
 
@@ -131,8 +143,8 @@ export default function AddProductRecipe({
             Add
           </Button>
         </div>
-        {error && <div className="error-message">{error}</div>}
       </div>
+      {error && <div className="add-product-error-message">{error}</div>}
     </>
   );
 }

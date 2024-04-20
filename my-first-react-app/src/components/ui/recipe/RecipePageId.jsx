@@ -32,7 +32,7 @@ const RecipePageId = () => {
   const { username, listId } = useParams(); // Extract the document ID from the URL
   const [recipeData, setRecipeData] = useState(null);
   const [itemColors, setItemColors] = useState({});
-  const [selectedServings, setSelectedServings] = useState(2); // Default to 2 servings
+  const [selectedServings, setSelectedServings] = useState(1); // Default to 2 servings
 
   useEffect(() => {
     const fetchRecipeData = async () => {
@@ -72,6 +72,11 @@ const RecipePageId = () => {
     setSelectedServings(event.target.value);
   };
 
+  const normalizeAmount = (amount) => {
+    // Replace commas with periods for consistent input handling
+    return amount.replace(",", ".");
+  };
+
   return (
     <>
       <div className="content">
@@ -92,7 +97,6 @@ const RecipePageId = () => {
               </div>
               <div className="display-title-box__calc">
                 <p>
-                  For
                   <Select
                     value={selectedServings}
                     onChange={handleServingsChange}
@@ -122,7 +126,10 @@ const RecipePageId = () => {
                     {product.name}
                   </div>
                   <div className="display-list-container__amount">
-                    {(parseFloat(product.amount) * selectedServings).toFixed(2)}{" "}
+                    {(
+                      parseFloat(normalizeAmount(product.amount)) *
+                      selectedServings
+                    ).toFixed(2)}
                     {product.unit}
                   </div>
                 </div>

@@ -15,6 +15,16 @@
   gap: 0;
 }
 
+.add-product-help-text {
+  color: #d2d2d2;
+  font-size: 12px;
+}
+
+.add-product-error-message {
+  color: #ff0000;
+  font-size: 12px;
+}
+
 .title-desc-container div,
 .add-product-container div,
 .product-list-container div {
@@ -29,7 +39,8 @@
   padding: 0.3em;
 }
 
-.product-list-container__header {
+.product-list-container__header,
+.instruction-container-recipe__header {
   border-bottom: 1px solid rgb(217, 217, 217);
   display: grid;
   grid-template-columns: 0.5fr 1fr 0.5fr;
@@ -39,7 +50,18 @@
   font-size: 12px;
 }
 
-.product-list-container__header div {
+.instruction-container-recipe__header {
+  border-bottom: 1px solid rgb(217, 217, 217);
+  display: grid;
+  grid-template-columns: 1fr 0.5fr;
+  overflow: hidden;
+  margin: 0.5em 0;
+  padding: 1em;
+  font-size: 12px;
+}
+
+.product-list-container__header div,
+.instruction-container-recipe__header div {
   padding: 0.5em;
   word-break: break-all;
   font-weight: bold;
@@ -87,9 +109,8 @@
 
 /* Instructions */
 .add-instruction-container {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-evenly;
+  grid-template-columns: 1fr;
+  gap: 0;
 }
 
 .add-instruction-btn-recipe {
@@ -100,13 +121,20 @@
 }
 
 .instruction-container-recipe__box {
-  background-color: #edffe3;
+  background-color: #fff;
   border-radius: 1em;
   display: grid;
-  grid-template-columns: 1fr;
+  grid-template-columns: 1fr 0.1fr;
   overflow: hidden;
   margin: 0.5em 0;
   padding: 1em;
+  align-items: center;
+  box-shadow: -1px 3px 6px 0px #d9d7d7;
+}
+.add-image-container-recipe {
+  margin: 2em 0;
+  padding: 1em 0;
+  border-bottom: 1px solid rgb(217, 217, 217);
 }
 
 /* Responsive styles */
@@ -125,16 +153,28 @@
     gap: 1em;
   }
 
+  .add-instruction-container {
+    display: grid;
+    margin: 0 0 1em 0;
+    grid-template-columns: 128px 1fr 1fr;
+    gap: 1em;
+  }
+
   .title-desc-container div,
-  .add-product-container div {
+  .add-product-container div,
+  .add-instruction-container {
     margin: 0;
   }
 
   .product-list-container__box {
     grid-template-columns: 0.5fr 1fr 0.5fr;
   }
-  /* Instructions */
-  .add-instruction-container {
-    flex-direction: row;
+
+  .instruction-container-recipe__box {
+    grid-template-columns: 1fr 0.1fr;
+  }
+
+  .instruction-container-recipe__header {
+    grid-template-columns: 1fr 0.1fr;
   }
 }
