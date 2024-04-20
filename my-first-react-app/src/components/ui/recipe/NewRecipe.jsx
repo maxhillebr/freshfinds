@@ -11,16 +11,17 @@ import { db, storage } from "/src/components/auth/firebase";
 
 import { collection, addDoc } from "firebase/firestore";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import useFirebaseAuth from "/src/components/auth/AuthFirebase";
 
 // ------------------
 import { useNavigate } from "react-router-dom";
 import { generateUUID } from "../../common/UUIDGenerator";
 
 import AddProduct from "../common/AddProduct";
-import ProductListDnd from "../common/DragDropProductList";
 import HeadArrowBack from "../nav/HeadArrowBack";
 import NavBottom from "../nav/NavBottom";
-import useFirebaseAuth from "/src/components/auth/AuthFirebase";
+import DragDropProductList from "../common/DragDropProductList";
+
 // ------------------
 
 export default function NewRecipe() {
@@ -76,28 +77,8 @@ export default function NewRecipe() {
   };
 
   // handle change of input and update state
-
-  const handleTitleChange = (event) => {
-    setTitle(event.target.value);
-  };
-
   const handleInstructionChange = (event) => {
     setInstructionInput(event.target.value);
-  };
-
-  const handleProductChange = (event) => {
-    setProduct(event.target.value);
-  };
-
-  const handleAmountChange = (event) => {
-    setAmount(event.target.value);
-  };
-
-  const handleAddProducts = () => {
-    const newData = createData(newId, product, amount);
-    setRows((prevRows) => [...prevRows, newData]);
-    setProduct("");
-    setAmount("");
   };
 
   const handleAddInstruction = () => {
@@ -106,17 +87,8 @@ export default function NewRecipe() {
     setInstructionInput("");
   };
 
-  const createData = (id, name, amount) => {
-    return { id, name, amount };
-  };
-
   const createInstruction = (id, instruction) => {
     return { id, instruction };
-  };
-
-  const handleDelete = (id) => {
-    const updatedRows = rows.filter((product) => product.id !== id);
-    setRows(updatedRows);
   };
 
   const handleDeleteInstruction = (id) => {
@@ -128,16 +100,6 @@ export default function NewRecipe() {
 
   // --------------------------------
   // --------------------------------
-
-  const onDragEnd = (result) => {
-    if (!result.destination) return;
-
-    const items = Array.from(rows);
-    const [reorderedItem] = items.splice(result.source.index, 1);
-    items.splice(result.destination.index, 0, reorderedItem);
-
-    setRows(items);
-  };
 
   const onDragEndInstructions = (result) => {
     if (!result.destination) return;
@@ -199,17 +161,6 @@ export default function NewRecipe() {
         <div className="title-welcome">
           <h1>Create New Recipe</h1>
         </div>
-
-        <div className="title-desc-container">
-          <TextField
-            required
-            id="recipe-list-title"
-            className="title-desc-container__title"
-            label="Title"
-            value={title}
-            onChange={handleTitleChange}
-          />
-        </div>
         <div className="add-image-container-recipe">
           <input
             type="file"
@@ -227,37 +178,18 @@ export default function NewRecipe() {
           {/* Show the file name below the button */}
           <div>{fileName}</div>
         </div>
-        <div className="title-add">
-          <h2>Add Products</h2>
-        </div>
 
-        <div className="add-product-container">
-          <TextField
-            required
-            id="grocery-list-amount-recipe"
-            className="add-product-container__amount"
-            label="Amount"
-            value={amount}
-            onChange={handleAmountChange}
-          />
-          <TextField
-            required
-            id="grocery-list-product-recipe"
-            className="add-product-container__title"
-            label="Product"
-            value={product}
-            onChange={handleProductChange}
-          />
-        </div>
-        <div className="add-product-btn">
-          <Button
-            id="add-button"
-            variant="contained"
-            onClick={handleAddProducts}
-          >
-            Add
-          </Button>
-        </div>
+        <AddProduct
+          title={title}
+          setTitle={setTitle}
+          product={product}
+          setProduct={setProduct}
+          amount={amount}
+          setAmount={setAmount}
+          rows={rows}
+          setRows={setRows}
+        />
+
         <div className="title-product-list">
           <h2>List</h2>
         </div>
@@ -267,45 +199,7 @@ export default function NewRecipe() {
             <div>Amount</div>
             <div>Delete</div>
           </div>
-          <DragDropContext onDragEnd={onDragEnd}>
-            <Droppable droppableId="rows">
-              {(provided) => (
-                <div ref={provided.innerRef} {...provided.droppableProps}>
-                  {rows.map((row, index) => (
-                    <Draggable
-                      key={row.id}
-                      draggableId={row.id.toString()}
-                      index={index}
-                    >
-                      {(provided) => (
-                        <div
-                          {...provided.draggableProps}
-                          {...provided.dragHandleProps}
-                          ref={provided.innerRef}
-                        >
-                          <div className="product-list-container__box">
-                            <div>{row.amount}</div>
-                            <div>{row.name}</div>
-                            <div>
-                              <Button
-                                size="small"
-                                variant="contained"
-                                color="error"
-                                onClick={() => handleDelete(row.id)}
-                              >
-                                X
-                              </Button>
-                            </div>
-                          </div>
-                        </div>
-                      )}
-                    </Draggable>
-                  ))}
-                  {provided.placeholder}
-                </div>
-              )}
-            </Droppable>
-          </DragDropContext>
+          <DragDropProductList rows={rows} setRows={setRows} />
         </div>
         {/* Instructions */}
         <div className="title-instruction">
