@@ -3,7 +3,7 @@ import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { IconButton } from "@mui/material";
 
-export default function DragDropProductList({ rows, setRows }) {
+export default function DragDropProductRecipe({ rows, setRows }) {
   const onDragEnd = (result) => {
     if (!result.destination) return;
 

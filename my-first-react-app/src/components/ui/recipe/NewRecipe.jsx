@@ -48,7 +48,7 @@ export default function NewRecipe() {
   const [unit, setUnit] = useState("");
 
   const [image, setImage] = useState(null);
-  const [imageUrl, setImageUrl] = useState(null);
+  const [imageUrl, setImageUrl] = useState(""); // Set to placeholder by default
   const fileInputRef = useRef(null);
   const [fileName, setFileName] = useState("");
 
@@ -74,7 +74,7 @@ export default function NewRecipe() {
       return url;
     } catch (error) {
       console.error("Error uploading image: ", error);
-      setImageUrl(null);
+      setImageUrl(placeholderImageUrl);
       return null;
     }
   };
