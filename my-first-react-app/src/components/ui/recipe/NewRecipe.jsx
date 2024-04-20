@@ -177,10 +177,6 @@ export default function NewRecipe() {
           unit={unit}
           setUnit={setUnit}
         />
-
-        <div className="title-product-list">
-          <h2>Item List</h2>
-        </div>
         <div className="product-list-container">
           <div className="product-list-container__header">
             <div>Product</div>
@@ -213,10 +209,6 @@ export default function NewRecipe() {
               Add
             </Button>
           </div>
-        </div>
-
-        <div className="title-instruction">
-          <h2>List</h2>
         </div>
         <div className="instruction-container-recipe">
           <div className="instruction-container-recipe__header">
@@ -261,41 +253,40 @@ export default function NewRecipe() {
               )}
             </Droppable>
           </DragDropContext>
-
-          <div className="title-instruction">
-            <h2>Add Image</h2>
-            <div className="add-product-help-text">
-              <p>
-                No image? You don't have to upload yet. You can set the image
-                later.
-              </p>
-            </div>
+        </div>
+        <div className="title-instruction">
+          <h2>Add Image</h2>
+          <div className="add-product-help-text">
+            <p>
+              No image? You don't have to upload yet. You can set the image
+              later.
+            </p>
           </div>
-          <div className="add-image-container-recipe">
-            <input
-              type="file"
-              accept="image/*"
-              ref={fileInputRef}
-              style={{ display: "none" }}
-              onChange={handleImageChange}
-            />
-            <Button
-              variant="contained"
-              onClick={() => fileInputRef.current.click()}
-            >
-              Upload Image
-            </Button>
-            <div>{fileName}</div>
-          </div>
-          <div className="submit-event-btn">
-            <Button
-              id="submit-list"
-              variant="contained"
-              onClick={() => addNewRecipe(title, rows, instructions)}
-            >
-              Create Recipe
-            </Button>
-          </div>
+        </div>
+        <div className="add-image-container-recipe">
+          <input
+            type="file"
+            accept="image/*"
+            ref={fileInputRef}
+            style={{ display: "none" }}
+            onChange={handleImageChange}
+          />
+          <Button
+            variant="contained"
+            onClick={() => fileInputRef.current.click()}
+          >
+            Upload Image
+          </Button>
+          <div>{fileName}</div>
+        </div>
+        <div className="submit-event-btn">
+          <Button
+            id="submit-list"
+            variant="contained"
+            onClick={() => addNewRecipe(title, rows, instructions)}
+          >
+            Create Recipe
+          </Button>
         </div>
       </div>
 

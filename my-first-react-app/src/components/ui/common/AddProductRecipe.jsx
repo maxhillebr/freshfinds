@@ -100,12 +100,12 @@ export default function AddProductRecipe({
         />
       </div>
       <div className="title-product-list">
-        <h2>Items for the recipe</h2>
+        <h2>Ingredients</h2>
       </div>
       <div className="add-product-help-text">
         <p>
-          Only add products/amount for 1 serving only. You can later change the
-          servings.
+          Only add products/amount <strong>for 1 serving only</strong>. You can
+          later change the servings.
         </p>
       </div>
       <div className="add-product-container">
@@ -122,6 +122,15 @@ export default function AddProductRecipe({
           inputValue={product || ""} // Reflect the input value
           onInputChange={(event, newInputValue) => {
             setProduct(newInputValue);
+            const selectedProduct = productsList.find(
+              (item) =>
+                item.product.toLowerCase() === newInputValue.toLowerCase()
+            );
+            if (selectedProduct) {
+              setUnit(selectedProduct.unit);
+            } else {
+              setUnit("");
+            }
           }}
           fullWidth
         />
