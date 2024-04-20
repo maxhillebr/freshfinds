@@ -96,19 +96,17 @@ const RecipePageId = () => {
                 <h3>Items you need</h3>
               </div>
               <div className="display-title-box__calc">
-                <p>
-                  <Select
-                    value={selectedServings}
-                    onChange={handleServingsChange}
-                  >
-                    {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((servings) => (
-                      <MenuItem key={servings} value={servings}>
-                        {servings}
-                      </MenuItem>
-                    ))}
-                  </Select>
-                  Servings
-                </p>
+                <Select
+                  value={selectedServings}
+                  onChange={handleServingsChange}
+                >
+                  {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((servings) => (
+                    <MenuItem key={servings} value={servings}>
+                      {servings}
+                    </MenuItem>
+                  ))}
+                </Select>
+                Servings
               </div>
             </div>
             <div className="display-list-container">
