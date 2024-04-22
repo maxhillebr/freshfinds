@@ -32,7 +32,7 @@ const RecipePageId = () => {
   const { username, listId } = useParams(); // Extract the document ID from the URL
   const [recipeData, setRecipeData] = useState(null);
   const [itemColors, setItemColors] = useState({});
-  const [selectedServings, setSelectedServings] = useState(1); // Default to 2 servings
+  const [selectedServings, setSelectedServings] = useState();
 
   useEffect(() => {
     const fetchRecipeData = async () => {
@@ -42,13 +42,20 @@ const RecipePageId = () => {
 
         const docSnap = await getDoc(docRef);
         if (docSnap.exists()) {
-          setRecipeData(docSnap.data());
+          const data = docSnap.data();
           // Initialize item colors
           const initialColors = {};
-          docSnap.data().products.forEach((product) => {
+          data.products.forEach((product) => {
             initialColors[product.id] = "#fff6e3";
           });
           setItemColors(initialColors);
+
+          // Store servings in a local variable
+          const servings = data.servings;
+
+          // Set recipe data and selectedServings
+          setRecipeData(data);
+          setSelectedServings(servings);
         } else {
           console.log("No such document!");
         }
@@ -58,7 +65,7 @@ const RecipePageId = () => {
     };
 
     fetchRecipeData();
-  }, [listId, username]);
+  }, [username, listId]);
 
   const handleItemClick = (itemId) => {
     // Toggle color for the clicked item

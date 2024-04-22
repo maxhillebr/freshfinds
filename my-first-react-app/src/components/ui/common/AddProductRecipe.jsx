@@ -4,6 +4,8 @@ import Button from "@mui/material/Button";
 import { Autocomplete } from "@mui/material";
 import { useState } from "react";
 import { productsList } from "../recipe/ProductsList";
+import MenuItem from "@mui/material/MenuItem";
+import Select from "@mui/material/Select";
 
 export default function AddProductRecipe({
   title,
@@ -16,6 +18,8 @@ export default function AddProductRecipe({
   setRows,
   unit,
   setUnit,
+  servings,
+  setServings,
 }) {
   const [error, setError] = useState("");
 
@@ -98,6 +102,20 @@ export default function AddProductRecipe({
           fullWidth
           onChange={handleTitleChange}
         />
+        <p>Servings</p>
+        <Select
+          labelId="select-servings-label"
+          id="select-servings"
+          fullWidth
+          value={servings}
+          onChange={(e) => setServings(e.target.value)}
+        >
+          {[...Array(10).keys()].map((value) => (
+            <MenuItem key={value + 1} value={value + 1}>
+              {value + 1}
+            </MenuItem>
+          ))}
+        </Select>
       </div>
       <div className="title-product-list">
         <h2>Ingredients</h2>

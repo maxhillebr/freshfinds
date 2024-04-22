@@ -38,6 +38,7 @@ export default function NewRecipe() {
 
   // state
   const [title, setTitle] = useState("");
+  const [servings, setServings] = useState(1); // Default to 1 serving
 
   const [rows, setRows] = useState([]);
   const [instructions, setInstructions] = useState([]);
@@ -125,7 +126,7 @@ export default function NewRecipe() {
   // --------------------------------
   // --------------------------------
 
-  const addNewRecipe = async (title, rows, instructions) => {
+  const addNewRecipe = async (title, rows, instructions, servings) => {
     if (title === "" || rows.length === 0 || instructions.length === 0) {
       alert(
         "Title, Products, or Instructions are missing. Check your list again!"
@@ -157,6 +158,7 @@ export default function NewRecipe() {
         instructions: instructions,
         imageUrl: imageUrl || placeholderImageUrl, // Add imageUrl to the document
         imageId: newId,
+        servings: servings,
       });
 
       console.log("Document written with ID: ", docRef.id);
@@ -186,6 +188,8 @@ export default function NewRecipe() {
           setRows={setRows}
           unit={unit}
           setUnit={setUnit}
+          servings={servings}
+          setServings={setServings}
         />
         <div className="product-list-container">
           <div className="product-list-container__header">
@@ -293,7 +297,7 @@ export default function NewRecipe() {
           <Button
             id="submit-list"
             variant="contained"
-            onClick={() => addNewRecipe(title, rows, instructions)}
+            onClick={() => addNewRecipe(title, rows, instructions, servings)}
           >
             Create Recipe
           </Button>
