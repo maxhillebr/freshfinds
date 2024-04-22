@@ -248,6 +248,7 @@ export default function EditRecipe() {
 
       if (typeof updatedImageUrl !== "undefined") {
         updateData.imageUrl = updatedImageUrl;
+        updateData.imageId = imageId;
       } else {
         updateData.imageUrl = null;
       }

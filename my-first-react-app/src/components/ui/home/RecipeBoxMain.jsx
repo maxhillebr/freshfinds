@@ -1,8 +1,10 @@
 import { useState, useEffect, useId } from "react";
 import Button from "@mui/material/Button";
 import { Link } from "react-router-dom";
-import { db } from "/src/components/auth/firebase";
+import { db, storage } from "/src/components/auth/firebase";
+
 import { collection, getDocs, doc, deleteDoc } from "firebase/firestore";
+import { ref, deleteObject } from "firebase/storage";
 import { getAuth } from "firebase/auth";
 import EditNoteIcon from "@mui/icons-material/EditNote";
 import ShareIcon from "@mui/icons-material/Share";
@@ -67,12 +69,52 @@ export default function RecipeBoxMain() {
     console.log(lists);
   };
 
-  const handleDeleteDoc = async (id) => {
-    const colRef = doc(db, "users", username, "recipes", id);
-    await deleteDoc(colRef);
+  // const handleDeleteDoc = async (id, imageId) => {
+  //   const colRef = doc(db, "users", username, "recipes", id);
+  //   const storageRef = ref(storage, "users", username, "recipes", imageId);
 
-    console.log("Document deleted", id);
-    alert("Grocery List deleted");
+  //   if (storageRef === undefined) {
+  //     await deleteObject(storageRef);
+  //     console.log("Deleted image with id", imageId);
+  //   } else {
+  //     console.log("This recipe has no image.");
+  //   }
+
+  //   await deleteDoc(colRef);
+
+  //   console.log("Document deleted", id);
+  //   alert("Grocery List deleted");
+  //   fetchColGetDoc();
+  // };
+
+  const handleDeleteDoc = async (id, imageId) => {
+    try {
+      // Delete the image from Firebase Storage
+      const storageRef = ref(
+        storage,
+        `users/${username}/images/recipes/${imageId}`
+      );
+      await deleteObject(storageRef);
+      console.log("Image deleted successfully");
+
+      // Delete the document from Firestore
+      const docRef = doc(db, "users", username, "recipes", id);
+      await deleteDoc(docRef);
+      console.log("Document deleted successfully");
+
+      // Optionally, you can navigate to another page or show a success message
+    } catch (error) {
+      if (error.code === "storage/object-not-found") {
+        console.log("No image found in storage. Deleting document only.");
+        // If image is not found in storage, you may choose to only delete the document
+        const docRef = doc(db, "users", username, "recipes", id);
+        await deleteDoc(docRef);
+        console.log("Document deleted successfully");
+      } else {
+        console.error("Error deleting image or document:", error);
+      }
+    }
+    alert("Grocery Recipe deleted");
     fetchColGetDoc();
   };
 
@@ -123,7 +165,7 @@ export default function RecipeBoxMain() {
               </div>
               <div
                 className="grocer-list-container__action-btn--del"
-                onClick={() => handleDeleteDoc(data.id)}
+                onClick={() => handleDeleteDoc(data.id, data.imageId)}
               >
                 <DeleteIcon />
               </div>
