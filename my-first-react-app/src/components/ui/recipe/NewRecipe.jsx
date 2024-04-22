@@ -52,6 +52,8 @@ export default function NewRecipe() {
   const fileInputRef = useRef(null);
   const [fileName, setFileName] = useState("");
 
+  const placeholderImageUrl = "/illustrations/undraw_imagination_re_i0xi.svg";
+
   // image change and upload
   const handleImageChange = (event) => {
     const file = event.target.files[0];
@@ -64,23 +66,23 @@ export default function NewRecipe() {
     try {
       // Check if an image is selected
       if (!image) {
-        console.log("No image selected.");
-        return null; // Return null if no image is selected
+        console.log("No image selected. Placeholder selected.");
+        setImageUrl(placeholderImageUrl);
+        return; // Return null if no image is selected
+      } else {
+        const username = user.displayName;
+        const storageRef = ref(
+          storage,
+          `users/${username}/images/recipes/${newId}`
+        );
+        await uploadBytes(storageRef, image);
+        const url = await getDownloadURL(storageRef);
+        console.log("Image URL:", url);
+        setImageUrl(url);
+        return url;
       }
-
-      const username = user.displayName;
-      const storageRef = ref(
-        storage,
-        `users/${username}/images/recipes/${newId}`
-      );
-      await uploadBytes(storageRef, image);
-      const url = await getDownloadURL(storageRef);
-      console.log("Image URL:", url);
-      setImageUrl(url);
-      return url;
     } catch (error) {
       console.error("Error uploading image: ", error);
-      setImageUrl(placeholderImageUrl);
       return null;
     }
   };
@@ -153,7 +155,7 @@ export default function NewRecipe() {
         title: title,
         products: rows,
         instructions: instructions,
-        imageUrl: imageUrl, // Add imageUrl to the document
+        imageUrl: imageUrl || placeholderImageUrl, // Add imageUrl to the document
         imageId: newId,
       });
 
