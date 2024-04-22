@@ -48,7 +48,7 @@ export default function NewRecipe() {
   const [unit, setUnit] = useState("");
 
   const [image, setImage] = useState(null);
-  const [imageUrl, setImageUrl] = useState(""); // Set to placeholder by default
+  const [imageUrl, setImageUrl] = useState("");
   const fileInputRef = useRef(null);
   const [fileName, setFileName] = useState("");
 
@@ -62,6 +62,12 @@ export default function NewRecipe() {
 
   const handleUploadImage = async () => {
     try {
+      // Check if an image is selected
+      if (!image) {
+        console.log("No image selected.");
+        return null; // Return null if no image is selected
+      }
+
       const username = user.displayName;
       const storageRef = ref(
         storage,
@@ -125,10 +131,11 @@ export default function NewRecipe() {
       return;
     }
 
+    // Check if imageUrl is truthy (meaning an image was uploaded)
     const imageUrl = await handleUploadImage();
-    if (!imageUrl) {
-      alert("Error uploading image. Recipe not created.");
-      return;
+    if (imageUrl === null) {
+      // No image was uploaded, handle accordingly (optional)
+      console.log("No image uploaded.");
     }
 
     try {
@@ -147,6 +154,7 @@ export default function NewRecipe() {
         products: rows,
         instructions: instructions,
         imageUrl: imageUrl, // Add imageUrl to the document
+        imageId: newId,
       });
 
       console.log("Document written with ID: ", docRef.id);
