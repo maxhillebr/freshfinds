@@ -14,21 +14,9 @@ import HeadArrowBack from "../nav/HeadArrowBack";
 import NavBottom from "../nav/NavBottom";
 import "/src/css/main.css";
 import "/src/css/displaylists.css";
+import { copyToClipboard } from "../common/CopyToClipboard";
 
 const RecipePageId = () => {
-  // copy to clipboard for share
-  const copyToClipboard = async (username, id) => {
-    try {
-      const url = `${window.location.host}/users/${username}/recipes/${id}`;
-
-      await navigator.clipboard.writeText(url);
-      alert("Copied to clipboard!");
-    } catch (err) {
-      console.error("Failed to copy: ", err);
-      alert("Failed to copy to clipboard");
-    }
-  };
-
   const { username, listId } = useParams(); // Extract the document ID from the URL
   const [recipeData, setRecipeData] = useState(null);
   const [itemColors, setItemColors] = useState({});

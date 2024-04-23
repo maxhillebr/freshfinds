@@ -1,20 +1,15 @@
 import "/src/css/home.css";
 import "/src/css/main.css";
-import EditNoteIcon from "@mui/icons-material/EditNote";
-import ShareIcon from "@mui/icons-material/Share";
-import DeleteIcon from "@mui/icons-material/Delete";
-import VisibilityIcon from "@mui/icons-material/Visibility";
-import Button from "@mui/material/Button";
+
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import NavBottom from "../nav/NavBottom";
 import GroceryBoxMainTest from "./GroceryBoxMain";
 import RecipeBoxMain from "./RecipeBoxMain";
-import { getAuth } from "firebase/auth";
+import useFirebaseAuth from "/src/components/auth/AuthFirebase";
 
 function Home() {
-  const auth = getAuth();
-  const user = auth.currentUser;
-  const username = user.displayName;
+  // load user info
+  const { username } = useFirebaseAuth();
 
   return (
     <>

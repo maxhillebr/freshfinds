@@ -1,37 +1,24 @@
-import { useState, useEffect, useId } from "react";
-import Button from "@mui/material/Button";
+import { useState, useEffect } from "react";
+
 import { Link } from "react-router-dom";
 import { db, storage } from "/src/components/auth/firebase";
+import useFirebaseAuth from "/src/components/auth/AuthFirebase";
 
 import { collection, getDocs, doc, deleteDoc } from "firebase/firestore";
 import { ref, deleteObject } from "firebase/storage";
-import { getAuth } from "firebase/auth";
+
+import { generateUUID } from "../../common/UUIDGenerator";
+import { copyToClipboard } from "../common/CopyToClipboard";
 import EditNoteIcon from "@mui/icons-material/EditNote";
 import ShareIcon from "@mui/icons-material/Share";
 import DeleteIcon from "@mui/icons-material/Delete";
 
 export default function RecipeBoxMain() {
-  const generateUUID = () => {
-    let uuid = "";
-    const chars =
-      "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789_-";
-
-    for (let i = 0; i < 25; i++) {
-      const randomNumber = Math.floor(Math.random() * chars.length);
-      if (i === 8 || i === 13 || i === 18 || i === 23) {
-        uuid += "-";
-      }
-      uuid += chars[randomNumber];
-    }
-    return uuid;
-  };
-
   // unique id
   const newId = generateUUID();
 
-  const auth = getAuth();
-  const user = auth.currentUser;
-  const username = user.displayName;
+  // load user info
+  const { user, username } = useFirebaseAuth();
 
   // Define groceryLists state to store fetched data
   const [recipeData, setRecipeData] = useState([]);
@@ -69,24 +56,6 @@ export default function RecipeBoxMain() {
     console.log(lists);
   };
 
-  // const handleDeleteDoc = async (id, imageId) => {
-  //   const colRef = doc(db, "users", username, "recipes", id);
-  //   const storageRef = ref(storage, "users", username, "recipes", imageId);
-
-  //   if (storageRef === undefined) {
-  //     await deleteObject(storageRef);
-  //     console.log("Deleted image with id", imageId);
-  //   } else {
-  //     console.log("This recipe has no image.");
-  //   }
-
-  //   await deleteDoc(colRef);
-
-  //   console.log("Document deleted", id);
-  //   alert("Grocery List deleted");
-  //   fetchColGetDoc();
-  // };
-
   const handleDeleteDoc = async (id, imageId) => {
     try {
       // Delete the image from Firebase Storage
@@ -116,31 +85,6 @@ export default function RecipeBoxMain() {
     }
     alert("Grocery Recipe deleted");
     fetchColGetDoc();
-  };
-
-  // copy to clipboard for share
-  const copyToClipboard = async (username, id) => {
-    try {
-      const url = `https://${window.location.host}/users/${username}/recipes/${id}`;
-
-      const shareData = {
-        title: "Check out this recipe!",
-        text: "View this recipe:",
-        url: url,
-      };
-
-      if (navigator.share) {
-        await navigator.share(shareData);
-        console.log("Shared successfully");
-      } else {
-        // Fallback if Share API is not supported
-        await navigator.clipboard.writeText(url);
-        alert("Copied to clipboard!");
-      }
-    } catch (err) {
-      console.error("Failed to share or copy: ", err);
-      alert("Failed to share or copy to clipboard");
-    }
   };
 
   return (

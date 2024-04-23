@@ -4,32 +4,21 @@ import { Link } from "react-router-dom";
 import { db } from "/src/components/auth/firebase";
 import { collection, getDocs, doc, deleteDoc } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
+import useFirebaseAuth from "/src/components/auth/AuthFirebase";
+
 import EditNoteIcon from "@mui/icons-material/EditNote";
 import ShareIcon from "@mui/icons-material/Share";
 import DeleteIcon from "@mui/icons-material/Delete";
 
+import { copyToClipboard } from "../common/CopyToClipboard";
+import { generateUUID } from "../../common/UUIDGenerator";
+
 export default function GroceryBoxMain() {
-  const generateUUID = () => {
-    let uuid = "";
-    const chars =
-      "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789_-";
-
-    for (let i = 0; i < 25; i++) {
-      const randomNumber = Math.floor(Math.random() * chars.length);
-      if (i === 8 || i === 13 || i === 18 || i === 23) {
-        uuid += "-";
-      }
-      uuid += chars[randomNumber];
-    }
-    return uuid;
-  };
-
   // unique id
   const newId = generateUUID();
 
-  const auth = getAuth();
-  const user = auth.currentUser;
-  const username = user.displayName;
+  // load user info
+  const { user, username } = useFirebaseAuth();
 
   // Define groceryLists state to store fetched data
   const [groceryLists, setGroceryLists] = useState([]);
@@ -74,19 +63,6 @@ export default function GroceryBoxMain() {
     console.log("Document deleted", id);
     alert("Grocery List deleted");
     fetchColGetDoc();
-  };
-
-  // copy to clipboard for share
-  const copyToClipboard = async (username, id) => {
-    try {
-      const url = `${window.location.host}/users/${username}/grocerylists/${id}`;
-
-      await navigator.clipboard.writeText(url);
-      alert("Copied to clipboard!");
-    } catch (err) {
-      console.error("Failed to copy: ", err);
-      alert("Failed to copy to clipboard");
-    }
   };
 
   return (

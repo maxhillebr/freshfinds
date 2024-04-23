@@ -6,23 +6,25 @@ import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
-import DragIndicatorIcon from "@mui/icons-material/DragIndicator";
 
 import { useParams } from "react-router-dom";
 
 import { db } from "/src/components/auth/firebase";
-import { doc, updateDoc, addDoc, setDoc, getDoc } from "firebase/firestore";
-import { getAuth } from "firebase/auth";
+import { doc, setDoc, getDoc } from "firebase/firestore";
+import useFirebaseAuth from "/src/components/auth/AuthFirebase";
 
 import { useNavigate } from "react-router-dom";
+import { generateUUID } from "../../common/UUIDGenerator";
 
 import HeadArrowBack from "../nav/HeadArrowBack";
 import NavBottom from "../nav/NavBottom";
 
 export default function EditList() {
-  // check if the user is logged in?
-  const auth = getAuth();
-  const user = auth.currentUser;
+  // unique id
+  const newId = generateUUID();
+
+  // load user info
+  const { user, username } = useFirebaseAuth();
 
   const navigate = useNavigate();
 
@@ -31,25 +33,7 @@ export default function EditList() {
   const [product, setProduct] = useState("");
   const [amount, setAmount] = useState("");
 
-  const generateUUID = () => {
-    let uuid = "";
-    const chars =
-      "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789_-";
-
-    for (let i = 0; i < 25; i++) {
-      const randomNumber = Math.floor(Math.random() * chars.length);
-      if (i === 8 || i === 13 || i === 18 || i === 23) {
-        uuid += "-";
-      }
-      uuid += chars[randomNumber];
-    }
-    return uuid;
-  };
-
-  // unique id
-  const newId = generateUUID();
-
-  const { username, listId } = useParams(); // Extract the document ID from the URL
+  const { listId } = useParams(); // Extract the document ID from the URL
 
   const fetchGroceryList = async () => {
     try {
