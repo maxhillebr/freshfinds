@@ -4,56 +4,49 @@ import "/src/css/main.css";
 import React, { useState, useId, useRef, useEffect } from "react";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
+import DeleteIcon from "@mui/icons-material/Delete";
+import { IconButton } from "@mui/material";
 
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import { useParams } from "react-router-dom";
 
 import { db, storage } from "/src/components/auth/firebase";
 
-import { collection, addDoc, doc, getDoc, setDoc } from "firebase/firestore";
-import { getAuth } from "firebase/auth";
+import { doc, getDoc, setDoc } from "firebase/firestore";
 import {
   ref,
   uploadBytes,
   getDownloadURL,
   deleteObject,
 } from "firebase/storage";
+import useFirebaseAuth from "/src/components/auth/AuthFirebase";
 
+// ------------------
 import { useNavigate } from "react-router-dom";
+import { generateUUID } from "../../common/UUIDGenerator";
 
+import AddProductRecipe from "../common/AddProductRecipe";
 import HeadArrowBack from "../nav/HeadArrowBack";
 import NavBottom from "../nav/NavBottom";
+import DragDropProductRecipe from "../common/DragDropProductRecipe";
+
+// ------------------
 
 export default function EditRecipe() {
-  const generateUUID = () => {
-    let uuid = "";
-    const chars =
-      "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789_-";
-
-    for (let i = 0; i < 25; i++) {
-      const randomNumber = Math.floor(Math.random() * chars.length);
-      if (i === 8 || i === 13 || i === 18 || i === 23) {
-        uuid += "-";
-      }
-      uuid += chars[randomNumber];
-    }
-    return uuid;
-  };
-
   // unique id
   const newId = generateUUID();
 
-  // console.log("DB:", db);
-  // console.log("Storage:", storage);
-
-  // check if the user is logged in?
-  const auth = getAuth();
-  const user = auth.currentUser;
+  // load user info
+  const { user, username } = useFirebaseAuth();
+  const { listId } = useParams(); // Extract the document ID from the URL
 
   const navigate = useNavigate();
 
+  // state
   const [title, setTitle] = useState("");
+  const [servings, setServings] = useState(1); // Default to 1 serving
 
+  // navigation
   const [rows, setRows] = useState([]);
   const [instructions, setInstructions] = useState([]);
 
@@ -67,7 +60,6 @@ export default function EditRecipe() {
   const [imageId, setImageId] = useState("");
   const [fileName, setFileName] = useState("");
 
-  const { username, listId } = useParams(); // Extract the document ID from the URL
   const [recipeData, setRecipeData] = useState(null);
 
   const fetchRecipeData = async () => {
@@ -143,27 +135,8 @@ export default function EditRecipe() {
     }
   };
 
-  const handleTitleChange = (event) => {
-    setTitle(event.target.value);
-  };
-
   const handleInstructionChange = (event) => {
     setInstructionInput(event.target.value);
-  };
-
-  const handleProductChange = (event) => {
-    setProduct(event.target.value);
-  };
-
-  const handleAmountChange = (event) => {
-    setAmount(event.target.value);
-  };
-
-  const handleAddProducts = () => {
-    const newData = createData(newId, product, amount);
-    setRows((prevRows) => [...prevRows, newData]);
-    setProduct("");
-    setAmount("");
   };
 
   const handleAddInstruction = () => {
@@ -172,17 +145,8 @@ export default function EditRecipe() {
     setInstructionInput("");
   };
 
-  const createData = (id, name, amount) => {
-    return { id, name, amount };
-  };
-
   const createInstruction = (id, instruction) => {
     return { id, instruction };
-  };
-
-  const handleDelete = (id) => {
-    const updatedRows = rows.filter((product) => product.id !== id);
-    setRows(updatedRows);
   };
 
   const handleDeleteInstruction = (id) => {
@@ -191,9 +155,6 @@ export default function EditRecipe() {
     );
     setInstructions(updatedInstructions);
   };
-
-  // --------------------------------
-  // --------------------------------
 
   const onDragEnd = (result) => {
     if (!result.destination) return;
@@ -214,9 +175,6 @@ export default function EditRecipe() {
 
     setInstructions(items);
   };
-
-  // --------------------------------
-  // --------------------------------
 
   const updateNewRecipe = async (title, rows, instructions) => {
     if (title === "" || rows.length === 0 || instructions.length === 0) {
@@ -270,140 +228,58 @@ export default function EditRecipe() {
           <h1>Create New Recipe</h1>
         </div>
 
-        <div className="title-desc-container">
-          <TextField
-            required
-            id="recipe-list-title"
-            className="title-desc-container__title"
-            label="Title"
-            value={title}
-            onChange={handleTitleChange}
-          />
-        </div>
-        <div className="add-image-container-recipe">
-          <input
-            type="file"
-            accept="image/*"
-            ref={fileInputRef}
-            style={{ display: "none" }}
-            onChange={handleImageChange}
-          />
-          <Button
-            variant="contained"
-            onClick={() => fileInputRef.current.click()}
-          >
-            Upload Image
-          </Button>
-          {/* Show the file name below the button */}
-          <div>{fileName}</div>
-        </div>
-        <div className="title-add">
-          <h2>Add Products</h2>
-        </div>
-
-        <div className="add-product-container">
-          <TextField
-            required
-            id="grocery-list-amount-recipe"
-            className="add-product-container__amount"
-            label="Amount"
-            value={amount}
-            onChange={handleAmountChange}
-          />
-          <TextField
-            required
-            id="grocery-list-product-recipe"
-            className="add-product-container__title"
-            label="Product"
-            value={product}
-            onChange={handleProductChange}
-          />
-        </div>
-        <div className="add-product-btn">
-          <Button
-            id="add-button"
-            variant="contained"
-            onClick={handleAddProducts}
-          >
-            Add
-          </Button>
-        </div>
-        <div className="title-product-list">
-          <h2>List</h2>
-        </div>
+        <AddProductRecipe
+          title={title}
+          setTitle={setTitle}
+          product={product}
+          setProduct={setProduct}
+          amount={amount}
+          setAmount={setAmount}
+          rows={rows}
+          setRows={setRows}
+          unit={unit}
+          setUnit={setUnit}
+          servings={servings}
+          setServings={setServings}
+        />
         <div className="product-list-container">
           <div className="product-list-container__header">
             <div>Product</div>
             <div>Amount</div>
             <div>Delete</div>
           </div>
-          <DragDropContext onDragEnd={onDragEnd}>
-            <Droppable droppableId="rows">
-              {(provided) => (
-                <div ref={provided.innerRef} {...provided.droppableProps}>
-                  {rows.map((row, index) => (
-                    <Draggable
-                      key={row.id}
-                      draggableId={row.id.toString()}
-                      index={index}
-                    >
-                      {(provided) => (
-                        <div
-                          {...provided.draggableProps}
-                          {...provided.dragHandleProps}
-                          ref={provided.innerRef}
-                        >
-                          <div className="product-list-container__box">
-                            <div>{row.amount}</div>
-                            <div>{row.name}</div>
-                            <div>
-                              <Button
-                                size="small"
-                                variant="contained"
-                                color="error"
-                                onClick={() => handleDelete(row.id)}
-                              >
-                                X
-                              </Button>
-                            </div>
-                          </div>
-                        </div>
-                      )}
-                    </Draggable>
-                  ))}
-                  {provided.placeholder}
-                </div>
-              )}
-            </Droppable>
-          </DragDropContext>
+          <DragDropProductRecipe rows={rows} setRows={setRows} />
         </div>
         {/* Instructions */}
         <div className="title-instruction">
-          <h2>Add Instruction</h2>
+          <h2>Instructions</h2>
         </div>
         <div className="add-instruction-container">
+          <p>Add Instructions</p>
           <TextField
             required
             id="recipe-instruction"
             className="add-instruction-container__title"
             label="Instruction"
             value={instructionInput}
+            fullWidth
             onChange={handleInstructionChange}
           />
-        </div>
-        <div className="add-instruction-btn">
-          <Button
-            id="add-button"
-            variant="contained"
-            onClick={handleAddInstruction}
-          >
-            Add
-          </Button>
-        </div>
-        <div className="title-instruction">
-          <h2>Instructions</h2>
+          <div className="add-instruction-btn">
+            <Button
+              id="add-button"
+              variant="contained"
+              onClick={handleAddInstruction}
+            >
+              Add
+            </Button>
+          </div>
         </div>
         <div className="instruction-container-recipe">
+          <div className="instruction-container-recipe__header">
+            <div>Instruction</div>
+            <div>Delete</div>
+          </div>
           <DragDropContext onDragEnd={onDragEndInstructions}>
             <Droppable droppableId="instructions">
               {(provided) => (
@@ -422,17 +298,15 @@ export default function EditRecipe() {
                         >
                           <div className="instruction-container-recipe__box">
                             <div>{instruction.instruction}</div>
-                            <div className="instruction-container-recipe__del">
-                              <Button
-                                size="small"
-                                variant="contained"
-                                color="error"
+                            <div>
+                              <IconButton
+                                aria-label="delete"
                                 onClick={() =>
                                   handleDeleteInstruction(instruction.id)
                                 }
                               >
-                                X
-                              </Button>
+                                <DeleteIcon />
+                              </IconButton>
                             </div>
                           </div>
                         </div>
@@ -444,15 +318,40 @@ export default function EditRecipe() {
               )}
             </Droppable>
           </DragDropContext>
-          <div className="submit-event-btn">
-            <Button
-              id="submit-list"
-              variant="contained"
-              onClick={() => updateNewRecipe(title, rows, instructions)}
-            >
-              Update Recipe
-            </Button>
+        </div>
+        <div className="title-instruction">
+          <h2>Add Image</h2>
+          <div className="add-product-help-text">
+            <p>
+              No image? You don't have to upload yet. You can set the image
+              later.
+            </p>
           </div>
+        </div>
+        <div className="add-image-container-recipe">
+          <input
+            type="file"
+            accept="image/*"
+            ref={fileInputRef}
+            style={{ display: "none" }}
+            onChange={handleImageChange}
+          />
+          <Button
+            variant="contained"
+            onClick={() => fileInputRef.current.click()}
+          >
+            Upload Image
+          </Button>
+          <div>{fileName}</div>
+        </div>
+        <div className="submit-event-btn">
+          <Button
+            id="submit-list"
+            variant="contained"
+            onClick={() => updateNewRecipe(title, rows, instructions, servings)}
+          >
+            Create Recipe
+          </Button>
         </div>
       </div>
 
