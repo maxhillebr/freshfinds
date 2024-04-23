@@ -1,19 +1,12 @@
 import "/src/css/home.css";
 import "/src/css/main.css";
 
-import Button from "@mui/material/Button";
-import VisibilityIcon from "@mui/icons-material/Visibility";
-
-import EditNoteIcon from "@mui/icons-material/EditNote";
-import ShareIcon from "@mui/icons-material/Share";
-import DeleteIcon from "@mui/icons-material/Delete";
-
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import NavBottom from "../nav/NavBottom";
 import GroceryBoxMainTest from "./GroceryBoxMain";
 import RecipeBoxMain from "./RecipeBoxMain";
 import useFirebaseAuth from "/src/components/auth/AuthFirebase";
-import MealPlanBoxMain from "./MealPlanBoxMain";
+import MealPlanBoxMain from "../mealplanner/MealPlanBoxMain";
 
 function Home() {
   // load user info
