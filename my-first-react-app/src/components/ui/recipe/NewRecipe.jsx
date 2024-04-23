@@ -1,13 +1,9 @@
 import "/src/css/newform.css";
 import "/src/css/main.css";
 
-import React, { useState, useId, useRef } from "react";
+import React, { useState, useRef } from "react";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
-import DeleteIcon from "@mui/icons-material/Delete";
-import { IconButton } from "@mui/material";
-
-import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 
 import { db, storage } from "/src/components/auth/firebase";
 
@@ -23,6 +19,7 @@ import AddProductRecipe from "../common/AddProductRecipe";
 import HeadArrowBack from "../nav/HeadArrowBack";
 import NavBottom from "../nav/NavBottom";
 import DragDropProductRecipe from "../common/DragDropProductRecipe";
+import DragDropProductInstructions from "../common/DragDropProductInstructions";
 
 // ------------------
 
@@ -229,44 +226,10 @@ export default function NewRecipe() {
             <div>Instruction</div>
             <div>Delete</div>
           </div>
-          <DragDropContext onDragEnd={onDragEndInstructions}>
-            <Droppable droppableId="instructions">
-              {(provided) => (
-                <div ref={provided.innerRef} {...provided.droppableProps}>
-                  {instructions.map((instruction, index) => (
-                    <Draggable
-                      key={instruction.id}
-                      draggableId={instruction.id.toString()}
-                      index={index}
-                    >
-                      {(provided) => (
-                        <div
-                          {...provided.draggableProps}
-                          {...provided.dragHandleProps}
-                          ref={provided.innerRef}
-                        >
-                          <div className="instruction-container-recipe__box">
-                            <div>{instruction.instruction}</div>
-                            <div>
-                              <IconButton
-                                aria-label="delete"
-                                onClick={() =>
-                                  handleDeleteInstruction(instruction.id)
-                                }
-                              >
-                                <DeleteIcon />
-                              </IconButton>
-                            </div>
-                          </div>
-                        </div>
-                      )}
-                    </Draggable>
-                  ))}
-                  {provided.placeholder}
-                </div>
-              )}
-            </Droppable>
-          </DragDropContext>
+          <DragDropProductInstructions
+            instructions={instructions}
+            setInstructions={setInstructions}
+          />
         </div>
         <div className="title-instruction">
           <h2>Add Image</h2>

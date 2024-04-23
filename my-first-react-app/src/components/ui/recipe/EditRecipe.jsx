@@ -1,17 +1,13 @@
 import "/src/css/newform.css";
 import "/src/css/main.css";
 
-import React, { useState, useId, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
-import DeleteIcon from "@mui/icons-material/Delete";
-import { IconButton } from "@mui/material";
 
-import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import { useParams } from "react-router-dom";
 
 import { db, storage } from "/src/components/auth/firebase";
-
 import { doc, getDoc, setDoc } from "firebase/firestore";
 import {
   ref,
@@ -29,7 +25,7 @@ import AddProductRecipe from "../common/AddProductRecipe";
 import HeadArrowBack from "../nav/HeadArrowBack";
 import NavBottom from "../nav/NavBottom";
 import DragDropProductRecipe from "../common/DragDropProductRecipe";
-
+import DragDropProductInstructions from "../common/DragDropProductInstructions";
 // ------------------
 
 export default function EditRecipe() {
@@ -76,6 +72,7 @@ export default function EditRecipe() {
           setImageUrl(data.imageUrl);
           setImageId(data.imageId);
           setServings(data.servings);
+          setInstructions(data.instructions);
           console.log(rows);
         } else {
           console.log("No products found in the document data.");
@@ -149,23 +146,6 @@ export default function EditRecipe() {
 
   const createInstruction = (id, instruction) => {
     return { id, instruction };
-  };
-
-  const handleDeleteInstruction = (id) => {
-    const updatedInstructions = instructions.filter(
-      (instruction) => instruction.id !== id
-    );
-    setInstructions(updatedInstructions);
-  };
-
-  const onDragEndInstructions = (result) => {
-    if (!result.destination) return;
-
-    const items = Array.from(instructions);
-    const [reorderedItem] = items.splice(result.source.index, 1);
-    items.splice(result.destination.index, 0, reorderedItem);
-
-    setInstructions(items);
   };
 
   const updateNewRecipe = async (title, rows, instructions, servings) => {
@@ -266,46 +246,12 @@ export default function EditRecipe() {
             <div>Instruction</div>
             <div>Delete</div>
           </div>
-          <DragDropContext onDragEnd={onDragEndInstructions}>
-            <Droppable droppableId="instructions">
-              {(provided) => (
-                <div ref={provided.innerRef} {...provided.droppableProps}>
-                  {instructions.map((instruction, index) => (
-                    <Draggable
-                      key={instruction.id}
-                      draggableId={instruction.id.toString()}
-                      index={index}
-                    >
-                      {(provided) => (
-                        <div
-                          {...provided.draggableProps}
-                          {...provided.dragHandleProps}
-                          ref={provided.innerRef}
-                        >
-                          <div className="instruction-container-recipe__box">
-                            <div>{instruction.instruction}</div>
-                            <div>
-                              <IconButton
-                                aria-label="delete"
-                                onClick={() =>
-                                  handleDeleteInstruction(instruction.id)
-                                }
-                              >
-                                <DeleteIcon />
-                              </IconButton>
-                            </div>
-                          </div>
-                        </div>
-                      )}
-                    </Draggable>
-                  ))}
-                  {provided.placeholder}
-                </div>
-              )}
-            </Droppable>
-          </DragDropContext>
+          <DragDropProductInstructions
+            instructions={instructions}
+            setInstructions={setInstructions}
+          />
         </div>
-        <div className="title-instruction">
+        <div className="title-image">
           <h2>Add Image</h2>
           <div className="add-product-help-text">
             <p>
