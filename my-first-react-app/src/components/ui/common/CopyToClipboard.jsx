@@ -3,8 +3,8 @@ export const copyToClipboard = async (username, list, id) => {
     const url = `https://${window.location.host}/users/${username}/${list}/${id}`;
 
     const shareData = {
-      title: "Check out this recipe!",
-      text: "View this recipe:",
+      title: "Check this out from freshfinds!",
+      text: "Check this out:",
       url: url,
     };
 
