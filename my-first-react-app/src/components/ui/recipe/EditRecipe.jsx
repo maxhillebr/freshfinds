@@ -53,14 +53,13 @@ export default function EditRecipe() {
   const [instructionInput, setInstructionInput] = useState("");
   const [product, setProduct] = useState("");
   const [amount, setAmount] = useState("");
+  const [unit, setUnit] = useState("");
 
   const [image, setImage] = useState(null);
   const [imageUrl, setImageUrl] = useState(null); // State for storing image URL
   const fileInputRef = useRef(null);
   const [imageId, setImageId] = useState("");
   const [fileName, setFileName] = useState("");
-
-  const [recipeData, setRecipeData] = useState(null);
 
   const fetchRecipeData = async () => {
     try {
@@ -74,7 +73,9 @@ export default function EditRecipe() {
           setRows(data.products);
           setTitle(data.title || "");
           setInstructions(data.instructions);
+          setImageUrl(data.imageUrl);
           setImageId(data.imageId);
+          setServings(data.servings);
           console.log(rows);
         } else {
           console.log("No products found in the document data.");
@@ -99,39 +100,40 @@ export default function EditRecipe() {
   };
 
   const handleUploadImage = async (imageId) => {
-    if (imageId === "") {
-      console.log("no image id");
-    }
-    try {
-      const username = user.displayName;
-      const storageRef = ref(
-        storage,
-        `users/${username}/images/recipes/${imageId}`
-      );
-
-      // Delete the old image if it exists
+    if (!image) {
+      console.log("No image or new image selected.");
+      return imageUrl; // Return null if no image is selected
+    } else {
       try {
-        await deleteObject(storageRef);
-        console.log("Old image deleted successfully");
-      } catch (deleteError) {
-        console.error("Error deleting old image:", deleteError);
-      }
+        const storageRef = ref(
+          storage,
+          `users/${username}/images/recipes/${imageId}`
+        );
 
-      // Upload the new image if a new image is selected
-      if (image) {
-        await uploadBytes(storageRef, image);
-        const url = await getDownloadURL(storageRef);
-        console.log("Image URL:", url);
-        setImageUrl(url);
-        return url;
-      } else {
-        // If no new image is selected, return the existing imageUrl
-        return imageUrl;
+        // Delete the old image if it exists
+        try {
+          await deleteObject(storageRef);
+          console.log("Old image deleted successfully");
+        } catch (deleteError) {
+          console.error("Error deleting old image:", deleteError);
+        }
+
+        // Upload the new image if a new image is selected
+        if (image) {
+          await uploadBytes(storageRef, image);
+          const url = await getDownloadURL(storageRef);
+          console.log("Image URL:", url);
+          setImageUrl(url);
+          return url;
+        } else {
+          // If no new image is selected, return the existing imageUrl
+          return imageUrl;
+        }
+      } catch (error) {
+        console.error("Error uploading image: ", error);
+        setImageUrl(null);
+        return null;
       }
-    } catch (error) {
-      console.error("Error uploading image: ", error);
-      setImageUrl(null);
-      return null;
     }
   };
 
@@ -156,16 +158,6 @@ export default function EditRecipe() {
     setInstructions(updatedInstructions);
   };
 
-  const onDragEnd = (result) => {
-    if (!result.destination) return;
-
-    const items = Array.from(rows);
-    const [reorderedItem] = items.splice(result.source.index, 1);
-    items.splice(result.destination.index, 0, reorderedItem);
-
-    setRows(items);
-  };
-
   const onDragEndInstructions = (result) => {
     if (!result.destination) return;
 
@@ -176,7 +168,7 @@ export default function EditRecipe() {
     setInstructions(items);
   };
 
-  const updateNewRecipe = async (title, rows, instructions) => {
+  const updateNewRecipe = async (title, rows, instructions, servings) => {
     if (title === "" || rows.length === 0 || instructions.length === 0) {
       alert(
         "Title, Products, or Instructions are missing. Check your list again!"
@@ -184,11 +176,7 @@ export default function EditRecipe() {
       return;
     }
 
-    const updatedImageUrl = await handleUploadImage(imageId);
-
     try {
-      const username = user.displayName;
-
       if (!user || !username) {
         console.error(
           "User is not authenticated or display name is undefined."
@@ -198,18 +186,16 @@ export default function EditRecipe() {
 
       const colRef = doc(db, "users", username, "recipes", listId);
 
+      const updatedImageUrl = await handleUploadImage(imageId);
+
       const updateData = {
         title: title,
         products: rows,
         instructions: instructions,
+        imageUrl: updatedImageUrl,
+        imageId: imageId,
+        servings: servings,
       };
-
-      if (typeof updatedImageUrl !== "undefined") {
-        updateData.imageUrl = updatedImageUrl;
-        updateData.imageId = imageId;
-      } else {
-        updateData.imageUrl = null;
-      }
 
       await setDoc(colRef, updateData);
       console.log("Document updated: ", listId);
