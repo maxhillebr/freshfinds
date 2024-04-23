@@ -26,6 +26,9 @@ export default function EditList() {
   // load user info
   const { user, username } = useFirebaseAuth();
 
+  // db, copy to clipboard path
+  const groceryListPath = "grocerylists";
+
   const navigate = useNavigate();
 
   const [title, setTitle] = useState("");
@@ -37,7 +40,7 @@ export default function EditList() {
 
   const fetchGroceryList = async () => {
     try {
-      const docRef = doc(db, "users", username, "grocerylists", listId);
+      const docRef = doc(db, "users", username, groceryListPath, listId);
       console.log("Document Reference:", docRef);
 
       const docSnap = await getDoc(docRef);
@@ -123,7 +126,7 @@ export default function EditList() {
         return; // Exit the function early
       }
 
-      const colRef = doc(db, "users", username, "grocerylists", listId);
+      const colRef = doc(db, "users", username, groceryListPath, listId);
       const docRef = await setDoc(colRef, {
         title: title,
         products: rows,
@@ -131,7 +134,7 @@ export default function EditList() {
 
       console.log("Document updated: ", listId);
       alert("Grocery list updated");
-      navigate(`/users/${username}/grocerylists/${listId}`);
+      navigate(`/users/${username}/${groceryListPath}/${listId}`);
     } catch (error) {
       console.error("Error adding document: ", error);
     }

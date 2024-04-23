@@ -17,13 +17,16 @@ import { copyToClipboard } from "../common/CopyToClipboard";
 const GroceryListPageId = () => {
   const { username, listId } = useParams(); // Extract the document ID from the URL
 
+  // db, copy to clipboard path
+  const groceryListPath = "grocerylists";
+
   const [groceryList, setGroceryList] = useState(null);
   const [itemColors, setItemColors] = useState({});
 
   useEffect(() => {
     const fetchGroceryList = async () => {
       try {
-        const docRef = doc(db, "users", username, "grocerylists", listId);
+        const docRef = doc(db, "users", username, groceryListPath, listId);
         console.log("Document Reference:", docRef);
 
         const docSnap = await getDoc(docRef);
@@ -84,14 +87,16 @@ const GroceryListPageId = () => {
             </div>
             <div className="display-list-action-btn">
               <Button
-                href={`/users/${username}/grocerylists/${listId}/edit`}
+                href={`/users/${username}/${groceryListPath}/${listId}/edit`}
                 id="edit"
                 variant="contained"
               >
                 <EditNoteIcon />
               </Button>
               <Button
-                onClick={() => copyToClipboard(username, listId)}
+                onClick={() =>
+                  copyToClipboard(username, groceryListPath, listId)
+                }
                 variant="outlined"
               >
                 <ShareIcon />

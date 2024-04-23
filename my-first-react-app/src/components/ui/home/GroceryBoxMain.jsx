@@ -20,6 +20,9 @@ export default function GroceryBoxMain() {
   // load user info
   const { user, username } = useFirebaseAuth();
 
+  // db, copy to clipboard path
+  const groceryListPath = "grocerylists";
+
   // Define groceryLists state to store fetched data
   const [groceryLists, setGroceryLists] = useState([]);
 
@@ -44,7 +47,7 @@ export default function GroceryBoxMain() {
   }, []); // Empty dependency array to fetch data only once on component mount
 
   const fetchColGetDoc = async () => {
-    const colRef = collection(db, "users", username, "grocerylists");
+    const colRef = collection(db, "users", username, groceryListPath);
     const querySnapshot = await getDocs(colRef);
     const lists = [];
 
@@ -57,7 +60,7 @@ export default function GroceryBoxMain() {
   };
 
   const handleDeleteDoc = async (id) => {
-    const colRef = doc(db, "users", username, "grocerylists", id);
+    const colRef = doc(db, "users", username, groceryListPath, id);
     await deleteDoc(colRef);
 
     console.log("Document deleted", id);
@@ -70,21 +73,25 @@ export default function GroceryBoxMain() {
       {groceryLists.map(function (data) {
         return (
           <div className="grocery-list-container__box" key={data.id}>
-            <a href={`/users/${username}/grocerylists/${data.id}`}>
+            <a href={`/users/${username}/${groceryListPath}/${data.id}`}>
               <div className="grocery-list-container__tag-title">
                 <p className="grocery-list-container__tag--main">List</p>
                 <h3>{data.title}</h3>
               </div>
             </a>
             <div className="grocery-list-container__action-btn">
-              <Link to={`/users/${username}/grocerylists/${data.id}/edit`}>
+              <Link
+                to={`/users/${username}/${groceryListPath}/${data.id}/edit`}
+              >
                 <div className="grocer-list-container__action-btn--edit">
                   <EditNoteIcon />
                 </div>
               </Link>
               <div
                 className="grocer-list-container__action-btn--share"
-                onClick={() => copyToClipboard(username, data.id)}
+                onClick={() =>
+                  copyToClipboard(username, groceryListPath, data.id)
+                }
               >
                 <ShareIcon />
               </div>

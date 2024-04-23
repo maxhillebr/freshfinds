@@ -1,6 +1,6 @@
-export const copyToClipboard = async (username, id) => {
+export const copyToClipboard = async (username, list, id) => {
   try {
-    const url = `https://${window.location.host}/users/${username}/recipes/${id}`;
+    const url = `https://${window.location.host}/users/${username}/${list}/${id}`;
 
     const shareData = {
       title: "Check out this recipe!",

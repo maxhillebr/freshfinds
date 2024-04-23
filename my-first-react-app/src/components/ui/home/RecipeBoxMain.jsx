@@ -20,6 +20,9 @@ export default function RecipeBoxMain() {
   // load user info
   const { user, username } = useFirebaseAuth();
 
+  // db, copy to clipboard path
+  const recipeListPath = "recipes";
+
   // Define groceryLists state to store fetched data
   const [recipeData, setRecipeData] = useState([]);
 
@@ -44,7 +47,7 @@ export default function RecipeBoxMain() {
   }, []); // Empty dependency array to fetch data only once on component mount
 
   const fetchColGetDoc = async () => {
-    const colRef = collection(db, "users", username, "recipes");
+    const colRef = collection(db, "users", username, recipeListPath);
     const querySnapshot = await getDocs(colRef);
     const lists = [];
 
@@ -61,13 +64,13 @@ export default function RecipeBoxMain() {
       // Delete the image from Firebase Storage
       const storageRef = ref(
         storage,
-        `users/${username}/images/recipes/${imageId}`
+        `users/${username}/images/${recipeListPath}/${imageId}`
       );
       await deleteObject(storageRef);
       console.log("Image deleted successfully");
 
       // Delete the document from Firestore
-      const docRef = doc(db, "users", username, "recipes", id);
+      const docRef = doc(db, "users", username, recipeListPath, id);
       await deleteDoc(docRef);
       console.log("Document deleted successfully");
 
@@ -92,7 +95,7 @@ export default function RecipeBoxMain() {
       {recipeData.map(function (data) {
         return (
           <div className="recipes-container__box" key={data.id}>
-            <a href={`/users/${username}/recipes/${data.id}`}>
+            <a href={`/users/${username}/${recipeListPath}/${data.id}`}>
               <div
                 className="recipes-container__img"
                 style={{
@@ -108,14 +111,16 @@ export default function RecipeBoxMain() {
               </div>
             </a>
             <div className="recipes-container__action-btn">
-              <Link to={`/users/${username}/recipes/${data.id}/edit`}>
+              <Link to={`/users/${username}/${recipeListPath}/${data.id}/edit`}>
                 <div className="grocer-list-container__action-btn--edit">
                   <EditNoteIcon />
                 </div>
               </Link>
               <div
                 className="grocer-list-container__action-btn--share"
-                onClick={() => copyToClipboard(username, data.id)}
+                onClick={() =>
+                  copyToClipboard(username, recipeListPath, data.id)
+                }
               >
                 <ShareIcon />
               </div>

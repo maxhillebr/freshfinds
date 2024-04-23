@@ -27,6 +27,9 @@ export default function NewRecipe() {
   // unique id
   const newId = generateUUID();
 
+  // db, copy to clipboard path
+  const recipeListPath = "recipes";
+
   // load user info
   const { user, username } = useFirebaseAuth();
 
@@ -72,7 +75,7 @@ export default function NewRecipe() {
         const username = user.displayName;
         const storageRef = ref(
           storage,
-          `users/${username}/images/recipes/${newId}`
+          `users/${username}/images/${recipeListPath}/${newId}`
         );
         await uploadBytes(storageRef, image);
         const url = await getDownloadURL(storageRef);
@@ -117,8 +120,6 @@ export default function NewRecipe() {
     }
 
     try {
-      const username = user.displayName;
-
       if (!user || !username) {
         console.error(
           "User is not authenticated or display name is undefined."
@@ -126,7 +127,7 @@ export default function NewRecipe() {
         return; // Exit the function early
       }
 
-      const colRef = collection(db, "users", username, "recipes");
+      const colRef = collection(db, "users", username, recipeListPath);
       const docRef = await addDoc(colRef, {
         title: title,
         products: rows,
@@ -139,7 +140,7 @@ export default function NewRecipe() {
 
       console.log("Document written with ID: ", docRef.id);
       alert("Recipe sent to Database");
-      navigate(`/users/${username}/recipes/${docRef.id}`);
+      navigate(`/users/${username}/${recipeListPath}/${docRef.id}`);
     } catch (error) {
       console.error("Error adding document: ", error);
     }

@@ -18,6 +18,9 @@ export default function NewList() {
   // load user info
   const { user, username } = useFirebaseAuth();
 
+  // db, copy to clipboard path
+  const groceryListPath = "grocerylists";
+
   // navigation
   const navigate = useNavigate();
 
@@ -40,7 +43,7 @@ export default function NewList() {
         return;
       }
 
-      const colRef = collection(db, "users", username, "grocerylists");
+      const colRef = collection(db, "users", username, groceryListPath);
       const docRef = await addDoc(colRef, {
         title: title,
         products: rows,
@@ -48,7 +51,7 @@ export default function NewList() {
 
       console.log("Document written with ID: ", docRef.id);
       alert("Grocery list sent to Database");
-      navigate(`/users/${username}/grocerylists/${docRef.id}`);
+      navigate(`/users/${username}/${groceryListPath}/${docRef.id}`);
     } catch (error) {
       console.error("Error adding document: ", error);
     }

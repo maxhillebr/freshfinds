@@ -18,6 +18,10 @@ import { copyToClipboard } from "../common/CopyToClipboard";
 
 const RecipePageId = () => {
   const { username, listId } = useParams(); // Extract the document ID from the URL
+
+  // db, copy to clipboard path
+  const recipeListPath = "recipes";
+
   const [recipeData, setRecipeData] = useState(null);
   const [itemColors, setItemColors] = useState({});
   const [selectedServings, setSelectedServings] = useState();
@@ -25,7 +29,7 @@ const RecipePageId = () => {
   useEffect(() => {
     const fetchRecipeData = async () => {
       try {
-        const docRef = doc(db, "users", username, "recipes", listId);
+        const docRef = doc(db, "users", username, recipeListPath, listId);
         console.log("Document Reference:", docRef);
 
         const docSnap = await getDoc(docRef);
@@ -151,14 +155,16 @@ const RecipePageId = () => {
             </div>
             <div className="display-list-action-btn">
               <Button
-                href={`/users/${username}/recipes/${listId}/edit`}
+                href={`/users/${username}/${recipeListPath}/${listId}/edit`}
                 id="edit"
                 variant="contained"
               >
                 <EditNoteIcon />
               </Button>
               <Button
-                onClick={() => copyToClipboard(username, listId)}
+                onClick={() =>
+                  copyToClipboard(username, recipeListPath, listId)
+                }
                 variant="outlined"
               >
                 <ShareIcon />

@@ -32,6 +32,9 @@ export default function EditRecipe() {
   // unique id
   const newId = generateUUID();
 
+  // db, copy to clipboard path
+  const recipeListPath = "recipes";
+
   // load user info
   const { user, username } = useFirebaseAuth();
   const { listId } = useParams(); // Extract the document ID from the URL
@@ -60,7 +63,7 @@ export default function EditRecipe() {
 
   const fetchRecipeData = async () => {
     try {
-      const docRef = doc(db, "users", username, "recipes", listId);
+      const docRef = doc(db, "users", username, recipeListPath, listId);
       console.log("Document Reference:", docRef);
 
       const docSnap = await getDoc(docRef);
@@ -106,7 +109,7 @@ export default function EditRecipe() {
       try {
         const storageRef = ref(
           storage,
-          `users/${username}/images/recipes/${imageId}`
+          `users/${username}/images/${recipeListPath}/${imageId}`
         );
 
         // Delete the old image if it exists
@@ -166,7 +169,7 @@ export default function EditRecipe() {
         return;
       }
 
-      const colRef = doc(db, "users", username, "recipes", listId);
+      const colRef = doc(db, "users", username, recipeListPath, listId);
 
       const updatedImageUrl = await handleUploadImage(imageId);
 
@@ -183,7 +186,7 @@ export default function EditRecipe() {
       await setDoc(colRef, updateData);
       console.log("Document updated: ", listId);
       alert("Recipe updated");
-      navigate(`/users/${username}/recipes/${listId}`);
+      navigate(`/users/${username}/${recipeListPath}/${listId}`);
     } catch (error) {
       console.error("Error updating document: ", error);
     }
