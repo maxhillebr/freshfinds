@@ -44,6 +44,7 @@ export default function NewRecipe() {
   const [product, setProduct] = useState("");
   const [amount, setAmount] = useState("");
   const [unit, setUnit] = useState("");
+  const [tag, setTag] = useState("");
 
   const [image, setImage] = useState(null);
   const [imageUrl, setImageUrl] = useState("");
@@ -100,30 +101,7 @@ export default function NewRecipe() {
     return { id, instruction };
   };
 
-  const handleDeleteInstruction = (id) => {
-    const updatedInstructions = instructions.filter(
-      (instruction) => instruction.id !== id
-    );
-    setInstructions(updatedInstructions);
-  };
-
-  // --------------------------------
-  // --------------------------------
-
-  const onDragEndInstructions = (result) => {
-    if (!result.destination) return;
-
-    const items = Array.from(instructions);
-    const [reorderedItem] = items.splice(result.source.index, 1);
-    items.splice(result.destination.index, 0, reorderedItem);
-
-    setInstructions(items);
-  };
-
-  // --------------------------------
-  // --------------------------------
-
-  const addNewRecipe = async (title, rows, instructions, servings) => {
+  const addNewRecipe = async (title, rows, instructions, tag, servings) => {
     if (title === "" || rows.length === 0 || instructions.length === 0) {
       alert(
         "Title, Products, or Instructions are missing. Check your list again!"
@@ -156,6 +134,7 @@ export default function NewRecipe() {
         imageUrl: imageUrl || placeholderImageUrl, // Add imageUrl to the document
         imageId: newId,
         servings: servings,
+        tag: tag,
       });
 
       console.log("Document written with ID: ", docRef.id);
@@ -187,6 +166,8 @@ export default function NewRecipe() {
           setUnit={setUnit}
           servings={servings}
           setServings={setServings}
+          tag={tag}
+          setTag={setTag}
         />
         <div className="product-list-container">
           <div className="product-list-container__header">
@@ -260,7 +241,9 @@ export default function NewRecipe() {
           <Button
             id="submit-list"
             variant="contained"
-            onClick={() => addNewRecipe(title, rows, instructions, servings)}
+            onClick={() =>
+              addNewRecipe(title, rows, instructions, tag, servings)
+            }
           >
             Create Recipe
           </Button>

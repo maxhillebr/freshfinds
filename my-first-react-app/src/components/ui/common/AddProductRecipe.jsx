@@ -4,6 +4,7 @@ import Button from "@mui/material/Button";
 import { Autocomplete } from "@mui/material";
 import { useState } from "react";
 import { productsList } from "../recipe/ProductsList";
+import { tagList } from "../recipe/TagList";
 import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
 
@@ -20,12 +21,19 @@ export default function AddProductRecipe({
   setUnit,
   servings,
   setServings,
+  tag,
+  setTag,
 }) {
   const [error, setError] = useState("");
 
   // handle change of input and update state
   const handleTitleChange = (event) => {
     setTitle(event.target.value);
+  };
+
+  // handle change of input and update state
+  const handleTagChange = (event) => {
+    setTag(event.target.value);
   };
 
   const handleProductChange = (event, value) => {
@@ -102,6 +110,20 @@ export default function AddProductRecipe({
           fullWidth
           onChange={handleTitleChange}
         />
+        <p>Tag</p>
+        <Select
+          labelId="select-tag-label"
+          id="select-tag"
+          fullWidth
+          value={tag}
+          onChange={(e) => setTag(e.target.value)}
+        >
+          {tagList.map((tagItem) => (
+            <MenuItem key={tagItem.tag} value={tagItem.tag}>
+              {tagItem.tag}
+            </MenuItem>
+          ))}
+        </Select>
         <p>Servings</p>
         <Select
           labelId="select-servings-label"

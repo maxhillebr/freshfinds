@@ -97,7 +97,10 @@ const RecipePageId = () => {
                 backgroundImage: `url(${recipeData.imageUrl})`,
               }}
             ></div>
-            <h2>{recipeData.title}</h2>
+            <h2>
+              {recipeData.title} ({recipeData.tag})
+            </h2>
+
             <div className="display-title-box">
               <div className="display-title-box__title">
                 <h3>Items you need</h3>

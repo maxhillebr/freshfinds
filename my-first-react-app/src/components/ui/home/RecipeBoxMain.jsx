@@ -121,13 +121,25 @@ export default function RecipeBoxMain() {
   // copy to clipboard for share
   const copyToClipboard = async (username, id) => {
     try {
-      const url = `${window.location.host}/users/${username}/recipes/${id}`;
+      const url = `https://${window.location.host}/users/${username}/recipes/${id}`;
 
-      await navigator.clipboard.writeText(url);
-      alert("Copied to clipboard!");
+      const shareData = {
+        title: "Check out this recipe!",
+        text: "View this recipe:",
+        url: url,
+      };
+
+      if (navigator.share) {
+        await navigator.share(shareData);
+        console.log("Shared successfully");
+      } else {
+        // Fallback if Share API is not supported
+        await navigator.clipboard.writeText(url);
+        alert("Copied to clipboard!");
+      }
     } catch (err) {
-      console.error("Failed to copy: ", err);
-      alert("Failed to copy to clipboard");
+      console.error("Failed to share or copy: ", err);
+      alert("Failed to share or copy to clipboard");
     }
   };
 
@@ -146,7 +158,7 @@ export default function RecipeBoxMain() {
 
               <div className="recipes-container__tag-title">
                 <div>
-                  <p className="recipes-container__tag--main">Tag</p>
+                  <p className="recipes-container__tag--main">{data.tag}</p>
                   <h3 className="recipes-container__title">{data.title}</h3>
                 </div>
               </div>

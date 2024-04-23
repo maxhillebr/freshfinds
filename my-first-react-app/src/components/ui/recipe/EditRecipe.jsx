@@ -50,6 +50,7 @@ export default function EditRecipe() {
   const [product, setProduct] = useState("");
   const [amount, setAmount] = useState("");
   const [unit, setUnit] = useState("");
+  const [tag, setTag] = useState("");
 
   const [image, setImage] = useState(null);
   const [imageUrl, setImageUrl] = useState(null); // State for storing image URL
@@ -73,6 +74,7 @@ export default function EditRecipe() {
           setImageId(data.imageId);
           setServings(data.servings);
           setInstructions(data.instructions);
+          setTag(data.tag);
           console.log(rows);
         } else {
           console.log("No products found in the document data.");
@@ -148,7 +150,7 @@ export default function EditRecipe() {
     return { id, instruction };
   };
 
-  const updateNewRecipe = async (title, rows, instructions, servings) => {
+  const updateNewRecipe = async (title, rows, instructions, tag, servings) => {
     if (title === "" || rows.length === 0 || instructions.length === 0) {
       alert(
         "Title, Products, or Instructions are missing. Check your list again!"
@@ -174,6 +176,7 @@ export default function EditRecipe() {
         instructions: instructions,
         imageUrl: updatedImageUrl,
         imageId: imageId,
+        tag: tag,
         servings: servings,
       };
 
@@ -207,6 +210,8 @@ export default function EditRecipe() {
           setUnit={setUnit}
           servings={servings}
           setServings={setServings}
+          tag={tag}
+          setTag={setTag}
         />
         <div className="product-list-container">
           <div className="product-list-container__header">
@@ -272,7 +277,7 @@ export default function EditRecipe() {
             variant="contained"
             onClick={() => fileInputRef.current.click()}
           >
-            Upload Image
+            Update Image
           </Button>
           <div>{fileName}</div>
         </div>
@@ -280,9 +285,11 @@ export default function EditRecipe() {
           <Button
             id="submit-list"
             variant="contained"
-            onClick={() => updateNewRecipe(title, rows, instructions, servings)}
+            onClick={() =>
+              updateNewRecipe(title, rows, instructions, tag, servings)
+            }
           >
-            Create Recipe
+            Update Recipe
           </Button>
         </div>
       </div>
