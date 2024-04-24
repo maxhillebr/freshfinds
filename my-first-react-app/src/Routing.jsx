@@ -9,14 +9,21 @@ import { getAuth, onAuthStateChanged } from "firebase/auth";
 import SignUp from "./components/ui/account/SignUp";
 import Login from "./components/ui/account/Login";
 import FrontpageLoginSignUp from "./components/ui/account/FrontpageLoginSignUp";
-import GroceryListPageId from "./components/ui/lists/GroceryListPageId";
-import EditList from "./components/ui/lists/EditList";
+
 import Home from "./components/ui/home/Home";
 import Account from "./components/ui/account/Account";
+
 import NewList from "./components/ui/lists/NewList";
+import GroceryListPageId from "./components/ui/lists/GroceryListPageId";
+import EditList from "./components/ui/lists/EditList";
+
 import NewRecipe from "./components/ui/recipe/NewRecipe";
 import RecipePageId from "./components/ui/recipe/RecipePageId";
 import EditRecipe from "./components/ui/recipe/EditRecipe";
+
+import NewMealPlan from "./components/ui/mealplanner/NewMealPlan";
+import EditMealPlanner from "./components/ui/mealplanner/EditMealPlanner";
+import MealPlanDisplayId from "./components/ui/mealplanner/MealPlanDisplayId";
 
 const Routing = () => {
   const [user, setUser] = useState(null);
@@ -47,6 +54,7 @@ const Routing = () => {
             <Route path="/home" element={<Home />} />
             <Route path="/new" element={<NewList />} />
             <Route path="/newrecipe" element={<NewRecipe />} />
+            <Route path="/newmealplan" element={<NewMealPlan />} />
 
             <Route path="/account" element={<Account />} />
 
@@ -59,6 +67,12 @@ const Routing = () => {
               path="/users/:username/recipes/:listId"
               element={<RecipePageId />}
             />
+
+            <Route
+              path="/users/:username/mealplan/:listId"
+              element={<MealPlanDisplayId />}
+            />
+
             <Route
               path="/users/:username/grocerylists/:listId/edit"
               element={
@@ -72,6 +86,15 @@ const Routing = () => {
               element={
                 <div>
                   <EditRecipe />
+                </div>
+              }
+            />
+
+            <Route
+              path="/users/:username/mealplan/:listId/edit"
+              element={
+                <div>
+                  <EditMealPlanner />
                 </div>
               }
             />
