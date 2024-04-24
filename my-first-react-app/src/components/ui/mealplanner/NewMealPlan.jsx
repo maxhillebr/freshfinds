@@ -1,13 +1,21 @@
 import "/src/css/newform.css";
 import "/src/css/main.css";
 
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 
-import { db, storage } from "/src/components/auth/firebase";
+import { useParams } from "react-router-dom";
 
-import { collection, addDoc } from "firebase/firestore";
+import { db, storage } from "/src/components/auth/firebase";
+import {
+  doc,
+  getDoc,
+  getDocs,
+  setDoc,
+  collection,
+  addDoc,
+} from "firebase/firestore";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import useFirebaseAuth from "/src/components/auth/AuthFirebase";
 
@@ -20,6 +28,7 @@ import HeadArrowBack from "../nav/HeadArrowBack";
 import NavBottom from "../nav/NavBottom";
 import DragDropProductRecipe from "../common/DragDropProductRecipe";
 import DragDropProductInstructions from "../common/DragDropProductInstructions";
+import AddMealPlan from "../common/AddMealPlan";
 
 // ------------------
 
@@ -28,10 +37,12 @@ export default function NewMealPlan() {
   const newId = generateUUID();
 
   // db, copy to clipboard path
+  const mealplanListPath = "mealplan";
   const recipeListPath = "recipes";
 
   // load user info
   const { user, username } = useFirebaseAuth();
+  const { listId } = useParams(); // Extract the document ID from the URL
 
   // navigation
   const navigate = useNavigate();
@@ -56,53 +67,34 @@ export default function NewMealPlan() {
 
   const placeholderImageUrl = "/illustrations/undraw_imagination_re_i0xi.svg";
 
-  // image change and upload
-  const handleImageChange = (event) => {
-    const file = event.target.files[0];
-    console.log("Selected file:", file); // Check if the file object is retrieved
-    setImage(file);
-    setFileName(file.name); // Set the file name when a file is selected
-  };
+  // ------------fetch---------------------------
+  const [recipes, setRecipes] = useState([]);
+  const [selectedRecipe, setSelectedRecipe] = useState(null);
 
-  const handleUploadImage = async () => {
+  const fetchAllRecipeLists = async () => {
     try {
-      // Check if an image is selected
-      if (!image) {
-        console.log("No image selected. Placeholder selected.");
-        setImageUrl(placeholderImageUrl);
-        return; // Return null if no image is selected
-      } else {
-        const username = user.displayName;
-        const storageRef = ref(
-          storage,
-          `users/${username}/images/${recipeListPath}/${newId}`
-        );
-        await uploadBytes(storageRef, image);
-        const url = await getDownloadURL(storageRef);
-        console.log("Image URL:", url);
-        setImageUrl(url);
-        return url;
-      }
+      const colRef = doc(db, "users", username); // Reference to the user document
+
+      // Query the "recipes" collection directly under the user's document
+      const recipesQuerySnapshot = await getDocs(collection(colRef, "recipes"));
+
+      const allRecipes = [];
+      recipesQuerySnapshot.forEach((doc) => {
+        allRecipes.push({ title: doc.title, ...doc.data() });
+      });
+
+      // Now you have all recipes for the user in allRecipes
+      setRecipes(allRecipes);
+      console.log("All Recipes:", allRecipes);
     } catch (error) {
-      console.error("Error uploading image: ", error);
-      return null;
+      console.error("Error fetching recipes:", error);
     }
   };
 
-  // handle change of input and update state
-  const handleInstructionChange = (event) => {
-    setInstructionInput(event.target.value);
-  };
-
-  const handleAddInstruction = () => {
-    const newData = createInstruction(newId, instructionInput);
-    setInstructions((prevInstructions) => [...prevInstructions, newData]);
-    setInstructionInput("");
-  };
-
-  const createInstruction = (id, instruction) => {
-    return { id, instruction };
-  };
+  useEffect(() => {
+    fetchAllRecipeLists();
+  }, []);
+  // -------------------------------------------
 
   const addNewRecipe = async (title, rows, instructions, tag, servings) => {
     if (title === "" || rows.length === 0 || instructions.length === 0) {
@@ -127,7 +119,7 @@ export default function NewMealPlan() {
         return; // Exit the function early
       }
 
-      const colRef = collection(db, "users", username, recipeListPath);
+      const colRef = collection(db, "users", username, mealplanListPath);
       const docRef = await addDoc(colRef, {
         title: title,
         products: rows,
@@ -140,7 +132,7 @@ export default function NewMealPlan() {
 
       console.log("Document written with ID: ", docRef.id);
       alert("Recipe sent to Database");
-      navigate(`/users/${username}/${recipeListPath}/${docRef.id}`);
+      navigate(`/users/${username}/${mealplanListPath}/${docRef.id}`);
     } catch (error) {
       console.error("Error adding document: ", error);
     }
@@ -151,24 +143,18 @@ export default function NewMealPlan() {
       <div className="content">
         <HeadArrowBack />
         <div className="title-welcome">
-          <h1>Create New Recipe</h1>
+          <h1>Create Meal Plan</h1>
         </div>
 
-        <AddProductRecipe
+        <AddMealPlan
           title={title}
           setTitle={setTitle}
-          product={product}
-          setProduct={setProduct}
-          amount={amount}
-          setAmount={setAmount}
-          rows={rows}
-          setRows={setRows}
-          unit={unit}
-          setUnit={setUnit}
+          recipes={recipes}
+          setRecipes={setRecipes}
+          selectedRecipe={selectedRecipe}
+          setSelectedRecipe={setSelectedRecipe}
           servings={servings}
           setServings={setServings}
-          tag={tag}
-          setTag={setTag}
         />
         <div className="product-list-container">
           <div className="product-list-container__header">
@@ -176,9 +162,9 @@ export default function NewMealPlan() {
             <div>Amount</div>
             <div>Delete</div>
           </div>
-          <DragDropProductRecipe rows={rows} setRows={setRows} />
+          {/* <DragDropProductRecipe rows={rows} setRows={setRows} /> */}
         </div>
-        {/* Instructions */}
+        {/* Instructions
         <div className="title-instruction">
           <h2>Instructions</h2>
         </div>
@@ -237,16 +223,16 @@ export default function NewMealPlan() {
             Upload Image
           </Button>
           <div>{fileName}</div>
-        </div>
+        </div> */}
         <div className="submit-event-btn">
           <Button
             id="submit-list"
             variant="contained"
-            onClick={() =>
-              addNewRecipe(title, rows, instructions, tag, servings)
-            }
+            // onClick={() =>
+            //   addNewRecipe(title, rows, instructions, tag, servings)
+            // }
           >
-            Create Recipe
+            Create Mealplan
           </Button>
         </div>
       </div>
