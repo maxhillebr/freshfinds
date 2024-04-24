@@ -9,12 +9,6 @@ import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 export default function MealPlanBoxMain() {
   return (
     <>
-      <div className="title-container__view-all-btn">
-        <Button variant="contained" endIcon={<VisibilityIcon />}>
-          View All
-        </Button>
-      </div>
-
       <div className="mealplan-container">
         <div className="mealplan-container__box">
           <div className="mealplan-container__tag-title">
@@ -34,16 +28,17 @@ export default function MealPlanBoxMain() {
             <DeleteIcon />
           </div>
         </div>
-
-        <div className="create-container">
-          <div className="create-container__title">
-            <h3>Create List </h3>
-            <AddCircleOutlineIcon
-              fontSize="large"
-              style={{ color: "#1976D2" }}
-            />
+        <a href="/newmealplan">
+          <div className="create-container">
+            <div className="create-container__title">
+              <h3>Create Mealplan</h3>
+              <AddCircleOutlineIcon
+                fontSize="large"
+                style={{ color: "#1976D2" }}
+              />
+            </div>
           </div>
-        </div>
+        </a>
       </div>
     </>
   );
