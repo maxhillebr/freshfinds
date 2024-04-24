@@ -6,7 +6,7 @@ import NavBottom from "../nav/NavBottom";
 import GroceryBoxMainTest from "./GroceryBoxMain";
 import RecipeBoxMain from "./RecipeBoxMain";
 import useFirebaseAuth from "/src/components/auth/AuthFirebase";
-import MealPlanBoxMain from "../mealplanner/MealPlanBoxMain";
+import MealPlanBoxMain from "./MealPlanBoxMain";
 
 function Home() {
   // load user info
