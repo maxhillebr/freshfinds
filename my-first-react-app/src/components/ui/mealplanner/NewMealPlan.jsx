@@ -52,20 +52,16 @@ export default function NewMealPlan() {
   const [servings, setServings] = useState(1); // Default to 1 serving
 
   const [rows, setRows] = useState([]);
-  const [instructions, setInstructions] = useState([]);
 
-  const [instructionInput, setInstructionInput] = useState("");
   const [product, setProduct] = useState("");
   const [amount, setAmount] = useState("");
-  const [unit, setUnit] = useState("");
-  const [tag, setTag] = useState("");
 
-  const [image, setImage] = useState(null);
-  const [imageUrl, setImageUrl] = useState("");
-  const fileInputRef = useRef(null);
-  const [fileName, setFileName] = useState("");
+  // const [image, setImage] = useState(null);
+  // const [imageUrl, setImageUrl] = useState("");
+  // const fileInputRef = useRef(null);
+  // const [fileName, setFileName] = useState("");
 
-  const placeholderImageUrl = "/illustrations/undraw_imagination_re_i0xi.svg";
+  // const placeholderImageUrl = "/illustrations/undraw_imagination_re_i0xi.svg";
 
   // ------------fetch---------------------------
   const [recipes, setRecipes] = useState([]);
@@ -80,7 +76,8 @@ export default function NewMealPlan() {
 
       const allRecipes = [];
       recipesQuerySnapshot.forEach((doc) => {
-        allRecipes.push({ title: doc.title, ...doc.data() });
+        const recipeData = doc.data();
+        allRecipes.push({ id: doc.id, title: recipeData.title, ...recipeData });
       });
 
       // Now you have all recipes for the user in allRecipes
@@ -96,43 +93,27 @@ export default function NewMealPlan() {
   }, []);
   // -------------------------------------------
 
-  const addNewRecipe = async (title, rows, instructions, tag, servings) => {
-    if (title === "" || rows.length === 0 || instructions.length === 0) {
-      alert(
-        "Title, Products, or Instructions are missing. Check your list again!"
-      );
+  const addNewMealplan = async (title, rows) => {
+    if (title === "" || rows.length === 0) {
+      alert("No Title or Product. Check your list again!");
       return;
-    }
-
-    // Check if imageUrl is truthy (meaning an image was uploaded)
-    const imageUrl = await handleUploadImage();
-    if (imageUrl === null) {
-      // No image was uploaded, handle accordingly (optional)
-      console.log("No image uploaded.");
     }
 
     try {
       if (!user || !username) {
-        console.error(
-          "User is not authenticated or display name is undefined."
-        );
-        return; // Exit the function early
+        console.error("User is not authenticated or displayName is undefined.");
+        return;
       }
 
-      const colRef = collection(db, "users", username, mealplanListPath);
+      const colRef = collection(db, "users", username, groceryListPath);
       const docRef = await addDoc(colRef, {
         title: title,
         products: rows,
-        instructions: instructions,
-        imageUrl: imageUrl || placeholderImageUrl, // Add imageUrl to the document
-        imageId: newId,
-        servings: servings,
-        tag: tag,
       });
 
       console.log("Document written with ID: ", docRef.id);
-      alert("Recipe sent to Database");
-      navigate(`/users/${username}/${mealplanListPath}/${docRef.id}`);
+      alert("Grocery list sent to Database");
+      navigate(`/users/${username}/${groceryListPath}/${docRef.id}`);
     } catch (error) {
       console.error("Error adding document: ", error);
     }
@@ -155,6 +136,8 @@ export default function NewMealPlan() {
           setSelectedRecipe={setSelectedRecipe}
           servings={servings}
           setServings={setServings}
+          rows={rows}
+          setRows={setRows}
         />
         <div className="product-list-container">
           <div className="product-list-container__header">

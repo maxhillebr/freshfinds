@@ -17,16 +17,35 @@ export default function AddMealPlan({
   setSelectedRecipe,
   servings,
   setServings,
+  rows,
+  setRows,
 }) {
   const [error, setError] = useState("");
+
+  // handle change of input and update state
+  const handleTitleChange = (event) => {
+    setTitle(event.target.value);
+  };
 
   const handleRecipeChange = (event, newValue) => {
     setSelectedRecipe(newValue);
   };
 
-  // handle change of input and update state
-  const handleTitleChange = (event) => {
-    setTitle(event.target.value);
+  const handleServingsChange = (event) => {
+    setServings(event.target.value);
+  };
+
+  // add products as array of objects to rows array
+  const handleAddRecipes = (recipe, servings) => {
+    const newData = createData(generateUUID(), recipe, servings);
+    setRows((prevRows) => [...prevRows, newData]);
+    setRecipes("");
+    setServings("");
+  };
+
+  // create object
+  const createData = (id, recipe, servings) => {
+    return { id, recipe, servings };
   };
 
   return (
@@ -83,7 +102,7 @@ export default function AddMealPlan({
           <Button
             id="add-button"
             variant="contained"
-            // onClick={handleAddProducts}
+            onClick={handleAddRecipes}
           >
             Add
           </Button>
