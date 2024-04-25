@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { db, storage } from "/src/components/auth/firebase";
-import { doc, getDoc } from "firebase/firestore";
+import { doc, getDoc, collection } from "firebase/firestore";
 import Button from "@mui/material/Button";
 import ShareIcon from "@mui/icons-material/Share";
 import EditNoteIcon from "@mui/icons-material/EditNote";
@@ -21,33 +21,22 @@ const MealPlanDisplayId = () => {
 
   // db, copy to clipboard path
   const recipeListPath = "recipes";
+  const mealplanListPath = "mealplan";
 
-  const [recipeData, setRecipeData] = useState(null);
-  const [itemColors, setItemColors] = useState({});
-  const [selectedServings, setSelectedServings] = useState();
+  const [mealplan, setMealplan] = useState(null);
+  const [recipes, setRecipes] = useState([]);
 
   useEffect(() => {
-    const fetchRecipeData = async () => {
+    const fetchMealplan = async () => {
       try {
-        const docRef = doc(db, "users", username, recipeListPath, listId);
-        console.log("Document Reference:", docRef);
-
+        const docRef = doc(db, "users", username, mealplanListPath, listId);
         const docSnap = await getDoc(docRef);
         if (docSnap.exists()) {
           const data = docSnap.data();
-          // Initialize item colors
-          const initialColors = {};
-          data.products.forEach((product) => {
-            initialColors[product.id] = "#fff6e3";
-          });
-          setItemColors(initialColors);
-
-          // Store servings in a local variable
-          const servings = data.servings;
-
-          // Set recipe data and selectedServings
-          setRecipeData(data);
-          setSelectedServings(servings);
+          setMealplan(data);
+          if (data.recipes) {
+            fetchRecipes(data.recipes.map((recipe) => recipe.recipeId));
+          }
         } else {
           console.log("No such document!");
         }
@@ -56,20 +45,37 @@ const MealPlanDisplayId = () => {
       }
     };
 
-    fetchRecipeData();
+    const fetchRecipes = async (recipeIds) => {
+      const recipesData = [];
+      const colRef = collection(db, "users", username, recipeListPath);
+      for (const id of recipeIds) {
+        const recipeDoc = await getDoc(doc(colRef, id));
+        if (recipeDoc.exists()) {
+          recipesData.push(recipeDoc.data());
+        }
+      }
+      setRecipes(recipesData);
+    };
+
+    fetchMealplan();
   }, [username, listId]);
 
-  const handleItemClick = (itemId) => {
-    // Toggle color for the clicked item
-    setItemColors((prevColors) => ({
-      ...prevColors,
-      [itemId]: prevColors[itemId] === "#fff6e3" ? "#74e3915e" : "#fff6e3",
-    }));
-  };
+  useEffect(() => {
+    console.log("Current Mealplan", mealplan);
+    console.log("Current recipes", recipes);
+  }, [mealplan, recipes]);
 
-  const handleServingsChange = (event) => {
-    setSelectedServings(event.target.value);
-  };
+  // const handleItemClick = (itemId) => {
+  //   // Toggle color for the clicked item
+  //   setItemColors((prevColors) => ({
+  //     ...prevColors,
+  //     [itemId]: prevColors[itemId] === "#fff6e3" ? "#74e3915e" : "#fff6e3",
+  //   }));
+  // };
+
+  // const handleServingsChange = (event) => {
+  //   setSelectedServings(event.target.value);
+  // };
 
   const normalizeAmount = (amount) => {
     // Replace commas with periods for consistent input handling
@@ -81,102 +87,25 @@ const MealPlanDisplayId = () => {
       <div className="content">
         <HeadArrowBack />
         {/* Render grocery list data */}
-        {recipeData && (
-          <>
-            <div
-              className="recipe-cover-img"
-              style={{
-                backgroundImage: `url(${recipeData.imageUrl})`,
-              }}
-            ></div>
-            <h2>
-              {recipeData.title} ({recipeData.tag})
-            </h2>
-
-            <div className="display-title-box">
-              <div className="display-title-box__title">
-                <h3>Items you need</h3>
-              </div>
-              <div className="display-title-box__calc">
-                <Select
-                  value={selectedServings}
-                  onChange={handleServingsChange}
-                >
-                  {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((servings) => (
-                    <MenuItem key={servings} value={servings}>
-                      {servings}
-                    </MenuItem>
-                  ))}
-                </Select>
-                Servings
-              </div>
-            </div>
-            <div className="display-list-container">
-              {recipeData.products.map((product) => (
-                <div
-                  key={product.id}
-                  className="display-list-container__box"
-                  onClick={() => handleItemClick(product.id)}
-                  style={{
-                    backgroundColor: itemColors[product.id],
-                    cursor: "pointer",
-                  }}
-                >
-                  <div className="display-list-container__product">
-                    {product.name}
-                  </div>
-                  <div className="display-list-container__amount">
-                    {(
-                      parseFloat(normalizeAmount(product.amount)) *
-                      selectedServings
-                    ).toFixed(2)}
-                    {product.unit}
-                  </div>
-                </div>
-              ))}
-            </div>
-            <h3>Instructions</h3>
-            <div className="display-instruction-container">
-              {recipeData.instructions.map((instruction, index) => (
-                <div
-                  key={instruction.id}
-                  className="display-instruction-container__box"
-                  onClick={() => handleItemClick(instruction.id)}
-                  style={{
-                    backgroundColor: itemColors[instruction.id],
-                    cursor: "pointer",
-                  }}
-                >
-                  <div className="display-instruction-container__instruction">
-                    {index + 1}. {instruction.instruction}
-                  </div>
-                </div>
-              ))}
-            </div>
-            <div className="display-list-action-btn">
-              <Button
-                href={`/users/${username}/${recipeListPath}/${listId}/edit`}
-                id="edit"
-                variant="contained"
-              >
-                <EditNoteIcon />
-              </Button>
-              <Button
-                onClick={() =>
-                  copyToClipboard(username, recipeListPath, listId)
-                }
-                variant="outlined"
-              >
-                <ShareIcon />
-              </Button>
-              <Button href="/home" id="home-button" variant="outlined">
-                <HomeIcon />
-              </Button>
-            </div>
-          </>
-        )}
       </div>
-
+      <div className="content">
+        <h2>{mealplan?.title || "Loading Meal Plan..."}</h2>
+        <p style={{ fontWeight: "bold" }}>Meals</p>
+        {recipes.map((recipe, index) => (
+          <p key={index + "a"}>{recipe.title}</p>
+        ))}
+        <div className="recipes-container">
+          {recipes.map((recipe, index) => (
+            <div key={index}>
+              {recipe.products.map((product) => (
+                <p key={product.id}>
+                  {product.name}: {product.amount}
+                </p>
+              ))}
+            </div>
+          ))}
+        </div>
+      </div>
       <NavBottom />
     </>
   );
