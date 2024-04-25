@@ -27,7 +27,7 @@ export default function AddMealPlan({
     setTitle(event.target.value);
   };
 
-  const handleRecipeChange = (event, newValue) => {
+  const handleSelectedRecipeChange = (event, newValue) => {
     setSelectedRecipe(newValue);
   };
 
@@ -36,16 +36,28 @@ export default function AddMealPlan({
   };
 
   // add products as array of objects to rows array
-  const handleAddRecipes = (recipe, servings) => {
-    const newData = createData(generateUUID(), recipe, servings);
-    setRows((prevRows) => [...prevRows, newData]);
-    setRecipes("");
+  const handleAddRecipes = () => {
+    if (!selectedRecipe || !servings) {
+      console.error("Recipe or servings are missing");
+      setError("Recipe or servings are missing");
+      return;
+    }
+    const newData = createData(
+      selectedRecipe.id,
+      selectedRecipe.title,
+      servings
+    );
+    setRows((prevRows) => [...(prevRows || []), newData]);
+    setSelectedRecipe(null);
     setServings("");
   };
+  useEffect(() => {
+    console.log("Rows updated:", rows);
+  }, [rows]);
 
   // create object
-  const createData = (id, recipe, servings) => {
-    return { id, recipe, servings };
+  const createData = (id, title, servings) => {
+    return { id, title, servings };
   };
 
   return (
@@ -76,9 +88,10 @@ export default function AddMealPlan({
 
         <Autocomplete
           id="recipe-autocomplete"
-          options={recipes.map((recipe) => recipe.title)} // Assuming "recipeName" field
+          options={recipes}
+          getOptionLabel={(option) => option.title}
           value={selectedRecipe}
-          onChange={handleRecipeChange}
+          onChange={handleSelectedRecipeChange}
           renderInput={(params) => (
             <TextField {...params} label="Recipe" variant="outlined" />
           )}
@@ -90,7 +103,7 @@ export default function AddMealPlan({
           id="select-servings"
           fullWidth
           value={servings}
-          onChange={(e) => setServings(e.target.value)}
+          onChange={handleServingsChange}
         >
           {[...Array(10).keys()].map((value) => (
             <MenuItem key={value + 1} value={value + 1}>

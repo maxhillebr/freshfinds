@@ -82,6 +82,7 @@ export default function NewMealPlan() {
 
       // Now you have all recipes for the user in allRecipes
       setRecipes(allRecipes);
+
       console.log("All Recipes:", allRecipes);
     } catch (error) {
       console.error("Error fetching recipes:", error);
