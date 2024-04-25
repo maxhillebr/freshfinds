@@ -3,7 +3,7 @@ import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { IconButton } from "@mui/material";
 
-export default function DragDropProductList({ rows, setRows }) {
+export default function DragDropMealPlan({ rows, setRows }) {
   const onDragEnd = (result) => {
     if (!result.destination) return;
 
@@ -37,8 +37,8 @@ export default function DragDropProductList({ rows, setRows }) {
                     {...provided.dragHandleProps}
                   >
                     <div className="product-list-container__box">
-                      <div>{row.amount}</div>
-                      <div>{row.name}</div>
+                      <div>{row.title}</div>
+                      <div>{row.servings}</div>
                       <div>
                         <IconButton
                           aria-label="delete"

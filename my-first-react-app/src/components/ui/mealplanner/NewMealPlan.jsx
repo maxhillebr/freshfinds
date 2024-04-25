@@ -26,6 +26,7 @@ import { generateUUID } from "../../common/UUIDGenerator";
 import AddProductRecipe from "../common/AddProductRecipe";
 import HeadArrowBack from "../nav/HeadArrowBack";
 import NavBottom from "../nav/NavBottom";
+import DragDropMealPlan from "../common/DragDropMealPlan";
 import DragDropProductRecipe from "../common/DragDropProductRecipe";
 import DragDropProductInstructions from "../common/DragDropProductInstructions";
 import AddMealPlan from "../common/AddMealPlan";
@@ -142,11 +143,11 @@ export default function NewMealPlan() {
         />
         <div className="product-list-container">
           <div className="product-list-container__header">
-            <div>Product</div>
-            <div>Amount</div>
+            <div>Recipe</div>
+            <div>Servings</div>
             <div>Delete</div>
           </div>
-          {/* <DragDropProductRecipe rows={rows} setRows={setRows} /> */}
+          <DragDropMealPlan rows={rows} setRows={setRows} />
         </div>
         {/* Instructions
         <div className="title-instruction">
