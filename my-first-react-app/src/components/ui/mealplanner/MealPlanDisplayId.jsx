@@ -24,6 +24,7 @@ const MealPlanDisplayId = () => {
   const mealplanListPath = "mealplan";
 
   const [mealplan, setMealplan] = useState(null);
+  const [itemColors, setItemColors] = useState({});
   const [recipes, setRecipes] = useState([]);
 
   useEffect(() => {
@@ -34,6 +35,7 @@ const MealPlanDisplayId = () => {
         if (docSnap.exists()) {
           const data = docSnap.data();
           setMealplan(data);
+
           if (data.recipes) {
             fetchRecipes(data.recipes.map((recipe) => recipe.recipeId));
           }
@@ -55,6 +57,13 @@ const MealPlanDisplayId = () => {
         }
       }
       setRecipes(recipesData);
+
+      // Initialize item colors after setting recipes
+      const initialColors = {};
+      mealplan.products.forEach((product) => {
+        initialColors[product.id] = "#fff6e3";
+      });
+      setItemColors(initialColors);
     };
 
     fetchMealplan();
@@ -65,13 +74,13 @@ const MealPlanDisplayId = () => {
     console.log("Current recipes", recipes);
   }, [mealplan, recipes]);
 
-  // const handleItemClick = (itemId) => {
-  //   // Toggle color for the clicked item
-  //   setItemColors((prevColors) => ({
-  //     ...prevColors,
-  //     [itemId]: prevColors[itemId] === "#fff6e3" ? "#74e3915e" : "#fff6e3",
-  //   }));
-  // };
+  const handleItemClick = (itemId) => {
+    // Toggle color for the clicked item
+    setItemColors((prevColors) => ({
+      ...prevColors,
+      [itemId]: prevColors[itemId] === "#fff6e3" ? "#74e3915e" : "#fff6e3",
+    }));
+  };
 
   // const handleServingsChange = (event) => {
   //   setSelectedServings(event.target.value);
@@ -87,24 +96,40 @@ const MealPlanDisplayId = () => {
       <div className="content">
         <HeadArrowBack />
         {/* Render grocery list data */}
-      </div>
-      <div className="content">
-        <h2>{mealplan?.title || "Loading Meal Plan..."}</h2>
-        <p style={{ fontWeight: "bold" }}>Meals</p>
-        {recipes.map((recipe, index) => (
-          <p key={index + "a"}>{recipe.title}</p>
-        ))}
-        <div className="recipes-container">
-          {recipes.map((recipe, index) => (
-            <div key={index}>
-              {recipe.products.map((product) => (
-                <p key={product.id}>
-                  {product.name}: {product.amount}
-                </p>
+        {recipes && (
+          <>
+            <h2>{mealplan?.title || "Loading Meal Plan..."}</h2>
+            <p style={{ fontWeight: "bold" }}>Meals</p>
+            {recipes.map((recipe, index) => (
+              <p key={index + "a"}>{recipe.title}</p>
+            ))}
+            <div className="display-list-container">
+              {recipes.map((recipe, index) => (
+                <div key={index}>
+                  {recipe.products.map((product) => (
+                    <div
+                      key={product.id}
+                      className="display-list-container__box"
+                      onClick={() => handleItemClick(product.id)}
+                      style={{
+                        backgroundColor: itemColors[product.id],
+                        cursor: "pointer",
+                      }}
+                    >
+                      <div className="display-list-container__product">
+                        {product.name}
+                      </div>
+                      <div className="display-list-container__amount">
+                        {product.amount}
+                        {product.unit}
+                      </div>
+                    </div>
+                  ))}
+                </div>
               ))}
             </div>
-          ))}
-        </div>
+          </>
+        )}
       </div>
       <NavBottom />
     </>
