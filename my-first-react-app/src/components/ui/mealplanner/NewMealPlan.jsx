@@ -1,37 +1,21 @@
 import "/src/css/newform.css";
 import "/src/css/main.css";
 
-import React, { useState, useRef, useEffect } from "react";
-import TextField from "@mui/material/TextField";
+import React, { useState, useEffect } from "react";
+
 import Button from "@mui/material/Button";
 
-import { useParams } from "react-router-dom";
-
-import { db, storage } from "/src/components/auth/firebase";
-import {
-  doc,
-  getDoc,
-  getDocs,
-  setDoc,
-  collection,
-  addDoc,
-} from "firebase/firestore";
-import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import { db } from "/src/components/auth/firebase";
+import { doc, getDocs, collection, addDoc } from "firebase/firestore";
 import useFirebaseAuth from "/src/components/auth/AuthFirebase";
 
-// ------------------
 import { useNavigate } from "react-router-dom";
 import { generateUUID } from "../../common/UUIDGenerator";
 
-import AddProductRecipe from "../common/AddProductRecipe";
 import HeadArrowBack from "../nav/HeadArrowBack";
 import NavBottom from "../nav/NavBottom";
 import DragDropMealPlan from "../common/DragDropMealPlan";
-import DragDropProductRecipe from "../common/DragDropProductRecipe";
-import DragDropProductInstructions from "../common/DragDropProductInstructions";
 import AddMealPlan from "../common/AddMealPlan";
-
-// ------------------
 
 export default function NewMealPlan() {
   // unique id
@@ -43,7 +27,6 @@ export default function NewMealPlan() {
 
   // load user info
   const { user, username } = useFirebaseAuth();
-  const { listId } = useParams(); // Extract the document ID from the URL
 
   // navigation
   const navigate = useNavigate();
@@ -54,16 +37,6 @@ export default function NewMealPlan() {
 
   const [rows, setRows] = useState([]);
 
-  const [product, setProduct] = useState("");
-  const [amount, setAmount] = useState("");
-
-  // const [image, setImage] = useState(null);
-  // const [imageUrl, setImageUrl] = useState("");
-  // const fileInputRef = useRef(null);
-  // const [fileName, setFileName] = useState("");
-
-  // const placeholderImageUrl = "/illustrations/undraw_imagination_re_i0xi.svg";
-
   // ------------fetch---------------------------
   const [recipes, setRecipes] = useState([]);
   const [selectedRecipe, setSelectedRecipe] = useState(null);
@@ -73,7 +46,9 @@ export default function NewMealPlan() {
       const colRef = doc(db, "users", username); // Reference to the user document
 
       // Query the "recipes" collection directly under the user's document
-      const recipesQuerySnapshot = await getDocs(collection(colRef, "recipes"));
+      const recipesQuerySnapshot = await getDocs(
+        collection(colRef, recipeListPath)
+      );
 
       const allRecipes = [];
       recipesQuerySnapshot.forEach((doc) => {
@@ -109,6 +84,7 @@ export default function NewMealPlan() {
 
       const colRef = collection(db, "users", username, mealplanListPath);
       const docRef = await addDoc(colRef, {
+        id: newId,
         title: title,
         recipes: rows,
       });
@@ -149,66 +125,7 @@ export default function NewMealPlan() {
           </div>
           <DragDropMealPlan rows={rows} setRows={setRows} />
         </div>
-        {/* Instructions
-        <div className="title-instruction">
-          <h2>Instructions</h2>
-        </div>
-        <div className="add-instruction-container">
-          <p>Add Instructions</p>
-          <TextField
-            required
-            id="recipe-instruction"
-            className="add-instruction-container__title"
-            label="Instruction"
-            value={instructionInput}
-            fullWidth
-            onChange={handleInstructionChange}
-          />
-          <div className="add-instruction-btn">
-            <Button
-              id="add-button"
-              variant="contained"
-              onClick={handleAddInstruction}
-            >
-              Add
-            </Button>
-          </div>
-        </div>
-        <div className="instruction-container-recipe">
-          <div className="instruction-container-recipe__header">
-            <div>Instruction</div>
-            <div>Delete</div>
-          </div>
-          <DragDropProductInstructions
-            instructions={instructions}
-            setInstructions={setInstructions}
-          />
-        </div>
-        <div className="title-instruction">
-          <h2>Add Image</h2>
-          <div className="add-product-help-text">
-            <p>
-              No image? You don't have to upload yet. You can set the image
-              later.
-            </p>
-          </div>
-        </div>
-        <div className="add-image-container-recipe">
-          <input
-            type="file"
-            accept="image/*"
-            ref={fileInputRef}
-            style={{ display: "none" }}
-            onChange={handleImageChange}
-          />
-          <Button
-            variant="contained"
-            onClick={() => fileInputRef.current.click()}
-          >
-            Upload Image
-          </Button>
-          <div>{fileName}</div>
-        </div> */}
+
         <div className="submit-event-btn">
           <Button
             id="submit-list"
