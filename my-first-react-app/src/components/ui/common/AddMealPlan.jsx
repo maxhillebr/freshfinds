@@ -28,9 +28,13 @@ export default function AddMealPlan({
   };
 
   const handleSelectedRecipeChange = (event, newValue) => {
-    setSelectedRecipe(newValue);
+    setSelectedRecipe(newValue); // Set the selected recipe
+    if (newValue && newValue.servings) {
+      setServings(newValue.servings); // Set servings based on the selected recipe
+    } else {
+      setServings(""); // Reset or default value if no servings info is available
+    }
   };
-
   const handleServingsChange = (event) => {
     setServings(event.target.value);
   };
@@ -43,6 +47,7 @@ export default function AddMealPlan({
       return;
     }
     const newData = createData(
+      generateUUID(),
       selectedRecipe.id,
       selectedRecipe.title,
       servings
@@ -50,14 +55,15 @@ export default function AddMealPlan({
     setRows((prevRows) => [...(prevRows || []), newData]);
     setSelectedRecipe(null);
     setServings("");
+    setError("");
   };
   useEffect(() => {
     console.log("Rows updated:", rows);
   }, [rows]);
 
   // create object
-  const createData = (id, title, servings) => {
-    return { id, title, servings };
+  const createData = (id, recipeId, title, servings) => {
+    return { id, recipeId, title, servings };
   };
 
   return (

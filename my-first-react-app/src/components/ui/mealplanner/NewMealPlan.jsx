@@ -97,7 +97,7 @@ export default function NewMealPlan() {
 
   const addNewMealplan = async (title, rows) => {
     if (title === "" || rows.length === 0) {
-      alert("No Title or Product. Check your list again!");
+      alert("No Title or Mealplan. Check your list again!");
       return;
     }
 
@@ -107,15 +107,15 @@ export default function NewMealPlan() {
         return;
       }
 
-      const colRef = collection(db, "users", username, groceryListPath);
+      const colRef = collection(db, "users", username, mealplanListPath);
       const docRef = await addDoc(colRef, {
         title: title,
-        products: rows,
+        recipes: rows,
       });
 
       console.log("Document written with ID: ", docRef.id);
       alert("Grocery list sent to Database");
-      navigate(`/users/${username}/${groceryListPath}/${docRef.id}`);
+      navigate(`/users/${username}/${mealplanListPath}/${docRef.id}`);
     } catch (error) {
       console.error("Error adding document: ", error);
     }
@@ -213,9 +213,7 @@ export default function NewMealPlan() {
           <Button
             id="submit-list"
             variant="contained"
-            // onClick={() =>
-            //   addNewRecipe(title, rows, instructions, tag, servings)
-            // }
+            onClick={() => addNewMealplan(title, rows)}
           >
             Create Mealplan
           </Button>
