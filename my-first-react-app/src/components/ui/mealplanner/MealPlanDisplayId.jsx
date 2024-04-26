@@ -89,23 +89,17 @@ const MealPlanDisplayId = () => {
 
   useEffect(() => {
     console.log("aggregated", aggregatedProducts);
+    console.log("mealplan", mealplan);
   }, [aggregatedProducts]);
 
-  // useEffect(() => {
-  //   // Reinitialize item colors whenever recipes change
-  //   const initialColors = {};
-  //   recipes.forEach((recipe) => {
-  //     recipe.products.forEach((product) => {
-  //       initialColors[product.id] = "#fff6e3"; // Default color for all products
-  //     });
-  //   });
-  //   setItemColors(initialColors);
-  // }, [recipes]);
-
-  // useEffect(() => {
-  //   console.log("Current Mealplan", mealplan);
-  //   console.log("Current recipes", recipes);
-  // }, [mealplan, recipes]);
+  useEffect(() => {
+    // Reinitialize item colors whenever recipes change
+    const initialColors = {};
+    aggregatedProducts.forEach((product) => {
+      initialColors[product.id] = "#fff6e3"; // Default color for all products
+    });
+    setItemColors(initialColors);
+  }, [aggregatedProducts]);
 
   const handleItemClick = (itemId) => {
     // Toggle color for the clicked item
@@ -115,22 +109,24 @@ const MealPlanDisplayId = () => {
     }));
   };
 
-  const calculateAdjustedAmount = (product, recipe) => {
-    const originalAmount = parseFloat(product.amount) || 0;
-    const adjustedAmount =
-      (originalAmount / recipe.servings) * recipe.mealPlanServings;
-    return adjustedAmount.toFixed(2);
-  };
-
   return (
     <>
       <div className="content">
         <HeadArrowBack />
         {/* Render grocery list data */}
         <h2>{mealplan?.title || "Loading Meal Plan..."}</h2>
+
         <div className="display-list-container">
           {aggregatedProducts.map((product, index) => (
-            <div key={index} className="display-list-container__box">
+            <div
+              key={index}
+              className="display-list-container__box"
+              onClick={() => handleItemClick(product.id)}
+              style={{
+                backgroundColor: itemColors[product.id],
+                cursor: "pointer",
+              }}
+            >
               <div className="display-list-container__product">
                 {product.name}
               </div>
