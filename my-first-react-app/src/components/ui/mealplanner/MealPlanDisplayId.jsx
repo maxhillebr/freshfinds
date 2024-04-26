@@ -37,7 +37,7 @@ const MealPlanDisplayId = () => {
           setMealplan(data);
 
           if (data.recipes) {
-            fetchRecipes(data.recipes.map((recipe) => recipe.recipeId));
+            fetchRecipes(data.recipes);
           }
         } else {
           console.log("No such document!");
@@ -47,13 +47,15 @@ const MealPlanDisplayId = () => {
       }
     };
 
-    const fetchRecipes = async (recipeIds) => {
+    const fetchRecipes = async (recipes) => {
       const recipesData = [];
       const colRef = collection(db, "users", username, recipeListPath);
-      for (const id of recipeIds) {
-        const recipeDoc = await getDoc(doc(colRef, id));
+      for (const recipe of recipes) {
+        const recipeDoc = await getDoc(doc(colRef, recipe.recipeId));
         if (recipeDoc.exists()) {
-          recipesData.push(recipeDoc.data());
+          const recipeData = recipeDoc.data();
+          recipeData.servings = recipe.servings; // Ensure servings are attached to recipe data
+          recipesData.push(recipeData);
         }
       }
       setRecipes(recipesData);
@@ -96,7 +98,7 @@ const MealPlanDisplayId = () => {
       <div className="content">
         <HeadArrowBack />
         {/* Render grocery list data */}
-        {recipes && (
+        {mealplan && recipes.length > 0 && (
           <>
             <h2>{mealplan?.title || "Loading Meal Plan..."}</h2>
             <p style={{ fontWeight: "bold" }}>Meals</p>
@@ -120,7 +122,7 @@ const MealPlanDisplayId = () => {
                         {product.name}
                       </div>
                       <div className="display-list-container__amount">
-                        {product.amount}
+                        {parseFloat(product.amount) * recipe.servings}
                         {product.unit}
                       </div>
                     </div>

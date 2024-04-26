@@ -24,6 +24,7 @@ const RecipePageId = () => {
 
   const [recipeData, setRecipeData] = useState(null);
   const [itemColors, setItemColors] = useState({});
+  const [originalServings, setOriginalServings] = useState(1); // Default to 1 to prevent division by zero
   const [selectedServings, setSelectedServings] = useState();
 
   useEffect(() => {
@@ -47,7 +48,8 @@ const RecipePageId = () => {
 
           // Set recipe data and selectedServings
           setRecipeData(data);
-          setSelectedServings(servings);
+          setOriginalServings(data.servings); // Capture the original servings
+          setSelectedServings(data.servings); // Initialize with original servings
         } else {
           console.log("No such document!");
         }
@@ -71,9 +73,12 @@ const RecipePageId = () => {
     setSelectedServings(event.target.value);
   };
 
-  const normalizeAmount = (amount) => {
-    // Replace commas with periods for consistent input handling
-    return amount.replace(",", ".");
+  const calculateAdjustedAmount = (amount, unit) => {
+    // Normalize amount, adjust based on servings, then round to 2 decimal places
+    const normalizedAmount = parseFloat(amount.replace(",", ".")) || 0;
+    const adjustedAmount =
+      (normalizedAmount / originalServings) * selectedServings;
+    return `${adjustedAmount.toFixed(2)} ${unit}`;
   };
 
   return (
@@ -126,11 +131,7 @@ const RecipePageId = () => {
                     {product.name}
                   </div>
                   <div className="display-list-container__amount">
-                    {(
-                      parseFloat(normalizeAmount(product.amount)) *
-                      selectedServings
-                    ).toFixed(2)}
-                    {product.unit}
+                    {calculateAdjustedAmount(product.amount, product.unit)}
                   </div>
                 </div>
               ))}
