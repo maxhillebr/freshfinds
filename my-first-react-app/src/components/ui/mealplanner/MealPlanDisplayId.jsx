@@ -25,7 +25,8 @@ const MealPlanDisplayId = () => {
 
   const [mealplan, setMealplan] = useState(null);
   const [itemColors, setItemColors] = useState({});
-  const [recipes, setRecipes] = useState([]);
+  // const [recipes, setRecipes] = useState([]);
+  const [aggregatedProducts, setAggregatedProducts] = useState([]);
 
   useEffect(() => {
     const fetchMealplan = async () => {
@@ -49,36 +50,54 @@ const MealPlanDisplayId = () => {
 
     const fetchRecipes = async (mealPlanRecipes) => {
       const recipesData = [];
-      const colRef = collection(db, "users", username, "recipes");
+      const productMap = {};
+      const colRef = collection(db, "users", username, recipeListPath);
       for (const { recipeId, servings } of mealPlanRecipes) {
         const recipeDoc = await getDoc(doc(colRef, recipeId));
         if (recipeDoc.exists()) {
           const recipeData = recipeDoc.data();
-          recipeData.mealPlanServings = servings; // Attach meal plan specific servings
+          recipeData.mealPlanServings = servings;
           recipesData.push(recipeData);
+          // Calculate and aggregate products
+          recipeData.products.forEach((product) => {
+            const adjustedAmount =
+              (parseFloat(product.amount) / recipeData.servings) * servings;
+            if (productMap[product.name]) {
+              productMap[product.name].amount += adjustedAmount;
+            } else {
+              productMap[product.name] = { ...product, amount: adjustedAmount };
+            }
+          });
         }
       }
-      setRecipes(recipesData);
+      // Convert map to array for rendering
+      const aggregatedProductsArray = Object.values(productMap).map(
+        (product) => ({
+          ...product,
+          amount: product.amount.toFixed(2), // Adjust the amount to two decimal places
+        })
+      );
+      setAggregatedProducts(aggregatedProductsArray);
     };
 
     fetchMealplan();
   }, [username, listId]);
 
-  useEffect(() => {
-    // Reinitialize item colors whenever recipes change
-    const initialColors = {};
-    recipes.forEach((recipe) => {
-      recipe.products.forEach((product) => {
-        initialColors[product.id] = "#fff6e3"; // Default color for all products
-      });
-    });
-    setItemColors(initialColors);
-  }, [recipes]);
+  // useEffect(() => {
+  //   // Reinitialize item colors whenever recipes change
+  //   const initialColors = {};
+  //   recipes.forEach((recipe) => {
+  //     recipe.products.forEach((product) => {
+  //       initialColors[product.id] = "#fff6e3"; // Default color for all products
+  //     });
+  //   });
+  //   setItemColors(initialColors);
+  // }, [recipes]);
 
-  useEffect(() => {
-    console.log("Current Mealplan", mealplan);
-    console.log("Current recipes", recipes);
-  }, [mealplan, recipes]);
+  // useEffect(() => {
+  //   console.log("Current Mealplan", mealplan);
+  //   console.log("Current recipes", recipes);
+  // }, [mealplan, recipes]);
 
   const handleItemClick = (itemId) => {
     // Toggle color for the clicked item
@@ -87,10 +106,6 @@ const MealPlanDisplayId = () => {
       [itemId]: prevColors[itemId] === "#fff6e3" ? "#74e3915e" : "#fff6e3",
     }));
   };
-
-  // const handleServingsChange = (event) => {
-  //   setSelectedServings(event.target.value);
-  // };
 
   const calculateAdjustedAmount = (product, recipe) => {
     const originalAmount = parseFloat(product.amount) || 0;
@@ -104,40 +119,19 @@ const MealPlanDisplayId = () => {
       <div className="content">
         <HeadArrowBack />
         {/* Render grocery list data */}
-        {recipes && (
-          <>
-            <h2>{mealplan?.title || "Loading Meal Plan..."}</h2>
-            <p style={{ fontWeight: "bold" }}>Meals</p>
-            {recipes.map((recipe, index) => (
-              <p key={index + "a"}>{recipe.title}</p>
-            ))}
-            <div className="display-list-container">
-              {recipes.map((recipe, index) => (
-                <div key={index}>
-                  {recipe.products.map((product) => (
-                    <div
-                      key={product.id}
-                      className="display-list-container__box"
-                      onClick={() => handleItemClick(product.id)}
-                      style={{
-                        backgroundColor: itemColors[product.id],
-                        cursor: "pointer",
-                      }}
-                    >
-                      <div className="display-list-container__product">
-                        {product.name}
-                      </div>
-                      <div className="display-list-container__amount">
-                        {calculateAdjustedAmount(product, recipe)}
-                        {product.unit}
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              ))}
+        <h2>{mealplan?.title || "Loading Meal Plan..."}</h2>
+        <div className="display-list-container">
+          {aggregatedProducts.map((product, index) => (
+            <div key={index} className="display-list-container__box">
+              <div className="display-list-container__product">
+                {product.name}
+              </div>
+              <div className="display-list-container__amount">
+                {product.amount} {product.unit}
+              </div>
             </div>
-          </>
-        )}
+          ))}
+        </div>
       </div>
       <NavBottom />
     </>
