@@ -58,10 +58,14 @@ const MealPlanDisplayId = () => {
           const recipeData = recipeDoc.data();
           recipeData.mealPlanServings = servings;
           recipesData.push(recipeData);
+
           // Calculate and aggregate products
           recipeData.products.forEach((product) => {
+            const normalizedAmount = parseFloat(
+              product.amount.replace(",", ".")
+            );
             const adjustedAmount =
-              (parseFloat(product.amount) / recipeData.servings) * servings;
+              (normalizedAmount / recipeData.servings) * servings;
             if (productMap[product.name]) {
               productMap[product.name].amount += adjustedAmount;
             } else {
@@ -82,6 +86,10 @@ const MealPlanDisplayId = () => {
 
     fetchMealplan();
   }, [username, listId]);
+
+  useEffect(() => {
+    console.log("aggregated", aggregatedProducts);
+  }, [aggregatedProducts]);
 
   // useEffect(() => {
   //   // Reinitialize item colors whenever recipes change
