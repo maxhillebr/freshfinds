@@ -59,17 +59,21 @@ const MealPlanDisplayId = () => {
         }
       }
       setRecipes(recipesData);
-
-      // Initialize item colors after setting recipes
-      const initialColors = {};
-      mealplan.products.forEach((product) => {
-        initialColors[product.id] = "#fff6e3";
-      });
-      setItemColors(initialColors);
     };
 
     fetchMealplan();
   }, [username, listId]);
+
+  useEffect(() => {
+    // Reinitialize item colors whenever recipes change
+    const initialColors = {};
+    recipes.forEach((recipe) => {
+      recipe.products.forEach((product) => {
+        initialColors[product.id] = "#fff6e3"; // Default color for all products
+      });
+    });
+    setItemColors(initialColors);
+  }, [recipes]);
 
   useEffect(() => {
     console.log("Current Mealplan", mealplan);
