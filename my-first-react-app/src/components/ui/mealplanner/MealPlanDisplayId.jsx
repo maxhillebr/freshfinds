@@ -47,14 +47,14 @@ const MealPlanDisplayId = () => {
       }
     };
 
-    const fetchRecipes = async (recipes) => {
+    const fetchRecipes = async (mealPlanRecipes) => {
       const recipesData = [];
-      const colRef = collection(db, "users", username, recipeListPath);
-      for (const recipe of recipes) {
-        const recipeDoc = await getDoc(doc(colRef, recipe.recipeId));
+      const colRef = collection(db, "users", username, "recipes");
+      for (const { recipeId, servings } of mealPlanRecipes) {
+        const recipeDoc = await getDoc(doc(colRef, recipeId));
         if (recipeDoc.exists()) {
           const recipeData = recipeDoc.data();
-          recipeData.servings = recipe.servings; // Ensure servings are attached to recipe data
+          recipeData.mealPlanServings = servings; // Attach meal plan specific servings
           recipesData.push(recipeData);
         }
       }
@@ -88,9 +88,11 @@ const MealPlanDisplayId = () => {
   //   setSelectedServings(event.target.value);
   // };
 
-  const normalizeAmount = (amount) => {
-    // Replace commas with periods for consistent input handling
-    return amount.replace(",", ".");
+  const calculateAdjustedAmount = (product, recipe) => {
+    const originalAmount = parseFloat(product.amount) || 0;
+    const adjustedAmount =
+      (originalAmount / recipe.servings) * recipe.mealPlanServings;
+    return adjustedAmount.toFixed(2);
   };
 
   return (
@@ -98,7 +100,7 @@ const MealPlanDisplayId = () => {
       <div className="content">
         <HeadArrowBack />
         {/* Render grocery list data */}
-        {mealplan && recipes.length > 0 && (
+        {recipes && (
           <>
             <h2>{mealplan?.title || "Loading Meal Plan..."}</h2>
             <p style={{ fontWeight: "bold" }}>Meals</p>
@@ -122,7 +124,7 @@ const MealPlanDisplayId = () => {
                         {product.name}
                       </div>
                       <div className="display-list-container__amount">
-                        {parseFloat(product.amount) * recipe.servings}
+                        {calculateAdjustedAmount(product, recipe)}
                         {product.unit}
                       </div>
                     </div>
