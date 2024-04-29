@@ -14,7 +14,7 @@ import HeadArrowBack from "../nav/HeadArrowBack";
 import NavBottom from "../nav/NavBottom";
 import DragDropProductList from "../common/DragDropProductList";
 import AddProductMealplan from "../common/AddProductMealplan";
-import { selectClasses } from "@mui/material";
+import { generateUUID } from "../../common/UUIDGenerator";
 
 export default function NewList() {
   // load user info
@@ -36,6 +36,8 @@ export default function NewList() {
   const [title, setTitle] = useState("");
   const [rows, setRows] = useState([]);
 
+  const [aggregatedProducts, setAggregatedProducts] = useState([]);
+
   // -------------------------------------------------
 
   // ------------------------------------------------
@@ -52,6 +54,8 @@ export default function NewList() {
         console.error("User is not authenticated or displayName is undefined.");
         return;
       }
+
+      handleAddMealplanProducts();
 
       const colRef = collection(db, "users", username, groceryListPath);
       const docRef = await addDoc(colRef, {
@@ -97,7 +101,12 @@ export default function NewList() {
           </div>
           <DragDropProductList rows={rows} setRows={setRows} />
         </div>
-        <AddProductMealplan />
+        <AddProductMealplan
+          aggregatedProducts={aggregatedProducts}
+          setAggregatedProducts={setAggregatedProducts}
+          rows={rows}
+          setRows={setRows}
+        />
         <div className="submit-event-btn">
           <Button
             id="submit-list"

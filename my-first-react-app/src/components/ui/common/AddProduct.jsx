@@ -27,16 +27,16 @@ export default function AddProduct({
   };
 
   // add products as array of objects to rows array
-  const handleAddProducts = (product, amount) => {
-    const newData = createData(generateUUID(), product, amount);
+  const handleAddProducts = (product, amount, unit) => {
+    const newData = createData(generateUUID(), product, amount, unit);
     setRows((prevRows) => [...prevRows, newData]);
     setProduct("");
     setAmount("");
   };
 
   // create object
-  const createData = (id, name, amount) => {
-    return { id, name, amount };
+  const createData = (id, name, amount, unit) => {
+    return { id, name, amount, unit };
   };
 
   return (
@@ -77,7 +77,7 @@ export default function AddProduct({
           <Button
             id="add-button"
             variant="contained"
-            onClick={() => handleAddProducts(product, amount)}
+            onClick={() => handleAddProducts(product, amount, "")}
           >
             Add
           </Button>

@@ -8,7 +8,12 @@ import { doc, getDoc, getDocs, collection } from "firebase/firestore";
 import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
 
-export default function AddProductMealplan() {
+export default function AddProductMealplan({
+  aggregatedProducts,
+  setAggregatedProducts,
+  rows,
+  setRows,
+}) {
   // -------------------------------------------------
   // db, copy to clipboard path
   // load user info
@@ -18,7 +23,7 @@ export default function AddProductMealplan() {
   const mealplanListPath = "mealplan";
 
   const [mealplan, setMealplan] = useState(null);
-  const [aggregatedProducts, setAggregatedProducts] = useState([]);
+  // const [aggregatedProducts, setAggregatedProducts] = useState([]);
   const [selectedMealplan, setSelectedMealplan] = useState(null);
 
   useEffect(() => {
@@ -52,12 +57,10 @@ export default function AddProductMealplan() {
     );
     setSelectedMealplan(selectedPlan);
     console.log("Selected", selectedMealplan);
-    if (selectedMealplan === undefined) {
+    if (selectedMealplan === null) {
       console.log("No mealplan selected");
       setAggregatedProducts([]);
       return;
-    } else {
-      fetchRecipes(selectedMealplan.recipes);
     }
   };
 
@@ -100,6 +103,29 @@ export default function AddProductMealplan() {
     setAggregatedProducts(aggregatedProductsArray);
   };
 
+  const handleAddMealplanProducts = () => {
+    fetchRecipes(selectedMealplan.recipes);
+
+    const combinedData = [
+      ...rows,
+      ...aggregatedProducts.map((product) => ({
+        id: product.id,
+        name: product.name,
+        amount: product.amount,
+        unit: product.unit,
+      })),
+    ];
+
+    // Set the combined data as the new rows state
+    setRows(combinedData);
+
+    // Clear the aggregatedProducts array
+    setAggregatedProducts([]);
+
+    console.log(combinedData);
+    alert("Added Mealplan Items to the list");
+  };
+
   return (
     <>
       <div className="mealplan-container">
@@ -119,6 +145,15 @@ export default function AddProductMealplan() {
               </MenuItem>
             ))}
         </Select>
+        <div className="add-product-btn">
+          <Button
+            id="add-button"
+            variant="contained"
+            onClick={() => handleAddMealplanProducts()}
+          >
+            Add
+          </Button>
+        </div>
       </div>
     </>
   );
