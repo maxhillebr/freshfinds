@@ -86,8 +86,6 @@ export default function NewList() {
           setRows={setRows}
         />
 
-        <AddProductMealplan />
-
         <div className="title-product-list">
           <h2>List</h2>
         </div>
@@ -99,6 +97,7 @@ export default function NewList() {
           </div>
           <DragDropProductList rows={rows} setRows={setRows} />
         </div>
+        <AddProductMealplan />
         <div className="submit-event-btn">
           <Button
             id="submit-list"
