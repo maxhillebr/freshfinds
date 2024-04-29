@@ -51,7 +51,14 @@ export default function AddProductMealplan() {
       (plan) => plan.title === event.target.value
     );
     setSelectedMealplan(selectedPlan);
-    fetchRecipes(selectedMealplan.recipes);
+    console.log("Selected", selectedMealplan);
+    if (selectedMealplan === undefined) {
+      console.log("No mealplan selected");
+      setAggregatedProducts([]);
+      return;
+    } else {
+      fetchRecipes(selectedMealplan.recipes);
+    }
   };
 
   // // add products as array of objects to rows array
