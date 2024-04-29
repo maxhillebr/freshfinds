@@ -3,7 +3,7 @@ import "/src/css/main.css";
 import Button from "@mui/material/Button";
 
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 import { db } from "/src/components/auth/firebase";
 import { collection, addDoc } from "firebase/firestore";
@@ -13,12 +13,18 @@ import AddProduct from "../common/AddProduct";
 import HeadArrowBack from "../nav/HeadArrowBack";
 import NavBottom from "../nav/NavBottom";
 import DragDropProductList from "../common/DragDropProductList";
+import AddProductMealplan from "../common/AddProductMealplan";
+import { selectClasses } from "@mui/material";
 
 export default function NewList() {
   // load user info
   const { user, username } = useFirebaseAuth();
 
+  const { listId } = useParams(); // Extract the document ID from the URL
+
   // db, copy to clipboard path
+  const recipeListPath = "recipes";
+  const mealplanListPath = "mealplan";
   const groceryListPath = "grocerylists";
 
   // navigation
@@ -29,6 +35,10 @@ export default function NewList() {
   const [amount, setAmount] = useState("");
   const [title, setTitle] = useState("");
   const [rows, setRows] = useState([]);
+
+  // -------------------------------------------------
+
+  // ------------------------------------------------
 
   // create new doc in firebase collection with array of objects in rows
   const addNewGroceryList = async (title, rows) => {
@@ -75,6 +85,8 @@ export default function NewList() {
           rows={rows}
           setRows={setRows}
         />
+
+        <AddProductMealplan />
 
         <div className="title-product-list">
           <h2>List</h2>

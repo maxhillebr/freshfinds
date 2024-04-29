@@ -136,6 +136,24 @@ const MealPlanDisplayId = () => {
             </div>
           ))}
         </div>
+        <div className="display-list-action-btn">
+          <Button
+            href={`/users/${username}/${mealplanListPath}/${listId}/edit`}
+            id="edit"
+            variant="contained"
+          >
+            <EditNoteIcon />
+          </Button>
+          <Button
+            onClick={() => copyToClipboard(username, mealplanListPath, listId)}
+            variant="outlined"
+          >
+            <ShareIcon />
+          </Button>
+          <Button href="/home" id="home-button" variant="outlined">
+            <HomeIcon />
+          </Button>
+        </div>
       </div>
       <NavBottom />
     </>
