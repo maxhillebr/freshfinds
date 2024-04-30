@@ -35,6 +35,9 @@ export default function NewList() {
   const [amount, setAmount] = useState("");
   const [title, setTitle] = useState("");
   const [rows, setRows] = useState([]);
+
+  const [selectedMealplan, setSelectedMealplan] = useState(null);
+
   // -------------------------------------------------
 
   // ------------------------------------------------
@@ -56,6 +59,7 @@ export default function NewList() {
       const docRef = await addDoc(colRef, {
         title: title,
         products: rows,
+        mealplan: selectedMealplan,
       });
 
       console.log("Document written with ID: ", docRef.id);
@@ -96,7 +100,12 @@ export default function NewList() {
           </div>
           <DragDropProductList rows={rows} setRows={setRows} />
         </div>
-        <AddProductMealplan rows={rows} setRows={setRows} />
+        <AddProductMealplan
+          rows={rows}
+          setRows={setRows}
+          selectedMealplan={selectedMealplan}
+          setSelectedMealplan={setSelectedMealplan}
+        />
         <div className="submit-event-btn">
           <Button
             id="submit-list"

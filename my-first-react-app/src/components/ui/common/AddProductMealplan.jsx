@@ -8,7 +8,12 @@ import { doc, getDoc, getDocs, collection } from "firebase/firestore";
 import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
 
-export default function AddProductMealplan({ rows, setRows }) {
+export default function AddProductMealplan({
+  rows,
+  setRows,
+  selectedMealplan,
+  setSelectedMealplan,
+}) {
   // -------------------------------------------------
   // db, copy to clipboard path
   // load user info
@@ -18,7 +23,6 @@ export default function AddProductMealplan({ rows, setRows }) {
   const mealplanListPath = "mealplan";
 
   const [mealplan, setMealplan] = useState(null);
-  const [selectedMealplan, setSelectedMealplan] = useState(null);
 
   const [aggregatedProducts, setAggregatedProducts] = useState([]);
 
