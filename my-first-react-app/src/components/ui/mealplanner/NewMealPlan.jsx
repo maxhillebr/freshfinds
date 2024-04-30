@@ -102,7 +102,7 @@ export default function NewMealPlan() {
       <div className="content">
         <HeadArrowBack />
         <div className="title-welcome">
-          <h1>Create Meal Plan</h1>
+          <h1>Create Mealplan</h1>
         </div>
 
         <AddMealPlan

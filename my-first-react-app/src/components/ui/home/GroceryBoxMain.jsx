@@ -1,9 +1,7 @@
-import { useState, useEffect, useId } from "react";
-import Button from "@mui/material/Button";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { db } from "/src/components/auth/firebase";
 import { collection, getDocs, doc, deleteDoc } from "firebase/firestore";
-import { getAuth } from "firebase/auth";
 import useFirebaseAuth from "/src/components/auth/AuthFirebase";
 
 import EditNoteIcon from "@mui/icons-material/EditNote";
@@ -83,12 +81,12 @@ export default function GroceryBoxMain() {
               <Link
                 to={`/users/${username}/${groceryListPath}/${data.id}/edit`}
               >
-                <div className="grocer-list-container__action-btn--edit">
+                <div className="grocery-list-container__action-btn--edit">
                   <EditNoteIcon />
                 </div>
               </Link>
               <div
-                className="grocer-list-container__action-btn--share"
+                className="grocery-list-container__action-btn--share"
                 onClick={() =>
                   copyToClipboard(username, groceryListPath, data.id)
                 }
@@ -96,7 +94,7 @@ export default function GroceryBoxMain() {
                 <ShareIcon />
               </div>
               <div
-                className="grocer-list-container__action-btn--del"
+                className="grocery-list-container__action-btn--del"
                 onClick={() => handleDeleteDoc(data.id)}
               >
                 <DeleteIcon />

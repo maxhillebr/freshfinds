@@ -25,15 +25,22 @@ function Home() {
         </div>
         <MealPlanBoxMain />
 
+        <a href="/newmealplan">
+          <div className="create-container">
+            <div className="create-container__title">
+              <h3>Create Mealplan</h3>
+              <AddCircleOutlineIcon
+                fontSize="large"
+                style={{ color: "#1976D2" }}
+              />
+            </div>
+          </div>
+        </a>
+
         <div className="title-container">
           <div className="title-container__title">
             <h2>Your Lists</h2>
           </div>
-          {/* <div className="title-container__view-all-btn">
-            <Button variant="contained" endIcon={<VisibilityIcon />}>
-              View All
-            </Button>
-          </div> */}
         </div>
 
         <div className="grocery-list-container">

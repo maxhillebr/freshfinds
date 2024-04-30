@@ -1,45 +1,115 @@
-import Button from "@mui/material/Button";
+import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+import { db } from "/src/components/auth/firebase";
+import { collection, getDocs, doc, deleteDoc } from "firebase/firestore";
+import useFirebaseAuth from "/src/components/auth/AuthFirebase";
 
 import EditNoteIcon from "@mui/icons-material/EditNote";
 import ShareIcon from "@mui/icons-material/Share";
 import DeleteIcon from "@mui/icons-material/Delete";
-import VisibilityIcon from "@mui/icons-material/Visibility";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 
+import { copyToClipboard } from "../common/CopyToClipboard";
+import { generateUUID } from "../../common/UUIDGenerator";
+
 export default function MealPlanBoxMain() {
+  // unique id
+  const newId = generateUUID();
+
+  // load user info
+  const { user, username } = useFirebaseAuth();
+
+  // db, copy to clipboard path
+  const mealplanListPath = "mealplan";
+
+  // Define groceryLists state to store fetched data
+  const [mealplan, setMealplan] = useState([]);
+
+  // Fetch data from Firestore inside useEffect
+  useEffect(() => {
+    const fetchMealplan = async () => {
+      try {
+        if (!user || !username) {
+          console.error(
+            "User is not authenticated or display name is undefined."
+          );
+          return; // Exit the function early
+        }
+
+        fetchColGetDoc();
+      } catch (error) {
+        console.error("Error fetching mealplan:", error);
+      }
+    };
+
+    fetchMealplan();
+  }, []); // Empty dependency array to fetch data only once on component mount
+
+  const fetchColGetDoc = async () => {
+    const colRef = collection(db, "users", username, mealplanListPath);
+    const querySnapshot = await getDocs(colRef);
+    const plan = [];
+
+    querySnapshot.forEach((doc) => {
+      plan.push({ ...doc.data(), docId: doc.id });
+    });
+
+    setMealplan(plan);
+    console.log("mealplan:", plan);
+  };
+
+  const handleDeleteDoc = async (id) => {
+    const colRef = doc(db, "users", username, mealplanListPath, id);
+    await deleteDoc(colRef);
+
+    console.log("Document deleted", id);
+    alert("Grocery List deleted");
+    fetchColGetDoc();
+  };
   return (
     <>
-      <div className="mealplan-container">
-        <div className="mealplan-container__box">
-          <div className="mealplan-container__tag-title">
-            <p className="mealplan-container__tag--main">Mealplan</p>
-            <h3>Groceries List 1</h3>
-            <p>Description</p>
-          </div>
-          <div className="mealplan-container__recipes">
-            <h3>Recipes</h3>
-            <p>Chicken Teriyaki</p>
-            <p>Sushi Bowl</p>
-            <p>vegan Schnitzel</p>
-          </div>
-          <div className="mealplan-container__action-btn">
-            <EditNoteIcon />
-            <ShareIcon />
-            <DeleteIcon />
-          </div>
-        </div>
-        <a href="/newmealplan">
-          <div className="create-container">
-            <div className="create-container__title">
-              <h3>Create Mealplan</h3>
-              <AddCircleOutlineIcon
-                fontSize="large"
-                style={{ color: "#1976D2" }}
-              />
+      {mealplan.map(function (data) {
+        return (
+          <div className="mealplan-container" key={data.docId}>
+            <div className="mealplan-container__box">
+              <a href={`/users/${username}/${mealplanListPath}/${data.docId}`}>
+                <div className="mealplan-container__tag-title">
+                  <p className="mealplan-container__tag--main">Mealplan</p>
+                  <h3>{data.title}</h3>
+                </div>
+              </a>
+              <div className="mealplan-container__recipes">
+                {data.recipes.map((recipe) => (
+                  <p key={recipe.id}>{recipe.title}</p>
+                ))}
+              </div>
+              <div className="mealplan-container__action-btn">
+                <Link
+                  to={`/users/${username}/${mealplanListPath}/${data.docId}/edit`}
+                >
+                  <div className="mealplan-container__action-btn--edit">
+                    <EditNoteIcon />
+                  </div>
+                </Link>
+                <div
+                  className="mealplan-container__action-btn--share"
+                  onClick={() =>
+                    copyToClipboard(username, mealplanListPath, data.docId)
+                  }
+                >
+                  <ShareIcon />
+                </div>
+                <div
+                  className="grocery-list-container__action-btn--del"
+                  onClick={() => handleDeleteDoc(data.docId)}
+                >
+                  <DeleteIcon />
+                </div>
+              </div>
             </div>
           </div>
-        </a>
-      </div>
+        );
+      })}
     </>
   );
 }

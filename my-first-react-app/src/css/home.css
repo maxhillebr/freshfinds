@@ -52,11 +52,10 @@
 .mealplan-container__box {
   background-color: #63ffd930;
   padding: 1em 1em;
-  flex-direction: column;
-  align-items: flex-start;
   border-radius: 1em;
-  display: flex;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: 1fr;
+  justify-items: start;
 }
 
 .mealplan-container__tag-title {
@@ -81,6 +80,11 @@
 .mealplan-container__recipes h3 {
   margin: 0.1em 0;
   font-size: 23px;
+}
+
+.mealplan-container__action-btn {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
 }
 
 .mealplan-container__action-btn button {
@@ -202,9 +206,16 @@
     flex-direction: row;
   }
   .mealplan-container__box {
+    background-color: #63ffd930;
     padding: 1em 2em;
-    flex-direction: row;
+    border-radius: 1em;
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    justify-items: start;
     align-items: center;
+  }
+  .mealplan-container__action-btn {
+    grid-template-columns: 1fr 1fr 1fr;
   }
   .grocery-list-container__box {
     padding: 1em 2em;
