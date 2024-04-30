@@ -174,7 +174,8 @@ export default function AddProductMealplan({
       <div className="add-product-help-text">
         <p>
           Optional: Choose a mealplan and press "ADD". All items from the
-          mealplan will be added to the list.
+          mealplan will be added to the list.{" "}
+          <strong>Don't add the same mealplan 2 times!</strong>
         </p>
       </div>
       <div className="create-mealplan-container">
@@ -215,21 +216,21 @@ export default function AddProductMealplan({
         <p>Add Product</p>
         <TextField
           required
-          id="grocery-list-amount"
-          className="add-product-container__amount"
-          label="Amount"
-          value={amount}
-          fullWidth
-          onChange={handleAmountChange}
-        />
-        <TextField
-          required
           id="grocery-list-product"
           className="add-product-container__title"
           label="Product"
           value={product}
           fullWidth
           onChange={handleProductChange}
+        />
+        <TextField
+          required
+          id="grocery-list-amount"
+          className="add-product-container__amount"
+          label="Amount"
+          value={amount}
+          fullWidth
+          onChange={handleAmountChange}
         />
         <div className="add-product-btn">
           <Button
