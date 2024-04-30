@@ -19,6 +19,7 @@ const GroceryListPageId = () => {
 
   // db, copy to clipboard path
   const groceryListPath = "grocerylists";
+  const mealplanListPath = "mealplan";
 
   const [groceryList, setGroceryList] = useState(null);
   const [itemColors, setItemColors] = useState({});
@@ -66,6 +67,15 @@ const GroceryListPageId = () => {
           <>
             <h2>{groceryList.title}</h2>
             <div className="display-list-container">
+              <div className="display-list-container__mealplan">
+                <h3>Mealplan for the list</h3>
+                <a
+                  href={`/users/${username}/${mealplanListPath}/${groceryList.mealplan.docId}`}
+                >
+                  {groceryList.mealplan.title}
+                </a>
+              </div>
+              <h3>Complete Grocery List</h3>
               {groceryList.products.map((product) => (
                 <div
                   key={product.id}
@@ -81,6 +91,7 @@ const GroceryListPageId = () => {
                   </div>
                   <div className="display-list-container__amount">
                     {product.amount}
+                    {product.unit}
                   </div>
                 </div>
               ))}

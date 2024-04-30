@@ -34,7 +34,7 @@ export default function AddProductMealplan({
         const mealplanSnapshot = [];
 
         querySnapshot.forEach((doc) => {
-          mealplanSnapshot.push(doc.data());
+          mealplanSnapshot.push({ docId: doc.id, ...doc.data() });
         });
         setMealplan(mealplanSnapshot);
       } catch (error) {
