@@ -88,15 +88,16 @@ export default function AddProductMealplan({
 
   // Function to handle meal plan selection
   const handleMealplanSelect = (event) => {
-    const selectedPlan = mealplan.find(
-      (plan) => plan.title === event.target.value
-    );
-    setSelectedMealplan(selectedPlan);
-    console.log("Selected", selectedMealplan);
-    if (selectedMealplan === null) {
-      console.log("No mealplan selected");
-      setAggregatedProducts([]);
-      return;
+    if (event.target.value === "No Mealplan") {
+      setSelectedMealplan(null);
+      setAggregatedProducts([]); // Clear aggregated products if any
+      return console.log("No mealplan selected");
+    } else {
+      const selectedPlan = mealplan.find(
+        (plan) => plan.title === event.target.value
+      );
+      setSelectedMealplan(selectedPlan);
+      console.log("Selected", selectedMealplan);
     }
   };
 
@@ -197,7 +198,14 @@ export default function AddProductMealplan({
           <Button
             id="add-button"
             variant="contained"
-            onClick={() => fetchRecipes(selectedMealplan.recipes)}
+            onClick={() => {
+              if (selectedMealplan && selectedMealplan.recipes) {
+                fetchRecipes(selectedMealplan.recipes);
+              } else {
+                console.log("No mealplan selected or mealplan has no recipes.");
+                // Optionally, alert the user that no mealplan has been selected or there are no recipes
+              }
+            }}
           >
             Add
           </Button>
