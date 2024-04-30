@@ -55,7 +55,7 @@ const NavBottom = () => {
             <MenuItem onClick={handleClose} component={Link} to="/newmealplan">
               Mealplan
             </MenuItem>
-            <MenuItem onClick={handleClose} component={Link} to="/newlist">
+            <MenuItem onClick={handleClose} component={Link} to="/new">
               Grocery List
             </MenuItem>
             <MenuItem onClick={handleClose} component={Link} to="/newrecipe">
