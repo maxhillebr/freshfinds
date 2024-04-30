@@ -67,6 +67,10 @@
   text-align: right;
 }
 
+.display-list-container__recipes--title {
+  margin: 1em 0;
+}
+
 /* responsive */
 
 @media (min-width: 768px) {

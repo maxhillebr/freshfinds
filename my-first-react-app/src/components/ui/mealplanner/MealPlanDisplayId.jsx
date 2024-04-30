@@ -23,7 +23,11 @@ const MealPlanDisplayId = () => {
   const recipeListPath = "recipes";
   const mealplanListPath = "mealplan";
 
-  const [mealplan, setMealplan] = useState(null);
+  const [mealplan, setMealplan] = useState({
+    title: "Loading Meal Plan...",
+    recipes: [],
+    id: "",
+  });
   const [itemColors, setItemColors] = useState({});
   // const [recipes, setRecipes] = useState([]);
   const [aggregatedProducts, setAggregatedProducts] = useState([]);
@@ -113,10 +117,24 @@ const MealPlanDisplayId = () => {
     <>
       <div className="content">
         <HeadArrowBack />
+
         {/* Render grocery list data */}
         <h2>{mealplan?.title || "Loading Meal Plan..."}</h2>
-
         <div className="display-list-container">
+          <div className="display-list-container__recipes">
+            {mealplan.recipes.map((recipe) => (
+              <div
+                className="display-list-container__recipes--title"
+                key={recipe.id}
+              >
+                <a
+                  href={`/users/${username}/${recipeListPath}/${recipe.recipeId}`}
+                >
+                  {recipe.title}: Servings Amount {recipe.servings}
+                </a>
+              </div>
+            ))}
+          </div>
           {aggregatedProducts.map((product, index) => (
             <div
               key={index}
