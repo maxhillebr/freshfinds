@@ -35,9 +35,6 @@ export default function NewList() {
   const [amount, setAmount] = useState("");
   const [title, setTitle] = useState("");
   const [rows, setRows] = useState([]);
-
-  const [aggregatedProducts, setAggregatedProducts] = useState([]);
-
   // -------------------------------------------------
 
   // ------------------------------------------------
@@ -54,8 +51,6 @@ export default function NewList() {
         console.error("User is not authenticated or displayName is undefined.");
         return;
       }
-
-      handleAddMealplanProducts();
 
       const colRef = collection(db, "users", username, groceryListPath);
       const docRef = await addDoc(colRef, {
@@ -101,12 +96,7 @@ export default function NewList() {
           </div>
           <DragDropProductList rows={rows} setRows={setRows} />
         </div>
-        <AddProductMealplan
-          aggregatedProducts={aggregatedProducts}
-          setAggregatedProducts={setAggregatedProducts}
-          rows={rows}
-          setRows={setRows}
-        />
+        <AddProductMealplan rows={rows} setRows={setRows} />
         <div className="submit-event-btn">
           <Button
             id="submit-list"

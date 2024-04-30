@@ -8,12 +8,7 @@ import { doc, getDoc, getDocs, collection } from "firebase/firestore";
 import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
 
-export default function AddProductMealplan({
-  aggregatedProducts,
-  setAggregatedProducts,
-  rows,
-  setRows,
-}) {
+export default function AddProductMealplan({ rows, setRows }) {
   // -------------------------------------------------
   // db, copy to clipboard path
   // load user info
@@ -23,8 +18,9 @@ export default function AddProductMealplan({
   const mealplanListPath = "mealplan";
 
   const [mealplan, setMealplan] = useState(null);
-  // const [aggregatedProducts, setAggregatedProducts] = useState([]);
   const [selectedMealplan, setSelectedMealplan] = useState(null);
+
+  const [aggregatedProducts, setAggregatedProducts] = useState([]);
 
   useEffect(() => {
     const fetchMealplan = async () => {
@@ -48,6 +44,7 @@ export default function AddProductMealplan({
     console.log("mealplan", mealplan);
     console.log("selected mealplan", selectedMealplan);
     console.log("aggregated", aggregatedProducts);
+    console.log("Component re-rendering...");
   }, [aggregatedProducts, mealplan, selectedMealplan]);
 
   // Function to handle meal plan selection
@@ -64,12 +61,8 @@ export default function AddProductMealplan({
     }
   };
 
-  // // add products as array of objects to rows array
-  // const handleAddMealplan = () => {
-  //   fetchRecipes(selectedMealplan.recipes);
-  // };
-
   const fetchRecipes = async (mealPlanRecipes) => {
+    console.log("fetchRecipes called");
     const recipesData = [];
     const productMap = {};
     const colRef = collection(db, "users", username, recipeListPath);
@@ -100,31 +93,29 @@ export default function AddProductMealplan({
         amount: product.amount.toFixed(2), // Adjust the amount to two decimal places
       })
     );
+    console.log("aggregatedProductsArray: ", aggregatedProductsArray);
     setAggregatedProducts(aggregatedProductsArray);
   };
 
-  const handleAddMealplanProducts = () => {
-    fetchRecipes(selectedMealplan.recipes);
-
-    const combinedData = [
-      ...rows,
-      ...aggregatedProducts.map((product) => ({
-        id: product.id,
-        name: product.name,
-        amount: product.amount,
-        unit: product.unit,
-      })),
-    ];
-
-    // Set the combined data as the new rows state
-    setRows(combinedData);
-
-    // Clear the aggregatedProducts array
-    setAggregatedProducts([]);
-
-    console.log(combinedData);
-    alert("Added Mealplan Items to the list");
-  };
+  //-------------------------------------
+  useEffect(() => {
+    if (aggregatedProducts.length > 0) {
+      const combinedData = [
+        ...rows,
+        ...aggregatedProducts.map((product) => ({
+          id: product.id,
+          name: product.name,
+          amount: product.amount,
+          unit: product.unit,
+        })),
+      ];
+      setRows(combinedData);
+      setAggregatedProducts([]);
+      console.log("combinedData", combinedData);
+      alert("Added Mealplan Items to the list");
+    }
+  }, [aggregatedProducts, rows]);
+  //-------------------------------------
 
   return (
     <>
@@ -149,7 +140,7 @@ export default function AddProductMealplan({
           <Button
             id="add-button"
             variant="contained"
-            onClick={() => handleAddMealplanProducts()}
+            onClick={() => fetchRecipes(selectedMealplan.recipes)}
           >
             Add
           </Button>
