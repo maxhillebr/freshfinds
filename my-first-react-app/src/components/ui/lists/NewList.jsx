@@ -9,12 +9,10 @@ import { db } from "/src/components/auth/firebase";
 import { collection, addDoc } from "firebase/firestore";
 import useFirebaseAuth from "../../auth/AuthFirebase";
 
-import AddProduct from "../common/AddProduct";
 import HeadArrowBack from "../nav/HeadArrowBack";
 import NavBottom from "../nav/NavBottom";
 import DragDropProductList from "../common/DragDropProductList";
 import AddProductMealplan from "../common/AddProductMealplan";
-import { generateUUID } from "../../common/UUIDGenerator";
 
 export default function NewList() {
   // load user info
@@ -77,8 +75,9 @@ export default function NewList() {
         <div className="title-welcome">
           <h1>Create New Grocery List</h1>
         </div>
-
-        <AddProduct
+        <AddProductMealplan
+          selectedMealplan={selectedMealplan}
+          setSelectedMealplan={setSelectedMealplan}
           title={title}
           setTitle={setTitle}
           product={product}
@@ -100,12 +99,7 @@ export default function NewList() {
           </div>
           <DragDropProductList rows={rows} setRows={setRows} />
         </div>
-        <AddProductMealplan
-          rows={rows}
-          setRows={setRows}
-          selectedMealplan={selectedMealplan}
-          setSelectedMealplan={setSelectedMealplan}
-        />
+
         <div className="submit-event-btn">
           <Button
             id="submit-list"

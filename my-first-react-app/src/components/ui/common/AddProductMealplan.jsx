@@ -13,6 +13,12 @@ export default function AddProductMealplan({
   setRows,
   selectedMealplan,
   setSelectedMealplan,
+  title,
+  setTitle,
+  product,
+  setProduct,
+  amount,
+  setAmount,
 }) {
   // -------------------------------------------------
   // db, copy to clipboard path
@@ -26,6 +32,35 @@ export default function AddProductMealplan({
 
   const [aggregatedProducts, setAggregatedProducts] = useState([]);
 
+  // ------------------------------
+  // handle change of input and update state
+  const handleTitleChange = (event) => {
+    setTitle(event.target.value);
+  };
+
+  // update product and amount input
+  const handleProductChange = (event) => {
+    setProduct(event.target.value);
+  };
+
+  const handleAmountChange = (event) => {
+    setAmount(event.target.value);
+  };
+
+  // add products as array of objects to rows array
+  const handleAddProducts = (product, amount, unit) => {
+    const newData = createData(generateUUID(), product, amount, unit);
+    setRows((prevRows) => [...prevRows, newData]);
+    setProduct("");
+    setAmount("");
+  };
+
+  // create object
+  const createData = (id, name, amount, unit) => {
+    return { id, name, amount, unit };
+  };
+
+  // fetch mealplan
   useEffect(() => {
     const fetchMealplan = async () => {
       try {
@@ -123,7 +158,25 @@ export default function AddProductMealplan({
 
   return (
     <>
-      <div className="mealplan-container">
+      <div className="title-desc-container">
+        <p>Title</p>
+        <TextField
+          required
+          id="grocery-list-title"
+          className="title-desc-container__title"
+          label="Title"
+          value={title}
+          fullWidth
+          onChange={handleTitleChange}
+        />
+      </div>
+      <div className="add-product-help-text">
+        <p>
+          Optional: Choose a mealplan and press "ADD". All items from the
+          mealplan will be added to the list.
+        </p>
+      </div>
+      <div className="create-mealplan-container">
         <p>Choose Mealplan?</p>
         <Select
           labelId="select-mealplan-label"
@@ -145,6 +198,36 @@ export default function AddProductMealplan({
             id="add-button"
             variant="contained"
             onClick={() => fetchRecipes(selectedMealplan.recipes)}
+          >
+            Add
+          </Button>
+        </div>
+      </div>
+      <div className="add-product-container">
+        <p>Add Product</p>
+        <TextField
+          required
+          id="grocery-list-amount"
+          className="add-product-container__amount"
+          label="Amount"
+          value={amount}
+          fullWidth
+          onChange={handleAmountChange}
+        />
+        <TextField
+          required
+          id="grocery-list-product"
+          className="add-product-container__title"
+          label="Product"
+          value={product}
+          fullWidth
+          onChange={handleProductChange}
+        />
+        <div className="add-product-btn">
+          <Button
+            id="add-button"
+            variant="contained"
+            onClick={() => handleAddProducts(product, amount, "")}
           >
             Add
           </Button>

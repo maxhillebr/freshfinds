@@ -67,15 +67,20 @@ const GroceryListPageId = () => {
           <>
             <h2>{groceryList.title}</h2>
             <div className="display-list-container">
-              <div className="display-list-container__mealplan">
-                <h3>Mealplan for the list</h3>
-                <a
-                  href={`/users/${username}/${mealplanListPath}/${groceryList.mealplan.docId}`}
-                >
-                  {groceryList.mealplan.title}
-                </a>
-              </div>
-              <h3>Complete Grocery List</h3>
+              {groceryList.mealplan &&
+                groceryList.mealplan.docId &&
+                groceryList.mealplan.title && (
+                  <div className="display-list-container__mealplan">
+                    <h3>Mealplan for the list</h3>
+                    <a
+                      href={`/users/${username}/${mealplanListPath}/${groceryList.mealplan.docId}`}
+                    >
+                      {groceryList.mealplan.title}
+                    </a>
+                    <h3>Complete Grocery List</h3>
+                  </div>
+                )}
+
               {groceryList.products.map((product) => (
                 <div
                   key={product.id}
@@ -90,8 +95,7 @@ const GroceryListPageId = () => {
                     {product.name}
                   </div>
                   <div className="display-list-container__amount">
-                    {product.amount}
-                    {product.unit}
+                    {product.amount} {product.unit}
                   </div>
                 </div>
               ))}
@@ -99,7 +103,6 @@ const GroceryListPageId = () => {
             <div className="display-list-action-btn">
               <Button
                 href={`/users/${username}/${groceryListPath}/${listId}/edit`}
-                id="edit"
                 variant="contained"
               >
                 <EditNoteIcon />
@@ -112,7 +115,7 @@ const GroceryListPageId = () => {
               >
                 <ShareIcon />
               </Button>
-              <Button href="/home" id="home-button" variant="outlined">
+              <Button href="/home" variant="outlined">
                 <HomeIcon />
               </Button>
             </div>

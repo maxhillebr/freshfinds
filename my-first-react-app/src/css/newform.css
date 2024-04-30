@@ -10,7 +10,8 @@
   gap: 0;
 }
 
-.add-product-container {
+.add-product-container,
+.create-mealplan-container {
   grid-template-columns: 1fr;
   gap: 0;
 }
@@ -146,21 +147,28 @@
   .title-desc-container {
     display: grid;
     margin: 0 0 1em 0;
-    grid-template-columns: 128px 1fr;
+    grid-template-columns: 150px 1fr;
     gap: 1em;
   }
 
   .add-product-container {
     display: grid;
     margin: 0 0 1em 0;
-    grid-template-columns: 128px 1fr 1fr 1fr;
+    grid-template-columns: 150px 1fr 1fr 1fr;
+    gap: 1em;
+  }
+
+  .create-mealplan-container {
+    display: grid;
+    margin: 0 0 1em 0;
+    grid-template-columns: 150px 1fr 1fr;
     gap: 1em;
   }
 
   .add-instruction-container {
     display: grid;
     margin: 0 0 1em 0;
-    grid-template-columns: 128px 1fr 1fr;
+    grid-template-columns: 150px 1fr 1fr;
     gap: 1em;
   }
 
