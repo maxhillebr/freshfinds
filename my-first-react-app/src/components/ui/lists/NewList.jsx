@@ -93,8 +93,8 @@ export default function NewList() {
         </div>
         <div className="product-list-container">
           <div className="product-list-container__header">
-            <div>Amount</div>
             <div>Product</div>
+            <div>Amount</div>
             <div>Delete</div>
           </div>
           <DragDropProductList rows={rows} setRows={setRows} />

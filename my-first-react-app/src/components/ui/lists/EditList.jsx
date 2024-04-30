@@ -162,8 +162,8 @@ export default function EditList() {
         </div>
         <div className="product-list-container">
           <div className="product-list-container__header">
-            <div>Amount</div>
             <div>Product</div>
+            <div>Amount</div>
             <div>Delete</div>
           </div>
           <DragDropProductList rows={rows} setRows={setRows} />
@@ -175,7 +175,7 @@ export default function EditList() {
             variant="contained"
             onClick={() => updateNewGroceryList(title, rows)}
           >
-            Create List
+            Update List
           </Button>
         </div>
       </div>

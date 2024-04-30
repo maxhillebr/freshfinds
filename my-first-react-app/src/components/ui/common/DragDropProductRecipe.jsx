@@ -37,10 +37,11 @@ export default function DragDropProductRecipe({ rows, setRows }) {
                     {...provided.dragHandleProps}
                   >
                     <div className="product-list-container__box">
-                      <div>
-                        {row.amount} {row.unit}
-                      </div>
                       <div>{row.name}</div>
+                      <div>
+                        {row.amount}
+                        {row.unit}
+                      </div>
                       <div>
                         <IconButton
                           aria-label="delete"
