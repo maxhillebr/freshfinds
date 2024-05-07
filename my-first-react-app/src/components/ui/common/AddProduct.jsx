@@ -42,24 +42,24 @@ export default function AddProduct({
   return (
     <>
       <div className="title-desc-container">
-        <p>Title</p>
+        <p>Titel</p>
         <TextField
           required
           id="grocery-list-title"
           className="title-desc-container__title"
-          label="Title"
+          label="Titel"
           value={title}
           fullWidth
           onChange={handleTitleChange}
         />
       </div>
       <div className="add-product-container">
-        <p>Add Product</p>
+        <p>Produkt hinzufügen</p>
         <TextField
           required
           id="grocery-list-amount"
           className="add-product-container__amount"
-          label="Amount"
+          label="Menge"
           value={amount}
           fullWidth
           onChange={handleAmountChange}
@@ -68,7 +68,7 @@ export default function AddProduct({
           required
           id="grocery-list-product"
           className="add-product-container__title"
-          label="Product"
+          label="Produkt"
           value={product}
           fullWidth
           onChange={handleProductChange}
@@ -79,7 +79,7 @@ export default function AddProduct({
             variant="contained"
             onClick={() => handleAddProducts(product, amount, "")}
           >
-            Add
+            Hinzufügen
           </Button>
         </div>
       </div>

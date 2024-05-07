@@ -72,7 +72,7 @@ export default function NewMealPlan() {
 
   const addNewMealplan = async (title, rows) => {
     if (title === "" || rows.length === 0) {
-      alert("No Title or Mealplan. Check your list again!");
+      alert("Kein Titel oder Produkt. Ergänze diese Angaben!");
       return;
     }
 
@@ -90,7 +90,7 @@ export default function NewMealPlan() {
       });
 
       console.log("Document written with ID: ", docRef.id);
-      alert("Grocery list sent to Database");
+      alert("Essensplan erstellt");
       navigate(`/users/${username}/${mealplanListPath}/${docRef.id}`);
     } catch (error) {
       console.error("Error adding document: ", error);
@@ -119,9 +119,9 @@ export default function NewMealPlan() {
         />
         <div className="product-list-container">
           <div className="product-list-container__header">
-            <div>Recipe</div>
-            <div>Servings</div>
-            <div>Delete</div>
+            <div>Rezepte</div>
+            <div>Portionen</div>
+            <div>Löschen</div>
           </div>
           <DragDropMealPlan rows={rows} setRows={setRows} />
         </div>
@@ -132,7 +132,7 @@ export default function NewMealPlan() {
             variant="contained"
             onClick={() => addNewMealplan(title, rows)}
           >
-            Create Mealplan
+            Erstellen
           </Button>
         </div>
       </div>

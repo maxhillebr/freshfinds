@@ -43,7 +43,7 @@ export default function NewList() {
   // create new doc in firebase collection with array of objects in rows
   const addNewGroceryList = async (title, rows) => {
     if (title === "" || rows.length === 0) {
-      alert("No Title or Product. Check your list again!");
+      alert("Kein Titel oder Produkt. Ergänze diese Angaben!");
       return;
     }
 
@@ -61,7 +61,7 @@ export default function NewList() {
       });
 
       console.log("Document written with ID: ", docRef.id);
-      alert("Grocery list sent to Database");
+      alert("Einkaufsliste erstellt");
       navigate(`/users/${username}/${groceryListPath}/${docRef.id}`);
     } catch (error) {
       console.error("Error adding document: ", error);
@@ -73,7 +73,7 @@ export default function NewList() {
       <div className="content">
         <HeadArrowBack />
         <div className="title-welcome">
-          <h1>Create New Grocery List</h1>
+          <h1>Neue Einkaufsliste</h1>
         </div>
         <AddProductMealplan
           selectedMealplan={selectedMealplan}
@@ -89,13 +89,13 @@ export default function NewList() {
         />
 
         <div className="title-product-list">
-          <h2>List</h2>
+          <h2>Liste</h2>
         </div>
         <div className="product-list-container">
           <div className="product-list-container__header">
-            <div>Product</div>
-            <div>Amount</div>
-            <div>Delete</div>
+            <div>Produkt</div>
+            <div>Menge</div>
+            <div>Löschen</div>
           </div>
           <DragDropProductList rows={rows} setRows={setRows} />
         </div>
@@ -106,7 +106,7 @@ export default function NewList() {
             variant="contained"
             onClick={() => addNewGroceryList(title, rows)}
           >
-            Create List
+            Erstellen
           </Button>
         </div>
       </div>

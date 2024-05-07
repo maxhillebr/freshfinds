@@ -3,8 +3,8 @@ export const copyToClipboard = async (username, list, id) => {
     const url = `https://${window.location.host}/users/${username}/${list}/${id}`;
 
     const shareData = {
-      title: "Check this out from freshfinds!",
-      text: "Check this out:",
+      title: "Guck dir das mal auf freshfinds an!",
+      text: "Hier der Link:",
       url: url,
     };
 
@@ -14,10 +14,10 @@ export const copyToClipboard = async (username, list, id) => {
     } else {
       // Fallback if Share API is not supported
       await navigator.clipboard.writeText(url);
-      alert("Copied to clipboard!");
+      alert("Kopiert!");
     }
   } catch (err) {
     console.error("Failed to share or copy: ", err);
-    alert("Failed to share or copy to clipboard");
+    alert("Kopieren fehlgeschlagen!");
   }
 };

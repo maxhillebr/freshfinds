@@ -16,11 +16,11 @@ function Home() {
     <>
       <div className="content">
         <div className="title-welcome">
-          <h1>Hi, {username}</h1>
+          <h1>Hallo, {username}</h1>
         </div>
         <div className="title-container">
           <div className="title-container__title">
-            <h2>Your Weekly Mealplan</h2>
+            <h2>Deine Essenspläne</h2>
           </div>
         </div>
         <MealPlanBoxMain />
@@ -28,7 +28,7 @@ function Home() {
         <a href="/newmealplan">
           <div className="create-container">
             <div className="create-container__title">
-              <h3>Create Mealplan</h3>
+              <h3>Neuer Essensplan</h3>
               <AddCircleOutlineIcon
                 fontSize="large"
                 style={{ color: "#1976D2" }}
@@ -39,7 +39,7 @@ function Home() {
 
         <div className="title-container">
           <div className="title-container__title">
-            <h2>Your Lists</h2>
+            <h2>Deine Einkaufslisten</h2>
           </div>
         </div>
 
@@ -50,7 +50,7 @@ function Home() {
         <a href="/new">
           <div className="create-container">
             <div className="create-container__title">
-              <h3>Create List </h3>
+              <h3>Neue Einkaufsliste</h3>
               <AddCircleOutlineIcon
                 fontSize="large"
                 style={{ color: "#1976D2" }}
@@ -63,7 +63,7 @@ function Home() {
 
         <div className="title-container">
           <div className="title-container__title">
-            <h2>Your Recipes</h2>
+            <h2>Deine Rezepte</h2>
           </div>
         </div>
 
@@ -74,7 +74,7 @@ function Home() {
         <a href="/newrecipe">
           <div className="create-container">
             <div className="create-container__title">
-              <h3>Create Recipe </h3>
+              <h3>Neues Rezept</h3>
               <AddCircleOutlineIcon
                 fontSize="large"
                 style={{ color: "#1976D2" }}

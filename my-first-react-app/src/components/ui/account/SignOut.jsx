@@ -25,7 +25,7 @@ const SignOut = () => {
     <section className="home">
       <div className="home__container">
         <Button id="sign-out" variant="contained" onClick={handleSignOut}>
-          Sign Out
+          Ausloggen
         </Button>
       </div>
     </section>

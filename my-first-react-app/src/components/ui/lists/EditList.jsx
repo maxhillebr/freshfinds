@@ -59,58 +59,11 @@ export default function EditList() {
 
   useEffect(() => {
     fetchGroceryList();
-  }, []); // Run only once after the component mounts
-
-  // const handleTitleChange = (event) => {
-  //   setTitle(event.target.value);
-  // };
-
-  // const handleProductChange = (event) => {
-  //   setProduct(event.target.value);
-  // };
-
-  // const handleAmountChange = (event) => {
-  //   setAmount(event.target.value);
-  // };
-
-  // const createData = (id, name, amount) => {
-  //   return { id, name, amount };
-  // };
-
-  // const handleDelete = (id) => {
-  //   const updatedRows = rows.filter((product) => product.id !== id);
-  //   setRows(updatedRows);
-  // };
-
-  // --------------------------------
-  // --------------------------------
-
-  // const onDragEnd = (result) => {
-  //   if (!result.destination) return;
-
-  //   const items = Array.from(rows);
-  //   const [reorderedItem] = items.splice(result.source.index, 1);
-  //   items.splice(result.destination.index, 0, reorderedItem);
-
-  //   setRows(items);
-  // };
-
-  // // --------------------------------
-  // // add products
-
-  // const handleAddProducts = () => {
-  //   const newData = createData(newId, product, amount);
-  //   setRows((prevRows) => [...prevRows, newData]);
-  //   setProduct("");
-  //   setAmount("");
-  //   console.log(rows);
-  // };
-
-  // --------------------------------
+  }, []);
 
   const updateNewGroceryList = async (title, rows) => {
     if (title === "" || rows.length === 0) {
-      alert("No Title or Product. Check your list again!");
+      alert("Kein Titel oder Produkt. Ergänze diese Angaben!");
       return;
     }
 
@@ -130,7 +83,7 @@ export default function EditList() {
       });
 
       console.log("Document updated: ", listId);
-      alert("Grocery list updated");
+      alert("Einkaufsliste geupdated");
       navigate(`/users/${username}/${groceryListPath}/${listId}`);
     } catch (error) {
       console.error("Error adding document: ", error);
@@ -142,7 +95,7 @@ export default function EditList() {
       <div className="content">
         <HeadArrowBack />
         <div className="title-welcome">
-          <h1>Create New Grocery List</h1>
+          <h1>Neue Einkaufsliste</h1>
         </div>
         <AddProductMealplan
           selectedMealplan={selectedMealplan}
@@ -158,13 +111,13 @@ export default function EditList() {
         />
 
         <div className="title-product-list">
-          <h2>List</h2>
+          <h2>Liste</h2>
         </div>
         <div className="product-list-container">
           <div className="product-list-container__header">
-            <div>Product</div>
-            <div>Amount</div>
-            <div>Delete</div>
+            <div>Produkt</div>
+            <div>Menge</div>
+            <div>Löschen</div>
           </div>
           <DragDropProductList rows={rows} setRows={setRows} />
         </div>
@@ -175,7 +128,7 @@ export default function EditList() {
             variant="contained"
             onClick={() => updateNewGroceryList(title, rows)}
           >
-            Update List
+            Update
           </Button>
         </div>
       </div>

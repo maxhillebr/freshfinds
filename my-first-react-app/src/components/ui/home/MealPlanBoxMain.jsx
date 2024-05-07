@@ -7,7 +7,6 @@ import useFirebaseAuth from "/src/components/auth/AuthFirebase";
 import EditNoteIcon from "@mui/icons-material/EditNote";
 import ShareIcon from "@mui/icons-material/Share";
 import DeleteIcon from "@mui/icons-material/Delete";
-import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 
 import { copyToClipboard } from "../common/CopyToClipboard";
 import { generateUUID } from "../../common/UUIDGenerator";
@@ -63,7 +62,7 @@ export default function MealPlanBoxMain() {
     await deleteDoc(colRef);
 
     console.log("Document deleted", id);
-    alert("Mealplan deleted");
+    alert("Essensplan gelöscht");
     fetchColGetDoc();
   };
   return (
@@ -74,7 +73,7 @@ export default function MealPlanBoxMain() {
             <div className="mealplan-container__box">
               <a href={`/users/${username}/${mealplanListPath}/${data.docId}`}>
                 <div className="mealplan-container__tag-title">
-                  <p className="mealplan-container__tag--main">Mealplan</p>
+                  <p className="mealplan-container__tag--main">Essensplan</p>
                   <h3>{data.title}</h3>
                 </div>
               </a>

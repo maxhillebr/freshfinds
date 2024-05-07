@@ -62,7 +62,7 @@ export default function GroceryBoxMain() {
     await deleteDoc(colRef);
 
     console.log("Document deleted", id);
-    alert("Grocery List deleted");
+    alert("Einkaufsliste geupdated");
     fetchColGetDoc();
   };
 
@@ -73,7 +73,9 @@ export default function GroceryBoxMain() {
           <div className="grocery-list-container__box" key={data.id}>
             <a href={`/users/${username}/${groceryListPath}/${data.id}`}>
               <div className="grocery-list-container__tag-title">
-                <p className="grocery-list-container__tag--main">List</p>
+                <p className="grocery-list-container__tag--main">
+                  Einkaufsliste
+                </p>
                 <h3>{data.title}</h3>
               </div>
             </a>

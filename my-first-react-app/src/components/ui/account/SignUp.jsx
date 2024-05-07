@@ -57,17 +57,15 @@ const SignUp = () => {
 
       switch (errorCode) {
         case "auth/weak-password":
-          setErrorMessage("The password is too weak.");
+          setErrorMessage("Das Passwort ist zu schwach.");
           break;
         case "auth/email-already-in-use":
-          setErrorMessage(
-            "This email address is already in use by another account."
-          );
+          setErrorMessage("Diese Mail wird bereits verwendet.");
         case "auth/invalid-email":
-          setErrorMessage("This email address is invalid.");
+          setErrorMessage("Diese Mail ist nicht gültig.");
           break;
         case "auth/operation-not-allowed":
-          setErrorMessage("Email/password accounts are not enabled.");
+          setErrorMessage("Mail/Passwort sind nicht erlaubt.");
           break;
         default:
           setErrorMessage(errorMessage);
@@ -78,7 +76,7 @@ const SignUp = () => {
 
   return (
     <div className="content">
-      <h2>Just a quick register, don’t worry</h2>
+      <h2>Nur eine schnelle Anmeldung, keine Angst</h2>
       <form onSubmit={handleSubmit}>
         <div className="form-textfields">
           <TextField
@@ -95,7 +93,7 @@ const SignUp = () => {
             required
             type="password"
             id="password-input"
-            label="Password"
+            label="Passwort"
             name="password"
             margin="dense"
             fullWidth
@@ -115,12 +113,12 @@ const SignUp = () => {
         </div>
         <div className="submit-login-register">
           <Button type="submit" variant="contained">
-            Sign Up
+            Registrieren
           </Button>
         </div>
         {error && <p>{errorMessage}</p>}
         <p>
-          Already have an account? <a href="/login">Login.</a>
+          Du hast schon einen Account? <a href="/login">Login.</a>
         </p>
       </form>
       <div className="bottom-illustration">

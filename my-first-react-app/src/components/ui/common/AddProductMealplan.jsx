@@ -152,7 +152,7 @@ export default function AddProductMealplan({
       setRows(combinedData);
       setAggregatedProducts([]);
       console.log("combinedData", combinedData);
-      alert("Added Mealplan Items to the list");
+      alert("Produkte aus dem Essensplan zu Liste hinzugefügt");
     }
   }, [aggregatedProducts, rows]);
   //-------------------------------------
@@ -160,12 +160,12 @@ export default function AddProductMealplan({
   return (
     <>
       <div className="title-desc-container">
-        <p>Title</p>
+        <p>Titel</p>
         <TextField
           required
           id="grocery-list-title"
           className="title-desc-container__title"
-          label="Title"
+          label="Titel"
           value={title}
           fullWidth
           onChange={handleTitleChange}
@@ -173,13 +173,13 @@ export default function AddProductMealplan({
       </div>
       <div className="add-product-help-text">
         <p>
-          Optional: Choose a mealplan and press "ADD". All items from the
-          mealplan will be added to the list.{" "}
-          <strong>Don't add the same mealplan 2 times!</strong>
+          Optional: Wähle einen Essensplan und drücke "Hinzufügen". Alle
+          Produkte aus dem Essenplan werden zur Liste hinzugefügt.{" "}
+          <strong>Füge nicht 2 Mal die gleichen Essenspläne hinzu!</strong>
         </p>
       </div>
       <div className="create-mealplan-container">
-        <p>Choose Mealplan?</p>
+        <p>Essensplan?</p>
         <Select
           labelId="select-mealplan-label"
           id="select-mealplan"
@@ -187,7 +187,7 @@ export default function AddProductMealplan({
           value={selectedMealplan ? selectedMealplan.title : ""}
           onChange={handleMealplanSelect}
         >
-          <MenuItem value="No Mealplan">No Mealplan</MenuItem>
+          <MenuItem value="No Mealplan">Kein Essensplan</MenuItem>
           {mealplan &&
             mealplan.map((plan) => (
               <MenuItem key={plan.id} value={plan.title}>
@@ -204,21 +204,20 @@ export default function AddProductMealplan({
                 fetchRecipes(selectedMealplan.recipes);
               } else {
                 console.log("No mealplan selected or mealplan has no recipes.");
-                // Optionally, alert the user that no mealplan has been selected or there are no recipes
               }
             }}
           >
-            Add
+            Hinzufügen
           </Button>
         </div>
       </div>
       <div className="add-product-container">
-        <p>Add Product</p>
+        <p>Produkt hinzufügen</p>
         <TextField
           required
           id="grocery-list-product"
           className="add-product-container__title"
-          label="Product"
+          label="Produkt"
           value={product}
           fullWidth
           onChange={handleProductChange}
@@ -227,7 +226,7 @@ export default function AddProductMealplan({
           required
           id="grocery-list-amount"
           className="add-product-container__amount"
-          label="Amount"
+          label="Menge"
           value={amount}
           fullWidth
           onChange={handleAmountChange}
@@ -238,7 +237,7 @@ export default function AddProductMealplan({
             variant="contained"
             onClick={() => handleAddProducts(product, amount, "")}
           >
-            Add
+            Hinzufügen
           </Button>
         </div>
       </div>

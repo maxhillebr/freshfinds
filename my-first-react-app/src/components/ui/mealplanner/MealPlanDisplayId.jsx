@@ -119,7 +119,7 @@ const MealPlanDisplayId = () => {
         <HeadArrowBack />
 
         {/* Render grocery list data */}
-        <h2>{mealplan?.title || "Loading Meal Plan..."}</h2>
+        <h2>{mealplan?.title || "Lade Essensplan..."}</h2>
         <div className="display-list-container">
           <div className="display-list-container__recipes">
             {mealplan.recipes.map((recipe) => (
@@ -130,7 +130,7 @@ const MealPlanDisplayId = () => {
                 <a
                   href={`/users/${username}/${recipeListPath}/${recipe.recipeId}`}
                 >
-                  {recipe.title}: Servings Amount {recipe.servings}
+                  {recipe.title}: {recipe.servings} Portionen
                 </a>
               </div>
             ))}

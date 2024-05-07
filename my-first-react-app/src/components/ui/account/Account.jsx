@@ -32,7 +32,7 @@ const Account = () => {
       <div className="content">
         <HeadArrowBack />
         <div className="account-container">
-          <h1>Your Account</h1>
+          <h1>Dein Account</h1>
           <h2>Username: {currentUser.displayName}</h2>
           <h2>Mail: {currentUser.email}</h2>
         </div>

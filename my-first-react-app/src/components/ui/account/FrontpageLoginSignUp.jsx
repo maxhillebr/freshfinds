@@ -13,15 +13,15 @@ const FrontpageLoginSignUp = () => {
             <img src="/freshfinds-logo.png" alt="freshfinds logo" />
           </div>
           <div className="entry-text">
-            <p>The grocery list & recipe app made to share.</p>
+            <p>Deine App für Einkäufe & Rezepte.</p>
           </div>
           <div className="button-container">
             <Button href="/signup" variant="contained">
-              Create a profile
+              Account erstellen
             </Button>
-            <p className="button-container__text">or</p>
+            <p className="button-container__text">oder</p>
 
-            <a href="/login">Login to your account.</a>
+            <a href="/login">Einloggen</a>
           </div>
           <div className="credentials-container">
             <div>

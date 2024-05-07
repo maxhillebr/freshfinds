@@ -86,7 +86,7 @@ export default function RecipeBoxMain() {
         console.error("Error deleting image or document:", error);
       }
     }
-    alert("Grocery Recipe deleted");
+    alert("Rezept gelöscht");
     fetchColGetDoc();
   };
 

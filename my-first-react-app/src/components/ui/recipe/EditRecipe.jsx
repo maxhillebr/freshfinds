@@ -155,9 +155,7 @@ export default function EditRecipe() {
 
   const updateNewRecipe = async (title, rows, instructions, tag, servings) => {
     if (title === "" || rows.length === 0 || instructions.length === 0) {
-      alert(
-        "Title, Products, or Instructions are missing. Check your list again!"
-      );
+      alert("Kein Titel, Produkt oder Anleitung. Ergänze diese Angaben!");
       return;
     }
 
@@ -185,7 +183,7 @@ export default function EditRecipe() {
 
       await setDoc(colRef, updateData);
       console.log("Document updated: ", listId);
-      alert("Recipe updated");
+      alert("Rezept geupdated");
       navigate(`/users/${username}/${recipeListPath}/${listId}`);
     } catch (error) {
       console.error("Error updating document: ", error);
@@ -197,7 +195,7 @@ export default function EditRecipe() {
       <div className="content">
         <HeadArrowBack />
         <div className="title-welcome">
-          <h1>Create New Recipe</h1>
+          <h1>Neues Rezept</h1>
         </div>
 
         <AddProductRecipe
@@ -218,23 +216,23 @@ export default function EditRecipe() {
         />
         <div className="product-list-container">
           <div className="product-list-container__header">
-            <div>Product</div>
-            <div>Amount</div>
-            <div>Delete</div>
+            <div>Produkt</div>
+            <div>Menge</div>
+            <div>Löschen</div>
           </div>
           <DragDropProductRecipe rows={rows} setRows={setRows} />
         </div>
         {/* Instructions */}
         <div className="title-instruction">
-          <h2>Instructions</h2>
+          <h2>Anleitung</h2>
         </div>
         <div className="add-instruction-container">
-          <p>Add Instructions</p>
+          <p>Schritte hinzufügen</p>
           <TextField
             required
             id="recipe-instruction"
             className="add-instruction-container__title"
-            label="Instruction"
+            label="Text"
             value={instructionInput}
             fullWidth
             onChange={handleInstructionChange}
@@ -245,14 +243,14 @@ export default function EditRecipe() {
               variant="contained"
               onClick={handleAddInstruction}
             >
-              Add
+              Hinzufügen
             </Button>
           </div>
         </div>
         <div className="instruction-container-recipe">
           <div className="instruction-container-recipe__header">
-            <div>Instruction</div>
-            <div>Delete</div>
+            <div>Schritt</div>
+            <div>Löschen</div>
           </div>
           <DragDropProductInstructions
             instructions={instructions}
@@ -260,11 +258,10 @@ export default function EditRecipe() {
           />
         </div>
         <div className="title-image">
-          <h2>Add Image</h2>
+          <h2>Bild hinzufügen</h2>
           <div className="add-product-help-text">
             <p>
-              No image? You don't have to upload yet. You can set the image
-              later.
+              Kein Bild? Du kannst das Bild später ergänzen, wenn du möchtest.
             </p>
           </div>
         </div>
@@ -280,7 +277,7 @@ export default function EditRecipe() {
             variant="contained"
             onClick={() => fileInputRef.current.click()}
           >
-            Update Image
+            Neues Bild
           </Button>
           <div>{fileName}</div>
         </div>
@@ -292,7 +289,7 @@ export default function EditRecipe() {
               updateNewRecipe(title, rows, instructions, tag, servings)
             }
           >
-            Update Recipe
+            Update
           </Button>
         </div>
       </div>

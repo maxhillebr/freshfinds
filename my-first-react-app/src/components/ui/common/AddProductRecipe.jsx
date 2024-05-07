@@ -100,12 +100,12 @@ export default function AddProductRecipe({
   return (
     <>
       <div className="title-desc-container">
-        <p>Title</p>
+        <p>Titel</p>
         <TextField
           required
           id="grocery-list-title"
           className="title-desc-container__title"
-          label="Title"
+          label="Titel"
           value={title}
           fullWidth
           onChange={handleTitleChange}
@@ -124,7 +124,7 @@ export default function AddProductRecipe({
             </MenuItem>
           ))}
         </Select>
-        <p>Servings</p>
+        <p>Portionen</p>
         <Select
           labelId="select-servings-label"
           id="select-servings"
@@ -140,25 +140,25 @@ export default function AddProductRecipe({
         </Select>
       </div>
       <div className="title-product-list">
-        <h2>Ingredients</h2>
+        <h2>Zutaten</h2>
       </div>
       <div className="add-product-help-text">
         <p>
-          Only add products/amount from the product selection. Use the suggested
-          unit.
+          Verwende nur Produkte, die vorgeschlagen werden. Nutze nur die
+          vorgeschlagenen Mengeneinheiten.
         </p>
         <p>1 TL = 5g/ml</p>
         <p>1 EL = 12-15g/ml</p>
       </div>
       <div className="add-product-container">
-        <p>Add Product</p>
+        <p>Produkt hinzufügen</p>
 
         <Autocomplete
           id="grocery-list-product"
           className="add-product-container__title"
           freeSolo
           options={productsList.map((option) => option.product)}
-          renderInput={(params) => <TextField {...params} label="Product*" />}
+          renderInput={(params) => <TextField {...params} label="Produkt*" />}
           value={product}
           onChange={handleProductChange}
           inputValue={product || ""} // Reflect the input value
@@ -180,7 +180,7 @@ export default function AddProductRecipe({
           required
           id="grocery-list-amount"
           className="add-product-container__amount"
-          label={`Amount (${unit})`}
+          label={`Menge (${unit})`}
           value={amount}
           fullWidth
           onChange={handleAmountChange}
@@ -191,7 +191,7 @@ export default function AddProductRecipe({
             variant="contained"
             onClick={handleAddProducts}
           >
-            Add
+            Hinzufügen
           </Button>
         </div>
       </div>

@@ -71,13 +71,13 @@ const GroceryListPageId = () => {
                 groceryList.mealplan.docId &&
                 groceryList.mealplan.title && (
                   <div className="display-list-container__mealplan">
-                    <h3>Mealplan for the list</h3>
+                    <h3>Ausgewählter Essensplan</h3>
                     <a
                       href={`/users/${username}/${mealplanListPath}/${groceryList.mealplan.docId}`}
                     >
                       {groceryList.mealplan.title}
                     </a>
-                    <h3>Complete Grocery List</h3>
+                    <h3>Komplette Einkaufsliste</h3>
                   </div>
                 )}
 

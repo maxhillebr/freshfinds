@@ -1,6 +1,6 @@
 export const tagList = [
-  { tag: "vegan" },
-  { tag: "veggie" },
-  { tag: "fish" },
-  { tag: "meat" },
+  { tag: "Vegan" },
+  { tag: "Veggie" },
+  { tag: "Fish" },
+  { tag: "Fleisch" },
 ];

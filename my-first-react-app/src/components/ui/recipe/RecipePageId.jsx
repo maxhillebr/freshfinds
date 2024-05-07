@@ -100,7 +100,7 @@ const RecipePageId = () => {
 
             <div className="display-title-box">
               <div className="display-title-box__title">
-                <h3>Items you need</h3>
+                <h3>Produkte, die du brauchst</h3>
               </div>
               <div className="display-title-box__calc">
                 <Select
@@ -113,7 +113,7 @@ const RecipePageId = () => {
                     </MenuItem>
                   ))}
                 </Select>
-                Servings
+                Portionen
               </div>
             </div>
             <div className="display-list-container">
@@ -136,7 +136,7 @@ const RecipePageId = () => {
                 </div>
               ))}
             </div>
-            <h3>Instructions</h3>
+            <h3>Anleitung</h3>
             <div className="display-instruction-container">
               {recipeData.instructions.map((instruction, index) => (
                 <div

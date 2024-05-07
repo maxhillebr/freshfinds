@@ -48,19 +48,17 @@ const Login = () => {
 
       switch (errorCode) {
         case "auth/invalid-email":
-          setErrorMessage("This email address is invalid.");
+          setErrorMessage("Mail nicht gültig.");
           break;
         case "auth/user-disabled":
-          setErrorMessage(
-            "This email address is disabled by the administrator."
-          );
+          setErrorMessage("Diese Mail wurde vom Admin eingeschränkt.");
           break;
         case "auth/user-not-found":
-          setErrorMessage("This email address is not registered.");
+          setErrorMessage("Diese Mail ist nicht registriert.");
           break;
         case "auth/wrong-password":
           setErrorMessage(
-            "The password is invalid or the user does not have a password."
+            "Das Passwort ist nicht richtig oder der Nutzer hat noch kein Passwort."
           );
           break;
         default:
@@ -72,7 +70,7 @@ const Login = () => {
 
   return (
     <div className="content">
-      <h2>I've seen you before. Nice.</h2>
+      <h2>Dich kenne ich doch. Nice.</h2>
       <form onSubmit={handleSubmit}>
         <div className="form-textfields">
           <TextField
@@ -88,7 +86,7 @@ const Login = () => {
             required
             type="password"
             id="password-input"
-            label="Password"
+            label="Passwort"
             name="password"
             margin="dense"
             onChange={handleChange}
@@ -101,7 +99,8 @@ const Login = () => {
         </div>
         {error && <p>{errorMessage}</p>}
         <p>
-          No Account? <a href="/signup">Get one (for free).</a>
+          Kein Account?{" "}
+          <a href="/signup">Jetzt Account eröffnen (kostenlos).</a>
         </p>
       </form>
       <div className="bottom-illustration">

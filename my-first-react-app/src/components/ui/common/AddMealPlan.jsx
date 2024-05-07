@@ -69,22 +69,22 @@ export default function AddMealPlan({
   return (
     <>
       <div className="title-desc-container">
-        <p>Title</p>
+        <p>Titel</p>
         <TextField
           required
           id="grocery-list-title"
           className="title-desc-container__title"
-          label="Title"
+          label="Titel"
           value={title}
           fullWidth
           onChange={handleTitleChange}
         />
       </div>
       <div className="title-product-list">
-        <h2>Choose your Meals for the Week</h2>
+        <h2>Wähle deinen Essensplan</h2>
       </div>
       <div className="add-product-container">
-        <p>Add Recipe</p>
+        <p>Rezept hinzufügen</p>
 
         <Autocomplete
           id="recipe-autocomplete"
@@ -93,11 +93,11 @@ export default function AddMealPlan({
           value={selectedRecipe}
           onChange={handleSelectedRecipeChange}
           renderInput={(params) => (
-            <TextField {...params} label="Recipe" variant="outlined" />
+            <TextField {...params} label="Rezepte" variant="outlined" />
           )}
           fullWidth
         />
-        <p>Servings?</p>
+        <p>Portionen?</p>
         <Select
           labelId="select-servings-label"
           id="select-servings"
@@ -117,7 +117,7 @@ export default function AddMealPlan({
             variant="contained"
             onClick={handleAddRecipes}
           >
-            Add
+            Hinzufügen
           </Button>
         </div>
       </div>
