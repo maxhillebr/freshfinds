@@ -5,8 +5,10 @@ import React, { useState, useEffect } from "react";
 
 import Button from "@mui/material/Button";
 
+import { useParams } from "react-router-dom";
+
 import { db } from "/src/components/auth/firebase";
-import { doc, getDocs, collection, addDoc } from "firebase/firestore";
+import { doc, getDoc, getDocs, collection, setDoc } from "firebase/firestore";
 import useFirebaseAuth from "/src/components/auth/AuthFirebase";
 
 import { useNavigate } from "react-router-dom";
@@ -27,6 +29,7 @@ export default function NewMealPlan() {
 
   // load user info
   const { user, username } = useFirebaseAuth();
+  const { listId } = useParams(); // Extract the document ID from the URL
 
   // navigation
   const navigate = useNavigate();
@@ -65,12 +68,36 @@ export default function NewMealPlan() {
     }
   };
 
+  const fetchMealplan = async () => {
+    try {
+      const docRef = doc(db, "users", username, mealplanListPath, listId);
+      console.log("Document Reference:", docRef);
+
+      const docSnap = await getDoc(docRef);
+      if (docSnap.exists()) {
+        const data = docSnap.data();
+        if (data) {
+          setRows(data.recipes);
+          setTitle(data.title || "");
+          console.log(rows);
+        } else {
+          console.log("No products found in the document data.");
+        }
+      } else {
+        console.log("No such document!");
+      }
+    } catch (error) {
+      console.error("Error fetching grocery list:", error);
+    }
+  };
+
   useEffect(() => {
     fetchAllRecipeLists();
+    fetchMealplan();
   }, []);
   // -------------------------------------------
 
-  const addNewMealplan = async (title, rows) => {
+  const updateMealplan = async (title, rows) => {
     if (title === "" || rows.length === 0) {
       alert("No Title or Mealplan. Check your list again!");
       return;
@@ -82,16 +109,16 @@ export default function NewMealPlan() {
         return;
       }
 
-      const colRef = collection(db, "users", username, mealplanListPath);
-      const docRef = await addDoc(colRef, {
-        id: newId,
+      const colRef = doc(db, "users", username, mealplanListPath, listId);
+      const updateData = {
         title: title,
         recipes: rows,
-      });
+      };
 
-      console.log("Document written with ID: ", docRef.id);
-      alert("Grocery list sent to Database");
-      navigate(`/users/${username}/${mealplanListPath}/${docRef.id}`);
+      await setDoc(colRef, updateData);
+      console.log("Document updated: ", listId);
+      alert("Mealplan updated.");
+      navigate(`/users/${username}/${mealplanListPath}/${listId}`);
     } catch (error) {
       console.error("Error adding document: ", error);
     }
@@ -130,9 +157,9 @@ export default function NewMealPlan() {
           <Button
             id="submit-list"
             variant="contained"
-            onClick={() => addNewMealplan(title, rows)}
+            onClick={() => updateMealplan(title, rows)}
           >
-            Create Mealplan
+            Update Mealplan
           </Button>
         </div>
       </div>

@@ -83,12 +83,6 @@ export default function AddMealPlan({
       <div className="title-product-list">
         <h2>Choose your Meals for the Week</h2>
       </div>
-      <div className="add-product-help-text">
-        <p>
-          Only add products/amount <strong>for 1 serving only</strong>. You can
-          later change the servings.
-        </p>
-      </div>
       <div className="add-product-container">
         <p>Add Recipe</p>
 
