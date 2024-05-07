@@ -1,5 +1,6 @@
 import { signOut, getAuth } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
+import Button from "@mui/material/Button";
 
 const SignOut = () => {
   // Instantiate the auth service SDK
@@ -23,7 +24,9 @@ const SignOut = () => {
   return (
     <section className="home">
       <div className="home__container">
-        <button onClick={handleSignOut}>Sign Out</button>
+        <Button id="sign-out" variant="contained" onClick={handleSignOut}>
+          Sign Out
+        </Button>
       </div>
     </section>
   );

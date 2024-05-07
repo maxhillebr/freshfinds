@@ -63,7 +63,7 @@ export default function MealPlanBoxMain() {
     await deleteDoc(colRef);
 
     console.log("Document deleted", id);
-    alert("Grocery List deleted");
+    alert("Mealplan deleted");
     fetchColGetDoc();
   };
   return (
