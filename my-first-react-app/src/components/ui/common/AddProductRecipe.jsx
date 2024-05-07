@@ -143,7 +143,12 @@ export default function AddProductRecipe({
         <h2>Ingredients</h2>
       </div>
       <div className="add-product-help-text">
-        <p>Only add products/amount from the product selection.</p>
+        <p>
+          Only add products/amount from the product selection. Use the suggested
+          unit.
+        </p>
+        <p>1 TL = 5g/ml</p>
+        <p>1 EL = 12-15g/ml</p>
       </div>
       <div className="add-product-container">
         <p>Add Product</p>
