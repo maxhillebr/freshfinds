@@ -13,7 +13,7 @@
 
 - Gehe auf die Webseite [Freshfinds](https://freshfinds.web.app/)
 - Erstelle einen neuen Account
-- Fertig! Erstelle nun deinen eigenen Listen, Rezepte & Essenspläne
+- Fertig! Erstelle nun deine eigenen Listen, Rezepte & Essenspläne
 
 ## Tech Stack
 
