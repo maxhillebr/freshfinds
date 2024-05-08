@@ -1,6 +1,6 @@
 # Freshfinds - App für Einkäufe & Rezepte
 
-![Freshfinds Mockup Start & Home](public/mockups/home-mockup.png)
+![Freshfinds Mockup Start & Home](public/mockups/freshfinds-banner-github.png)
 
 ## Das kann Freshfinds
 
@@ -16,10 +16,11 @@
 - Hosting & Deployment: Firebase
 - Database: Cloud Firestore
 - Authentication: Firebase Authentication
+- Illustrations: [text](https://undraw.co/)
 
 ## Special Features
 
-- Drag and Drop zum bearbeiten der Listen
+- Drag and Drop zum Bearbeiten der Listen
 - Autocomplete für die Auswahl von Produkten für Rezepte
 
 ![Freshfinds Main Feature DND, Autocomplete](public/mockups/feature-mockup-1.png)
