@@ -186,7 +186,7 @@ export default function NewRecipe() {
             required
             id="recipe-instruction"
             className="add-instruction-container__title"
-            label="Instruction"
+            label="Text"
             value={instructionInput}
             fullWidth
             onChange={handleInstructionChange}
