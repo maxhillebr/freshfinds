@@ -1,6 +1,6 @@
 # Freshfinds - App für Einkäufe & Rezepte
 
-![Freshfinds Mockup Start & Home](/mockups/home-mockup.png)
+![Freshfinds Mockup Start & Home](public/mockups/home-mockup.png)
 
 ## Das kann Freshfinds
 
@@ -22,13 +22,13 @@
 - Drag and Drop zum bearbeiten der Listen
 - Autocomplete für die Auswahl von Produkten für Rezepte
 
-![Freshfinds Main Feature DND, Autocomplete](/mockups/feature-mockup-1.png)
+![Freshfinds Main Feature DND, Autocomplete](public/mockups/feature-mockup-1.png)
 
 - Teile & Bearbeite alle Listen per Knopfdruck
 - Lade eigene Bilder von deinen Rezepten hoch
 - In einem Essensplan werden die Mengenangaben aller Produkte, die du für alle Rezepte brauchst, zusammengefasst und zusammengerechnet & verlinkt
 
-![Freshfinds Main Feature Copy, Edit](/mockups/feature-mockup-2.png)
+![Freshfinds Main Feature Copy, Edit](public/mockups/feature-mockup-2.png)
 
 ## Warum Freshfinds?
 
@@ -46,12 +46,12 @@ Anhand der Portionen wird die Gesamtmenge aller Produkte aus allen ausgewählten
 
 ### Einkaufslisten erstellen
 
-![Freshfinds Einakufsliste](/mockups/einkaufsliste-mockup.png)
+![Freshfinds Einakufsliste](public/mockups/einkaufsliste-mockup.png)
 
 ### Rezepte erstellen
 
-![Freshfinds Rezepte](/mockups/rezepte-mockup.png)
+![Freshfinds Rezepte](public/mockups/rezepte-mockup.png)
 
 ### Essenspläne erstellen
 
-![Freshfinds Essensplan](/mockups/essensplan-mockup.png)
+![Freshfinds Essensplan](public/mockups/essensplan-mockup.png)
