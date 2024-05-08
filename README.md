@@ -5,7 +5,7 @@
 ## Das kann Freshfinds
 
 - Erstelle Einkaufslisten
-- Erstelle Eigene Rezepte
+- Erstelle eigene Rezepte
 - Erstelle anhand der Rezepte eigene Essenspläne
 - Bearbeite und Teile alle Listen, Rezepte & Essenspläne
 
