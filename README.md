@@ -66,7 +66,7 @@ Anhand der **Portionen wird die Gesamtmenge aller Produkte aus allen ausgewählt
 
 ## Über Mich
 
-Hallo und Danke, dass du bis hier unten gescrollt hast. Ich bin Max und bin JS/React-Entwickler.
+Hallo und Danke, dass du bis hier unten gescrollt hast. Ich bin Max - JS/React-Entwickler.
 
 Freshfinds ist entstanden, weil meine Freundin und ich jede Woche einen Wocheneinkauf machen. Für den Wocheneinkauf wurden natürlich auch Listen erstellt.
 
