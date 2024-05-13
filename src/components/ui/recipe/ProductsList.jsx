@@ -1,6 +1,7 @@
 export const productsList = [
   { product: "Eier", unit: "" },
   { product: "Mehl", unit: "g" },
+  { product: "Wraps", unit: "g" },
   { product: "Zucker", unit: "g" },
   { product: "Butter", unit: "g" },
   { product: "Milch", unit: "ml" },
@@ -22,17 +23,19 @@ export const productsList = [
   { product: "Frühlingszw.", unit: "g" },
   { product: "Schalotten", unit: "g" },
   { product: "Rote Zwiebeln", unit: "g" },
-  { product: "Knoblauch", unit: "g" },
+  { product: "Knoblauch", unit: "Zehen" },
 
   { product: "Paprika", unit: "g" },
   { product: "Rote Paprika", unit: "g" },
   { product: "Grüne Paprika", unit: "g" },
   { product: "Gelbe Paprika", unit: "g" },
 
-  { product: "Olivenöl", unit: "g" },
-  { product: "Bratöl", unit: "g" },
-  { product: "Sonnenblumenöl", unit: "g" },
-  { product: "Kürbiskernöl", unit: "g" },
+  { product: "Olivenöl", unit: "ml" },
+  { product: "Bratöl", unit: "ml" },
+  { product: "Sonnenblumenöl", unit: "ml" },
+  { product: "Kürbiskernöl", unit: "ml" },
+  { product: "Hoisin Sauce", unit: "ml" },
+  { product: "Hoisin Sauce", unit: "ml" },
 
   { product: "Reis", unit: "g" },
   { product: "Basmati Reis", unit: "g" },
@@ -46,6 +49,8 @@ export const productsList = [
 
   { product: "Kartoffeln", unit: "g" },
   { product: "Rote Kartoffeln", unit: "g" },
+  { product: "Süßkartoffel", unit: "g" },
+
   { product: "Spargel", unit: "g" },
   { product: "Grüner Spargel", unit: "g" },
   { product: "Karotten", unit: "g" },
@@ -57,7 +62,9 @@ export const productsList = [
   { product: "Koriander", unit: "g" },
   { product: "Schnittlauch", unit: "g" },
   { product: "Chilliflocken", unit: "g" },
-  { product: "Sriracha-Sauce", unit: "g" },
+  { product: "Sriracha-Sauce", unit: "ml" },
+  { product: "Basilikum", unit: "g" },
+  { product: "Thymian", unit: "g" },
 
   { product: "Organge", unit: "g" },
   { product: "Eisbergsalat", unit: "g" },
@@ -71,6 +78,10 @@ export const productsList = [
   { product: "Haferflocken", unit: "g" },
   { product: "Brötchen", unit: "" },
   { product: "Brot", unit: "g" },
+  { product: "Baguette", unit: "" },
+  { product: "Baguettebrötchen", unit: "" },
+  { product: "Ciabattabrot", unit: "" },
+
   { product: "Kaffee", unit: "g" },
 
   { product: "Tee", unit: "g" },
@@ -97,7 +108,6 @@ export const productsList = [
 
   { product: "Parmesan", unit: "g" },
   { product: "Schlagsahne", unit: "g" },
-  { product: "Margarine", unit: "g" },
   { product: "Margarine", unit: "g" },
   { product: "Vegane Butter", unit: "g" },
   { product: "Vegane Würste", unit: "g" },
@@ -144,6 +154,7 @@ export const productsList = [
   { product: "Mandelsplitter", unit: "g" },
   { product: "Haselnüsse", unit: "g" },
   { product: "Rosinen", unit: "g" },
+  { product: "Cashewkerne", unit: "g" },
 
   { product: "Maiswaffeln", unit: "" },
   { product: "Burger Brötchen", unit: "" },
@@ -174,14 +185,30 @@ export const productsList = [
   { product: "Mango", unit: "g" },
   { product: "Erdbeeren", unit: "g" },
   { product: "Wildfrüchte", unit: "g" },
+  { product: "Ingwer", unit: "g" },
+  { product: "Limetten", unit: "" },
+  { product: "Limettensaft", unit: "ml" },
+  { product: "Zitronengras", unit: "Stange" },
+  { product: "Weissweinessig", unit: "Stange" },
 
   { product: "Honig", unit: "ml" },
   { product: "Agavendicksaft", unit: "ml" },
   { product: "Bacon", unit: "g" },
   { product: "Veganer Bacon", unit: "g" },
   { product: "Toastscheiben", unit: "" },
+  { product: "Balsamico Essig", unit: "ml" },
+  { product: "Balsamico Creme", unit: "ml" },
+  { product: "Pitabrot", unit: "ml" },
 
   { product: "Linsen", unit: "g" },
+  { product: "Rote Linsen", unit: "g" },
+  { product: "Braune Linsen", unit: "g" },
+  { product: "Beluga Linsen", unit: "g" },
+  { product: "Pastinaken", unit: "" },
+  { product: "Currypulver", unit: "g" },
+  { product: "Kurkumapulver", unit: "g" },
+  { product: "Lorbeerblätter", unit: "" },
+
   { product: "Kichererbsen", unit: "g" },
   { product: "Kidneybohnen", unit: "g" },
   { product: "Grünes Pesto", unit: "g" },
@@ -194,6 +221,7 @@ export const productsList = [
   { product: "Passierte Tomaten", unit: "ml" },
   { product: "Tomatenmark", unit: "g" },
   { product: "Mayonnaise", unit: "ml" },
+  { product: "Vegane Mayonnaise", unit: "ml" },
   { product: "Paniermehl", unit: "ml" },
 
   { product: "Weißwein", unit: "ml" },
