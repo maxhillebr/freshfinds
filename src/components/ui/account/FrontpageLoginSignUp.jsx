@@ -25,10 +25,20 @@ const FrontpageLoginSignUp = () => {
           </div>
           <div className="credentials-container">
             <div>
-              <GitHubIcon />
+              <a
+                href="https://github.com/maxhillebr/freshfinds"
+                target="_blank"
+              >
+                <GitHubIcon />
+              </a>
             </div>
             <div>
-              <LinkedInIcon />
+              <a
+                href="https://www.linkedin.com/in/max-hillebrand-9723b5197/"
+                target="_blank"
+              >
+                <LinkedInIcon />
+              </a>
             </div>
           </div>
         </div>
