@@ -70,7 +70,7 @@ export const productsList = [
   { product: "Basilikum", unit: "g" },
   { product: "Thymian", unit: "g" },
 
-  { product: "Organge", unit: "g" },
+  { product: "Orange", unit: "" },
   { product: "Eisbergsalat", unit: "g" },
   { product: "Feldsalat", unit: "g" },
   { product: "Apfel", unit: "g" },
@@ -257,6 +257,7 @@ export const productsList = [
   { product: "Spinat", unit: "g" },
   { product: "Blattspinat", unit: "g" },
   { product: "Rahmspinat", unit: "g" },
+  { product: "Kritharaki", unit: "g" },
 
   { product: "Kräuter", unit: "g" },
 ];
