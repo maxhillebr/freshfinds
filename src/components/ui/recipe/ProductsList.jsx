@@ -45,6 +45,8 @@ export const productsList = [
 
   { product: "Nudeln", unit: "g" },
   { product: "Vollkornnudeln", unit: "g" },
+  { product: "Spaghetti", unit: "g" },
+  { product: "Lasagneplatten", unit: "" },
 
   { product: "Kartoffeln", unit: "g" },
   { product: "Rote Kartoffeln", unit: "g" },
@@ -53,12 +55,15 @@ export const productsList = [
   { product: "Spargel", unit: "g" },
   { product: "Grüner Spargel", unit: "g" },
   { product: "Karotten", unit: "g" },
-  { product: "Gurke", unit: "g" },
+  { product: "Gurke", unit: "" },
+  { product: "Sellerie", unit: "Stange" },
+  { product: "Edamame", unit: "g" },
+
   { product: "Aubergine", unit: "g" },
 
   { product: "Weißkohl", unit: "g" },
   { product: "Petersilie", unit: "g" },
-  { product: "Koriander", unit: "g" },
+  { product: "Koriander", unit: "Bund" },
   { product: "Schnittlauch", unit: "g" },
   { product: "Chilliflocken", unit: "g" },
   { product: "Sriracha-Sauce", unit: "ml" },
@@ -71,6 +76,8 @@ export const productsList = [
   { product: "Apfel", unit: "g" },
   { product: "Birne", unit: "g" },
   { product: "Zucchini", unit: "g" },
+  { product: "Buttergemüse", unit: "g" },
+
   { product: "Kürbis", unit: "g" },
   { product: "Weintrauben", unit: "g" },
   { product: "Müsli", unit: "g" },
@@ -112,8 +119,10 @@ export const productsList = [
   { product: "Vegane Würste", unit: "g" },
   { product: "Veganer Aufschnitt", unit: "g" },
   { product: "Schmelzkäse", unit: "g" },
-  { product: "Veganes Gehacktes", unit: "g" },
-  { product: "Gehacktes", unit: "g" },
+  { product: "Veganes Hack", unit: "g" },
+  { product: "Hack", unit: "g" },
+  { product: "Kötbullar", unit: "g" },
+
   { product: "Schmand", unit: "g" },
   { product: "Saure Sahne", unit: "g" },
   { product: "Veganer Joghurt", unit: "g" },
@@ -151,6 +160,9 @@ export const productsList = [
   { product: "Gehackte Mandeln", unit: "g" },
   { product: "Gehackte Haselnüsse", unit: "g" },
   { product: "Walnüsse", unit: "g" },
+  { product: "Erdnüsse", unit: "g" },
+  { product: "Erdnussmus", unit: "g" },
+
   { product: "Mandeln", unit: "g" },
   { product: "Mandelsplitter", unit: "g" },
   { product: "Haselnüsse", unit: "g" },
@@ -183,14 +195,14 @@ export const productsList = [
   { product: "Heidelbeeren", unit: "g" },
   { product: "Himbeeren", unit: "g" },
   { product: "Kirschen", unit: "g" },
-  { product: "Mango", unit: "g" },
+  { product: "Mango", unit: "" },
   { product: "Erdbeeren", unit: "g" },
   { product: "Wildfrüchte", unit: "g" },
   { product: "Ingwer", unit: "g" },
   { product: "Limetten", unit: "" },
   { product: "Limettensaft", unit: "ml" },
   { product: "Zitronengras", unit: "Stange" },
-  { product: "Weissweinessig", unit: "Stange" },
+  { product: "Weissweinessig", unit: "ml" },
 
   { product: "Honig", unit: "ml" },
   { product: "Agavendicksaft", unit: "ml" },
@@ -207,10 +219,13 @@ export const productsList = [
   { product: "Beluga Linsen", unit: "g" },
   { product: "Pastinaken", unit: "" },
   { product: "Currypulver", unit: "g" },
+  { product: "Paprikapulver", unit: "g" },
+
   { product: "Kurkumapulver", unit: "g" },
   { product: "Lorbeerblätter", unit: "" },
 
   { product: "Kichererbsen", unit: "g" },
+
   { product: "Kidneybohnen", unit: "g" },
   { product: "Grünes Pesto", unit: "g" },
   { product: "Rotes Pesto", unit: "g" },
@@ -219,13 +234,15 @@ export const productsList = [
 
   { product: "Mais", unit: "g" },
   { product: "Ananas", unit: "g" },
-  { product: "Passierte Tomaten", unit: "ml" },
+  { product: "Passierte Tomaten", unit: "g" },
   { product: "Tomatenmark", unit: "g" },
   { product: "Mayonnaise", unit: "ml" },
   { product: "Vegane Mayonnaise", unit: "ml" },
   { product: "Paniermehl", unit: "ml" },
 
   { product: "Weißwein", unit: "ml" },
+  { product: "Ahornsirup", unit: "ml" },
+
   { product: "Rotwein", unit: "ml" },
   { product: "Bier", unit: "ml" },
   { product: "Sojagranulat", unit: "g" },
