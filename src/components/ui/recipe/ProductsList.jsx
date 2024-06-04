@@ -1,6 +1,7 @@
 export const productsList = [
   { product: "Eier", unit: "" },
   { product: "Mehl", unit: "g" },
+  { product: "Wasser", unit: "ml" },
   { product: "Wraps", unit: "g" },
   { product: "Zucker", unit: "g" },
   { product: "Butter", unit: "g" },
