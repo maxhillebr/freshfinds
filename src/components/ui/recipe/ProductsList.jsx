@@ -70,6 +70,9 @@ export const productsList = [
   { product: "Sriracha-Sauce", unit: "ml" },
   { product: "Basilikum", unit: "g" },
   { product: "Thymian", unit: "g" },
+  { product: "Dill (frisch)", unit: "g" },
+  { product: "Lauch", unit: "Stange(n)" },
+  { product: "Spinat (frisch)", unit: "g" },
 
   { product: "Orange", unit: "" },
   { product: "Eisbergsalat", unit: "g" },
@@ -261,4 +264,5 @@ export const productsList = [
   { product: "Kritharaki", unit: "g" },
 
   { product: "Kräuter", unit: "g" },
+  { product: "8-Kräuter TK", unit: "" },
 ];
