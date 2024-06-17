@@ -265,4 +265,8 @@ export const productsList = [
 
   { product: "Kräuter", unit: "g" },
   { product: "8-Kräuter TK", unit: "" },
+  { product: "Kardamom", unit: "TL" },
+  { product: "Zimt", unit: "EL" },
+  { product: "Brauner Zucker", unit: "g" },
+  { product: "Puderzucker", unit: "g" },
 ];
